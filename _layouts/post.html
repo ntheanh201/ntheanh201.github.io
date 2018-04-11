@@ -16,9 +16,9 @@ layout: default
         <p class="author"><a href="{{ site.baseurl }}{{ page.url }}{{ site.isso_suffix }}#isso-thread">Comments</a></p>
         {% endif %}
     {% endif %}
-    <script src="https://pastebin.com/embed_js/{{ page.pastebin }}"></script>
     <div class="post-content">
     {{ content }}
+    <script src="https://pastebin.com/embed_js/{{ page.pastebin }}"></script>
     <hr style="border-top:1px solid #28323C;"/>
     <!-- tags and categories under post -->
     {% unless page.categories == empty %}
