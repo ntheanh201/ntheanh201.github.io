@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Another copy of the Readme of Jekyll!"
+title:  "All Longest Strings (Codefights/Arcade)"
 date:   2018-04-11 23:14:51 +0700
 categories: Codefights
 tags: C/C++
-description: All Longest Strings (Codefights/Arcade)
+description: Given an array of strings, return another array containing all of its longest strings.
 pastebin: HMAfp1wX
 ---
 # Link sub: [Codefights/Arcade](https://codefights.com/arcade/intro/level-3/fzsCQGYbxaEcTr2bL)
@@ -35,5 +35,3 @@ Guaranteed constraints:
 Array of the longest strings, stored in the same order as in the inputArray.
 
 ## Code
-
-
