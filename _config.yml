@@ -6,6 +6,7 @@ description: Welcome to Xixia！
 # url is currently only used only for the RSS feed in feed.xml
 url: https://github.com/zxixia/jekyll-xixia
 
+<<<<<<< HEAD
 # baseurl will often be '', but for a project page on gh-pages, it needs to
 # be the project name.
 # *** IMPORTANT: If your local "jekyll serve" throws errors change this to '' or
@@ -19,6 +20,9 @@ date_format:
   tag: "%b-%Y"
 # Language
 lan: "en" 
+=======
+theme: jekyll-theme-cayman-blog
+>>>>>>> 9737b094edc6b37e8084f33bb32ef3375270bbc2
 
 paginate: 10
 
