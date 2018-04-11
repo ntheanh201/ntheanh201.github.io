@@ -13,7 +13,7 @@ pastebin: Z9BWcxcV
 Consider integer numbers from 0 to n - 1 written down along the circle in such a way that the distance between any two neighbouring numbers is equal (note that 0 and n - 1 are neighbouring, too).
 
 Given n and firstNumber, find the number which is written in the radially opposite position to firstNumber.
-(https://codefightsuserpics.s3.amazonaws.com/tasks/circleOfNumbers/img/example.png?_tm=1490625697098)
+![](https://codefightsuserpics.s3.amazonaws.com/tasks/circleOfNumbers/img/example.png?_tm=1490625697098)
 
 ## Example
 
