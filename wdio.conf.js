@@ -47,7 +47,7 @@ const getCapabilities = () => {
     ];
 
     capabilities.forEach(function(cap) {
-      cap['name'] = 'philipwalton.com tests - ' + cap.browserName +
+      cap['name'] = 'kinn.ooo tests - ' + cap.browserName +
                     ' - ' + (cap.version || 'latest');
 
       cap['build'] = process.env.TRAVIS_BUILD_NUMBER;
