@@ -63,7 +63,8 @@ Next, **mkdir /var/www/projects** (projects folder is folder contains your proje
 You can see the default config by using **cat default**
 Here is my config (using PHP):
 
-```server{
+``` 
+server {
         listen 80;
         server_name kinn.com;
         access_log /var/www/projects/example/logs/access.log;
@@ -78,12 +79,8 @@ Here is my config (using PHP):
                 fastcgi_pass 127.0.0.1:9000;
         }
     }
-
 ```
 
 Enable your site by using **sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/**
 
 `sudo service nginx reload`
-    
-
-
