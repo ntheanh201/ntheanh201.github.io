@@ -3,11 +3,11 @@
   "description": "The source code for philipwalton.com",
   "repository": {
     "type": "git",
-    "url": "git://github.com/philipwalton/blog.git"
+    "url": "git://github.com/ntheanh201/ntheanh201.github.io.git"
   },
   "author": {
     "name": "Philip Walton",
-    "url": "https://philipwalton.com"
+    "url": "https://kinn.ooo"
   },
   "scripts": {
     "lint": "eslint assets/**/*.js tasks/**/*.js test/**/*.js",
