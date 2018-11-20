@@ -1,0 +1,10 @@
+{
+  "contentPartialsSuffix": ".content.html",
+  "manifestFileName": "revisioned-asset-manifest.json",
+  "publicDir": "build",
+  "publicPath": "/",
+  "publicStaticDir": "build/static",
+  "publicStaticPath": "/static",
+  "templatesDir": "templates",
+  "timezone": "America/Los_Angeles"
+}

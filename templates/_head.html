@@ -1,0 +1,35 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>
+  {% if page.title %}
+      {{ page.title }}{{ site.titleSuffix | htmlescape }}
+  {% else %}
+    {{ site.title }}
+  {% endif %}
+</title>
+
+{% include '_analytics.html' %}
+{% include '_javascript.html' %}
+
+<!-- Generated via: realfavicongenerator.net and modified -->
+<link rel="apple-touch-icon" sizes="180x180" href="{{ 'apple-touch-icon.png' | revision }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon-32x32.png' | revision }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ 'favicon-16x16.png' | revision }}">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="{{ 'safari-pinned-tab.svg' | revision }}" color="#4d4d4d">
+<meta name="apple-mobile-web-app-title" content="{{ site.title }}">
+<meta name="application-name" content="{{ site.title }}">
+<meta name="theme-color" content="{{ site.themeColor }}">
+
+<link href="https://feeds.feedburner.com/philipwalton" rel="alternate" title="{{site.title}}" type="application/atom+xml">
+
+<meta name="description" content="{% if page.excerpt %}{{ page.excerpt }}{% else %}{{ site.description }}{% endif %}">
+
+{% if not page.private %}
+  <link rel="canonical" href="{{ site.baseUrl }}{{ page.path }}" />
+{% endif %}
+
+{% include '_css.html' %}
+{% include '_icons.html' %}

@@ -1,0 +1,17 @@
+# OS or Editor folders
+.DS_Store
+
+# Node stuff
+node_modules
+
+# Static site output
+build
+
+# Firebase files
+.firebase
+
+# Log files
+*.log
+
+# Shell scripts
+*.sh
