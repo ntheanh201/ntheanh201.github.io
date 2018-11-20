@@ -1,11 +1,11 @@
 site:
-  title: "Philip Walton"
-  titleSuffix: " \u2014 Philip Walton"
-  slug: "philipwalton"
+  title: "Kinn"
+  titleSuffix: " \u2014 Kinn"
+  slug: "kinn"
   themeColor: "#ffffff"
   backgroundColor: "#ffffff"
   description: "Thoughts on web development, open source, software architecture, and the future."
-  baseUrl: https://philipwalton.com
+  baseUrl: https://kinn.ooo
 
 pages:
 - title: "Home"
