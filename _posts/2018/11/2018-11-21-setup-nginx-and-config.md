@@ -64,39 +64,7 @@ Next, **mkdir /var/www/projects** (projects folder is folder contains your proje
 You can see the default config by using **cat default**
 Here is my config (using PHP):
 
-`server {
-        listen 80;
-        server_name yourdomain_dot_com;
-        access_log /var/www/projects/example/logs/access.log;
-        error_log /var/www/projects/example/logs/error.log;
-        root /var/www/projects/example/public;
-        index index.php index.html;
-        location / {
-                try_files $uri $uri/ /index.php$args;
-        }
-        location ~ \.php$ {
-                include snippets/fastcgi-php.conf;
-                fastcgi_pass 127.0.0.1:9000;
-        }
- }
-`
-
-```server {
-        listen 80;
-        server_name yourdomain_dot_com;
-        access_log /var/www/projects/example/logs/access.log;
-        error_log /var/www/projects/example/logs/error.log;
-        root /var/www/projects/example/public;
-        index index.php index.html;
-        location / {
-                try_files $uri $uri/ /index.php$args;
-        }
-        location ~ \.php$ {
-                include snippets/fastcgi-php.conf;
-                fastcgi_pass 127.0.0.1:9000;
-        }
- }
-```
+<script src="https://gist.github.com/ntheanh201/c501b469c23a4604c32b9b3555f768be.js"></script>
 
 Enable your site by using **sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/**
 
