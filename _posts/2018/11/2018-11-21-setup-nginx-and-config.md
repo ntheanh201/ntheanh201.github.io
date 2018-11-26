@@ -81,7 +81,7 @@ Here is my config (using PHP):
  }
 `
 
-<p><code><pre>server {
+```server {
         listen 80;
         server_name yourdomain_dot_com;
         access_log /var/www/projects/example/logs/access.log;
@@ -96,7 +96,7 @@ Here is my config (using PHP):
                 fastcgi_pass 127.0.0.1:9000;
         }
  }
-</pre></code></p>
+```
 
 Enable your site by using **sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/**
 
