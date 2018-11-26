@@ -3,8 +3,8 @@ name: Kinn
 description: Góc nhỏ cho những câu chuyện xàm xí của Thế Anh
 email: ntheanh201@gmail.com
 author: Kinn
-lang: vi
-locale: vi_VN
+lang: en
+locale: en_US
 
 # Jekyll
 paginate: 10
