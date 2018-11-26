@@ -2,6 +2,7 @@
 layout: article
 title: Chia sẻ về Nginx và config cấu hình
 date: 2018-11-21 15:33:00+0200
+coverPhoto: /contents/images/2018/11/nginx_server.png
 category: Technology
 tags: nginx
 ---
@@ -47,7 +48,7 @@ Theo mình hiểu thì đơn giản Nginx sẽ tạo ra web server trên VPS cũ
 To add your virtual domain on your local: **sudo vim /etc/hosts** and add your local domain you want.
 
 Example: ![
-](https://raw.githubusercontent.com/ntheanh201/ntheanh201.github.io/master/images/nginx_server.png)
+](/contents/images/2018/11/nginx_server.png)
 
 
 Terminal **cd /etc/nginx/sites-available** and create your virtual domain.
@@ -67,7 +68,7 @@ Here is my config (using PHP):
 ``` 
 server {
         listen 80;
-        server_name kinn.com;
+        server_name yourdomain_dot_com;
         access_log /var/www/projects/example/logs/access.log;
         error_log /var/www/projects/example/logs/error.log;
         root /var/www/projects/example/public;
