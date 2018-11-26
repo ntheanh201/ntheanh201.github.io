@@ -1,6 +1,7 @@
 ---
 layout: article
 title: Chia sẻ về Nginx và config cấu hình
+date: 2018-11-21 15:33:00+0200
 category: Technology
 tags: nginx
 ---
@@ -14,8 +15,8 @@ Theo mình hiểu thì đơn giản Nginx sẽ tạo ra web server trên VPS cũ
 
 #### Installing Nginx
 
-```sudo apt update
-   sudo apt install nginx
+```$ sudo apt update
+   $ sudo apt install nginx
 ```
 
 #### Checking your Nginx
