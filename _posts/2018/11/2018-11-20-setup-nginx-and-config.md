@@ -1,7 +1,7 @@
 ---
-layout: post
+layout: article
 title: Chia sẻ về Nginx và config cấu hình
-categories: Technology
+category: Technology
 tags: nginx
 ---
 ### Introduction
