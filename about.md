@@ -3,7 +3,7 @@ layout: default
 title: About
 permalink: /about/
 ---
-
+<article>
 Nguyễn Thế Anh
 
 ### More Information
@@ -13,3 +13,4 @@ Không có gì đặc biệt :v
 ### Contact me
 
 [ntheanh201@gmail.com](mailto:ntheanh201@gmail.com)
+</article>
