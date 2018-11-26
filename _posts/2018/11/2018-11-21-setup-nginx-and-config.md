@@ -38,12 +38,11 @@ Theo mình hiểu thì đơn giản Nginx sẽ tạo ra web server trên VPS cũ
 
 #### Managing your Nginx
 
-<code>
-   sudo service nginx reload (to reload)
+`sudo service nginx reload (to reload)
    sudo service nginx start
    sudo service nginx stop
    sudo service nginx restart
-</code>
+`
 
 #### Config
 
@@ -60,10 +59,10 @@ Then, **sudo chown -R xxx:xxx /var/www** xxx: your ubuntu username and password.
 
 Next, **mkdir /var/www/projects** (projects folder is folder contains your projects)
 
-```
+`
    mkdir /var/www/projects/yourdomain
    touch /var/www/projects/yourdomain/index.html
-```
+`
 
 You can see the default config by using **cat default**
 Here is my config (using PHP):
