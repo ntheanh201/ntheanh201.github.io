@@ -1,33 +1,30 @@
----
-layout: default
----
+--- layout: default ---
 
 <!-- Don't show pagination bar in homepage -->
 {% if paginator.page > 1 %}
 
-  <!-- Include pagination bar -->
-  {% include pagination.html section="top" %}
-
-{% endif %}
+<!-- Include pagination bar -->
+{% include pagination.html section="top" %} {% endif %}
 
 <!-- Loop for posts by paginator -->
 {% for post in paginator.posts %}
 
-  <!-- Article -->
-  <article>
+<!-- Article -->
+<article>
 
     <!-- Article title -->
     <a href="{{ site.baseurl }}{{ post.url }}" class="h1">{{ post.title }}</a>
 
-      <!-- If article has a cover photo -->
-      {% if post.coverPhoto %}
+    <!-- If article has a cover photo -->
+    {% if post.coverPhoto %}
 
-        <!-- Article image with aspect ratio -->
-        <a href="{{ site.baseurl }}{{ post.url }}" class="ar-container">
-          <span class="ar-content" style="background-image: url({{ post.coverPhoto }});"></span>
-        </a><!-- .ar-container -->
+    <!-- Article image with aspect ratio -->
+    <a href="{{ site.baseurl }}{{ post.url }}" class="ar-container">
+        <span class="ar-content" style="background-image: url({{ post.coverPhoto }});"></span>
+    </a>
+    <!-- .ar-container -->
 
-      {% endif %}
+    {% endif %}
 
     <!-- Article pre description -->
     <section class="max-height">{{ post.content | strip_html | slice: 0, 200 }}</section>
@@ -35,8 +32,8 @@ layout: default
     <!-- Article date & article continue reading button container -->
     <div class="article__bottom">
 
-      <!-- Article date -->
-      <span class="article__date">
+        <!-- Article date -->
+        <span class="article__date">
         {% if site.lang == "tr" %}
           {% assign m = post.date | date: "%-m" %}
           {{ post.date | date: "%-d" }} 
@@ -60,12 +57,14 @@ layout: default
         {% endif %}
       </span>
 
-      <!-- Article continue reading button -->
-      <a class="article__button" href="{{ site.baseurl }}{{ post.url }}">{% if site.lang == "tr" %}DEVAMINI OKU{% else %}CONTINUE READING{% endif %}</a>
+        <!-- Article continue reading button -->
+        <a class="article__button" href="{{ site.baseurl }}{{ post.url }}">{% if site.lang == "tr" %}DEVAMINI OKU{% else %}ĐỌC TIẾP{% endif %}</a>
 
-    </div><!-- .article__bottom -->
+    </div>
+    <!-- .article__bottom -->
 
-  </article><!-- article -->
+</article>
+<!-- article -->
 
 {% endfor %}
 

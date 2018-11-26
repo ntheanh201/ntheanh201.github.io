@@ -1,17 +1,17 @@
 # Website details
-name: Name
-description: Description
-email: email@site.com
-author: author
-lang: en
-locale: en_US
+name: Kinn
+description: Góc nhỏ cho những câu chuyện xàm xí của Thế Anh
+email: ntheanh201@gmail.com
+author: Kinn
+lang: vi
+locale: vi_VN
 
 # Jekyll
 paginate: 10
 highlighter: rouge
 markdown: kramdown
 plugins: [jekyll-paginate]
-timezone: America/New_York
+timezone: Asia/Ho_Chi_Minh
 paginateLabel: page
 paginate_path: "page/:num"
 permalink: /:categories/:year/:month/:day/:title
