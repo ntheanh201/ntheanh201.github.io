@@ -1,3 +1,4 @@
+
 ---
 layout: article
 title: Chia sẻ về Nginx và config cấu hình
@@ -37,11 +38,11 @@ Theo mình hiểu thì đơn giản Nginx sẽ tạo ra web server trên VPS cũ
 
 #### Managing your Nginx
 
-```sudo service nginx reload (to reload)
+<code>sudo service nginx reload (to reload)
    sudo service nginx start
    sudo service nginx stop
    sudo service nginx restart
-```
+</code>
 
 #### Config
 
