@@ -1,8 +1,8 @@
 # Website details
-name: Name
-description: Description
-email: email@site.com
-author: author
+name: Kinn
+description: Nguyen The Anh
+email: ntheanh201@gmail.com
+author: Kinn
 lang: en
 locale: en_US
 
@@ -15,7 +15,7 @@ timezone: America/New_York
 paginateLabel: page
 paginate_path: "page/:num"
 permalink: /:categories/:year/:month/:day/:title
-baseurl: https://ozgrozer.github.io/dasper
+baseurl: https://ntheanh201.github.io
 
 # Includes
 addthisId: ""
