@@ -2,6 +2,8 @@
 layout: article
 title: Cài đặt PHP và các lỗi mình gặp phải
 category: Technology
+date: 2018-11-28 15:33:00+0200
+coverPhoto: /contents/images/2018/11/php.png
 ---
 ### Cài đặt PHP phiên bản 7.2
 Đầu tiên các bạn nên update ubuntu. Sử dụng các câu lệnh:
