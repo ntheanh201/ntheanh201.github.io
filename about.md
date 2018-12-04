@@ -4,6 +4,7 @@ title: About
 permalink: /about/
 ---
 <article>
+<br>
 Nguyễn Thế Anh
 <br>
 ### More Information
