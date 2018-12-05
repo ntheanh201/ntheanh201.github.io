@@ -24,4 +24,4 @@ Mặc dù không có sức mạnh nhưng anh chàng vẫn rất quyết tâm gi�
 công chúa ở tầng thứ 3 của hang động. Liệu người chơi có thể giải cứu được công
 chúa? Hãy thử sức nào …
 
-Source code: ![Magik Mario on Github](https://github.com/ntheanh201/MagicMario)
+Source code: [Magik Mario on Github](https://github.com/ntheanh201/MagicMario)
