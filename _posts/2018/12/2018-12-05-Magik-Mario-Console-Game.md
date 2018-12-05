@@ -6,6 +6,9 @@ coverPhoto: /contents/images/2018/12/magik-mario.png
 ---
 ![](/contents/images/2018/12/magik-mario.png)
 
+Video Giới thiệu game:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/evNmzEr79KI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Game sử dụng thư viện console để thiết kế đồ họa.
 Tựa game Super Mario Bros đã rất quen thuộc với tuổi thơ của chúng ta. Nhưng
 để tạo sự khác biệt, game này có tên là Magic Mario để nói lên rằng thay đổi về
