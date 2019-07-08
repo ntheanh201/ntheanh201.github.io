@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /blog/categories/discussion
+permalink: /blog/categories/python
 ---
  
 <h3> Posts by Category : {{ page.title }} </h3>

@@ -2,9 +2,7 @@
 layout: post
 title: Cài đặt PHP và các lỗi mình gặp phải
 author: ntheanh201
-category: 
-    - web-development
-    - php
+category: php
 summary: Install PHP and Configuration
 thumbnail: posts/php.jpg
 ---

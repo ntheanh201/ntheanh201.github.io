@@ -2,8 +2,8 @@
 title: First post
 layout: post
 author: ntheanh201
-categories: discussion
-summary: Xin chào
+categories: general
+summary: Hello World
 thumbnail: posts/proptit.png
 ---
 
