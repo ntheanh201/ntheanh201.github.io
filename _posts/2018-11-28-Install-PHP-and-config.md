@@ -6,7 +6,7 @@ date: '2018-11-28 14:35:23 +0530'
 category: 
     - Web-development
     - PHP
-summary: My First Post
+summary: Install PHP and Configuration
 thumbnail: posts/php.jpg
 ---
 

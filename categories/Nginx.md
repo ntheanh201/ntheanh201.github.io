@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /blog/categories/nginx
+permalink: /blog/categories/Nginx
 ---
  
 <h3> Posts by Category : {{ page.title }} </h3>

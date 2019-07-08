@@ -25,9 +25,9 @@ layout: default
                 <!-- <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1> -->
                 <h4 class="post-meta">{{ page.summary }}</h4>
                 <p class="post-summary">Posted by : {% if page.author %}
-                    <img src="/assets/img/{{ site.author_logo }}" class="author-profile-img">
+                    <!-- <img src="/assets/img/{{ site.author_logo }}" class="author-profile-img"> -->
                     <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                        <span itemprop="name">{{ page.author }}</span>
+                        <b><span itemprop="name">{{ page.author }}</span></b>
                     </span>{% endif %} at
                     <time datetime="{{ page.date }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>
                 </p>
@@ -73,10 +73,10 @@ layout: default
 
 
         </div>
-        <div class="card">
+        <!-- <div class="card"> -->
             <!-- Begin MailChimp Signup Form -->
-            {%- include newsletter.html -%}
-        </div>
+            <!-- {%- include newsletter.html -%} -->
+        <!-- </div> -->
     </div>
     <!-- End of Sidebar -->
 

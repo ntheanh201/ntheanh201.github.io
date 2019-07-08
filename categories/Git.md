@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /blog/categories/git
+permalink: /blog/categories/Git
 ---
  
 <h3> Posts by Category : {{ page.title }} </h3>
