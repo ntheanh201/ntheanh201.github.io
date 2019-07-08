@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Welcome to my Blog!
+title: Cài đặt PHP và các lỗi mình gặp phải
 author: ntheanh201
 category: 
     - web-development
