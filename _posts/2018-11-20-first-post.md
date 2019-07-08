@@ -2,7 +2,7 @@
 title: First post
 layout: post
 author: ntheanh201
-categories: Discussion
+categories: discussion
 summary: Xin chào
 thumbnail: posts/proptit.png
 ---

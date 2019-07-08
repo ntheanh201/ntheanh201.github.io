@@ -2,10 +2,9 @@
 layout: post
 title: Welcome to my Blog!
 author: ntheanh201
-date: '2018-11-28 14:35:23 +0530'
 category: 
-    - Web-development
-    - PHP
+    - web-development
+    - php
 summary: Install PHP and Configuration
 thumbnail: posts/php.jpg
 ---

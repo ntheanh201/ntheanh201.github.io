@@ -3,8 +3,8 @@ title: Chia sẻ về Nginx và config cấu hình
 layout: post
 summary: Learn how to install Nginx and configuration
 categories: 
-    - Nginx
-    - Web-development
+    - nginx
+    - web-development
 thumbnail: posts/nginx.png
 author: ntheanh201
 ---
