@@ -1,7 +1,7 @@
 ---
 title: Chia sẻ về Nginx và config cấu hình
 layout: post
-summary: Learn how to install Nginx and configuration
+summary: Learn how to install Nginx and Configuration
 categories: nginx
 thumbnail: posts/nginx.png
 author: ntheanh201
