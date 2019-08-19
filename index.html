@@ -13,9 +13,10 @@
           'https://api.github.com/users/ntheanh201/repos'
         );
         const data = await response.json();
+        // console.log(data);
         let htmlString = '<ul>';
         for (let file of data) {
-          htmlString += `<li><a href="${file.path}">${file.name}</a></li>`;
+          htmlString += `<li><a href="${file.html_url}">${file.name}</a></li>`;
         }
         htmlString += '</ul>';
         document.getElementsByTagName('body')[0].innerHTML = htmlString;
