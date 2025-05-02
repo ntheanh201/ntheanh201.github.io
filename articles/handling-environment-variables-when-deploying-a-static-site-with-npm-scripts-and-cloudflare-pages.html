@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script async src="https://cdn.splitbee.io/sb.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="always">
+    <link rel="alternate" type="application/atom+xml" title="RSS 2.0" href="/atom.xml">
+    <link rel="canonical" href="https://ntheanh201.id.vn/articles/handling-environment-variables-when-deploying-a-static-site-with-npm-scripts-and-cloudflare-pages.html"/>
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@ntheanh201">
+    <meta name="twitter:title" content="Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages">
+    
+    <meta name="twitter:creator" content="@ntheanh201">
+    
+    <meta name="twitter:image" content="https://ntheanh201.id.vn">
+     
+
+    
+    <meta property="og:title" content="Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages">
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="https://ntheanh201.id.vn/articles/handling-environment-variables-when-deploying-a-static-site-with-npm-scripts-and-cloudflare-pages.html"/>
+     
+    <meta property="og:image" content="https://ntheanh201.id.vn">
+    
+
+    <title>Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages</title>
+
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script type="text/javascript">
+        function showcontact() {
+            var el = document.getElementById("contact-form");
+            el.style.display = "block";
+            el = document.getElementById("contact-page-url");
+            var uri = window.location.href;
+            uri = uri.replace("#", "");
+            el.value = uri;
+            el = document.getElementById("msg-for-chris");
+            el.focus();
+        }
+
+        function hidecontact() {
+            var el = document.getElementById("contact-form");
+            el.style.display = "none";
+        }
+
+        function isWindows() {
+            return window.navigator &&
+                window.navigator.platform &&
+                window.navigator.platform.indexOf('Win') >= 0
+        }
+
+        function maybeShowAd() {
+            
+            
+
+        }
+
+        function onLoaded() {
+            maybeShowAd();
+        }
+
+        document.addEventListener("DOMContentLoaded", onLoaded);
+    </script>
+    <script type="text/javascript">
+        var galleries = {}; 
+        function buildGalleriesInfo() {
+            var els = document.getElementsByTagName("img");
+            var n = els.length;
+            for (var i = 0; i < n; i++) {
+                var el = els[i];
+                var id = el.id;
+                if (!id.startsWith("id-thumb-img-")) {
+                    continue
+                }
+                id = id.replace("id-thumb-img-", "")
+                
+                var parts = id.split("-");
+                var galleryID = parseInt(parts[0]);
+                var imageNo = parseInt(parts[1]);
+                var galleryInfo = galleries[galleryID] || {};
+                galleryInfo[imageNo] = el.src;
+                galleries[galleryID] = galleryInfo;
+            }
+            var ids = Object.keys(galleries);
+            for (var gid of ids) {
+                var galleryInfo = galleries[gid];
+                galleryInfo.nImages = Object.keys(galleryInfo).length;
+                galleryInfo.currImageNo = 0;
+                changeShot(gid, 0);
+            }
+        }
+
+        function changeShot(galleryID, imgNo) {
+            var gi = galleries[galleryID];
+            gi.currImageNo = imgNo;
+            var url = gi[imgNo];
+            var id = "id-gallery-" + galleryID;
+            var el = document.getElementById(id);
+            el.src = url;
+            
+            for (var i = 0; i < gi.nImages; i++) {
+                id = "id-thumb-" + galleryID + "-" + i;
+                el = document.getElementById(id);
+                if (i == imgNo) {
+                    el.classList.add("selected-img");
+                } else {
+                    el.classList.remove("selected-img");
+                }
+            }
+            var els = document.getElementsByTagName("div");
+            var nEls = els.length;
+        }
+
+        function imgNext(galleryID) {
+            var gi = galleries[galleryID];
+            var nImages = gi.nImages;
+            var imgNo = gi.currImageNo;
+            imgNo = (imgNo + 1) % nImages;
+            changeShot(galleryID, imgNo);
+        }
+
+        function imgPrev(galleryID) {
+            var gi = galleries[galleryID];
+            var imgNo = gi.currImageNo - 1;
+            if (imgNo < 0) {
+                imgNo = gi.nImages - 1;
+            }
+            changeShot(galleryID, imgNo);
+        }
+
+        document.addEventListener("DOMContentLoaded", buildGalleriesInfo);
+    </script>
+
+</head>
+
+<body>
+<div id="content">
+    <p class='name-header'>
+        <a href="/">↫ The Anh Nguyen</a>
+    </p>
+    <h1>Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages</h1>
+    
+    <p class="date">2025-05-02</p>
+    
+    <div>
+        <p></p>
+<div class="notion-page" id="1e7a6f80-71d9-8027-b757-fec1c9602e0c">
+  <h2 id="1e7a6f80-71d9-809f-af35-e4ca9023ba0a" class=""><strong>Problem</strong>
+  </h2>
+  <ul id="1e7a6f80-71d9-8031-be2d-e17371478434" class="bulleted-list">
+    <li>When deploying a static site with NPM scripts that utilize bash commands and environment variables inside <code>package.json</code> scripts, you might define something like:
+    </li>
+  </ul><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">  &#34;scripts&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;transpile-js&#34;: &#34;. .env; for file in &#34;\${JS_FILES[@]}&#34;; do(babel js/&#34;\$file&#34;.js -o dist/js/&#34;\$file&#34;.js --presets=@babel/preset-env); done&#34;
+</span></span><span class="line"><span class="cl">  }</span></span></code></pre>
+  <p id="1e7a6f80-71d9-8042-b8c8-c48e00c4d748" class=" notion-text-block">However, when deploying with Cloudflare Pages, this approach can lead to errors such as:
+  </p>
+<img class="blog-img" src="/img/0cb8b545ee0e0074d338fd98727cdb8dcb35197d.png">
+  <h2 id="1e7a6f80-71d9-8021-b745-c5cc5c9ebcba" class=""><strong>Solution</strong>
+  </h2>
+  <ul id="1e7a6f80-71d9-8011-b8c8-d49a84439fbb" class="bulleted-list">
+    <li>Set the environment variables in the Cloudflare Pages dashboard.
+    <img class="blog-img" src="/img/783600eaa50536dafadb7d635f59f01db8f217b8.png">
+    </li>
+    <li>Use <strong>dotenvx</strong> to preload environment variables instead of using the .env file, as Cloudflare doesn&#x27;t support .env files.<pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">  &#34;scripts&#34;: {
+</span></span><span class="line"><span class="cl">    &#34;transpile-js&#34;: &#34;dotenvx run -- bash -c &#39;read -r -a JS_FILES &lt;&lt;&lt; &#34;$JS_FILES&#34;; for file in &#34;${JS_FILES[@]}&#34;; do(babel js/$file.js -o dist/js/$file.js --presets=@babel/preset-env); done&#39;&#34;
+</span></span><span class="line"><span class="cl">  }
+</span></span></code></pre>
+    </li>
+  </ul>
+  <p id="1e7a6f80-71d9-8095-b9f4-efa93e3fa7d5" class=" notion-text-block">For a complete example, you can check out the code: <strong><a href="https://github.com/ntheanh201/cloudflare-static-site">https://github.com/ntheanh201/cloudflare-static-site</a></strong>
+  </p>
+  <h2 id="1e7a6f80-71d9-80c7-85e9-c7a78147b3af" class=""><strong>Result</strong>
+  </h2>
+  <ul id="1e7a6f80-71d9-801d-bc49-f65f82245c4d" class="bulleted-list">
+    <li>The error is gone and the deployment is successful.
+    </li>
+  </ul>
+</div>
+    </div>
+    
+    <p class='social-footer'>—
+        <a href='https://facebook.com/ntheanh201'>
+            @ntheanh201</a></p>
+    
+</div>
+
+
+
+</body>
+
+</html>

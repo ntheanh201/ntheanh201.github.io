@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script async src="https://cdn.splitbee.io/sb.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="always">
+    <link rel="alternate" type="application/atom+xml" title="RSS 2.0" href="/atom.xml">
+    <link rel="canonical" href="https://ntheanh201.id.vn/articles/gim-st-ats-squid-logs-vi-plg-stack-v-geoip-phn-tch-v-tr-ngi-dng-theo-thi-gian-th.html"/>
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@ntheanh201">
+    <meta name="twitter:title" content="Giám sát ATS Squid Logs với PLG Stack và GeoIP: Phân tích vị trí người dùng theo thời gian thự">
+    
+    <meta name="twitter:creator" content="@ntheanh201">
+    
+    <meta name="twitter:image" content="https://ntheanh201.id.vn">
+     
+
+    
+    <meta property="og:title" content="Giám sát ATS Squid Logs với PLG Stack và GeoIP: Phân tích vị trí người dùng theo thời gian thự">
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="https://ntheanh201.id.vn/articles/gim-st-ats-squid-logs-vi-plg-stack-v-geoip-phn-tch-v-tr-ngi-dng-theo-thi-gian-th.html"/>
+     
+    <meta property="og:image" content="https://ntheanh201.id.vn">
+    
+
+    <title>Giám sát ATS Squid Logs với PLG Stack và GeoIP: Phân tích vị trí người dùng theo thời gian thự</title>
+
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script type="text/javascript">
+        function showcontact() {
+            var el = document.getElementById("contact-form");
+            el.style.display = "block";
+            el = document.getElementById("contact-page-url");
+            var uri = window.location.href;
+            uri = uri.replace("#", "");
+            el.value = uri;
+            el = document.getElementById("msg-for-chris");
+            el.focus();
+        }
+
+        function hidecontact() {
+            var el = document.getElementById("contact-form");
+            el.style.display = "none";
+        }
+
+        function isWindows() {
+            return window.navigator &&
+                window.navigator.platform &&
+                window.navigator.platform.indexOf('Win') >= 0
+        }
+
+        function maybeShowAd() {
+            
+            
+
+        }
+
+        function onLoaded() {
+            maybeShowAd();
+        }
+
+        document.addEventListener("DOMContentLoaded", onLoaded);
+    </script>
+    <script type="text/javascript">
+        var galleries = {}; 
+        function buildGalleriesInfo() {
+            var els = document.getElementsByTagName("img");
+            var n = els.length;
+            for (var i = 0; i < n; i++) {
+                var el = els[i];
+                var id = el.id;
+                if (!id.startsWith("id-thumb-img-")) {
+                    continue
+                }
+                id = id.replace("id-thumb-img-", "")
+                
+                var parts = id.split("-");
+                var galleryID = parseInt(parts[0]);
+                var imageNo = parseInt(parts[1]);
+                var galleryInfo = galleries[galleryID] || {};
+                galleryInfo[imageNo] = el.src;
+                galleries[galleryID] = galleryInfo;
+            }
+            var ids = Object.keys(galleries);
+            for (var gid of ids) {
+                var galleryInfo = galleries[gid];
+                galleryInfo.nImages = Object.keys(galleryInfo).length;
+                galleryInfo.currImageNo = 0;
+                changeShot(gid, 0);
+            }
+        }
+
+        function changeShot(galleryID, imgNo) {
+            var gi = galleries[galleryID];
+            gi.currImageNo = imgNo;
+            var url = gi[imgNo];
+            var id = "id-gallery-" + galleryID;
+            var el = document.getElementById(id);
+            el.src = url;
+            
+            for (var i = 0; i < gi.nImages; i++) {
+                id = "id-thumb-" + galleryID + "-" + i;
+                el = document.getElementById(id);
+                if (i == imgNo) {
+                    el.classList.add("selected-img");
+                } else {
+                    el.classList.remove("selected-img");
+                }
+            }
+            var els = document.getElementsByTagName("div");
+            var nEls = els.length;
+        }
+
+        function imgNext(galleryID) {
+            var gi = galleries[galleryID];
+            var nImages = gi.nImages;
+            var imgNo = gi.currImageNo;
+            imgNo = (imgNo + 1) % nImages;
+            changeShot(galleryID, imgNo);
+        }
+
+        function imgPrev(galleryID) {
+            var gi = galleries[galleryID];
+            var imgNo = gi.currImageNo - 1;
+            if (imgNo < 0) {
+                imgNo = gi.nImages - 1;
+            }
+            changeShot(galleryID, imgNo);
+        }
+
+        document.addEventListener("DOMContentLoaded", buildGalleriesInfo);
+    </script>
+
+</head>
+
+<body>
+<div id="content">
+    <p class='name-header'>
+        <a href="/">↫ The Anh Nguyen</a>
+    </p>
+    <h1>Giám sát ATS Squid Logs với PLG Stack và GeoIP: Phân tích vị trí người dùng theo thời gian thự</h1>
+    
+    <p class="date">2024-03-15</p>
+    
+    <div>
+        <p></p>
+<div class="notion-page" id="bb29a6d9-5e52-466c-9636-5f6d0e95fb75">
+  <h2 id="1e7a6f80-71d9-8029-8417-ed0ae4fac86b" class="">Giới thiệu
+  </h2>
+  <p id="1e7a6f80-71d9-8061-b62a-daeff2f38124" class=" notion-text-block">Khi quản lý hệ thống CDN (Content Delivery Network) hoặc proxy server như Apache Traffic Server (ATS), việc phân tích logs là một phần quan trọng để hiểu rõ về lưu lượng truy cập, hiệu suất hệ thống và phát hiện các vấn đề tiềm ẩn.
+  </p>
+  <p id="1e7a6f80-71d9-80cf-a05a-d3d3c3b8f691" class=" notion-text-block">Trong bài viết này, chúng ta sẽ tìm hiểu cách kết hợp ATS Squid logs với PLG Stack (Promtail, Loki, Grafana) và tích hợp dữ liệu GeoIP để trực quan hóa thông tin vị trí địa lý của người dùng.
+  </p>
+  <h2 id="1e7a6f80-71d9-8056-b6a5-d0b2564d699c" class="">Apache Traffic Server và Squid Logs
+  </h2>
+  <p id="1e7a6f80-71d9-8078-9b80-e1f2c036666f" class=" notion-text-block">Apache Traffic Server (ATS) là một máy chủ proxy mạnh mẽ và có khả năng mở rộng cao, thường được sử dụng trong các hệ thống CDN. ATS cung cấp nhiều định dạng logging khác nhau, và một trong số đó là định dạng Squid logs.
+  </p>
+  <p id="1e7a6f80-71d9-80b9-b844-e3909003ab71" class=" notion-text-block">Squid logs trong ATS có cấu trúc như sau:
+  </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl"><span class="nt">formats</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">squid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;%&lt;cqtq&gt; %&lt;ttms&gt; %&lt;chi&gt; %&lt;cquuh&gt; &#34;%&lt;{User-agent}cqh&gt;&#34; %&lt;cr&gt; %&lt;pssc&gt; %&lt;psql&gt; %&lt;cqhm&gt; %&lt;cquc&gt; %&lt;psct&gt;&#39;</span><span class="w">
+</span></span></span></code></pre>
+  <p id="1e7a6f80-71d9-805d-a15b-f9a33445679b" class=" notion-text-block">Trong đó:
+  </p>
+  <ul id="1e7a6f80-71d9-807a-8780-ff86ea6deb34" class="bulleted-list">
+    <li><code>%&lt;cqtq&gt;</code>: Thời gian yêu cầu (timestamp)
+    </li>
+    <li><code>%&lt;ttms&gt;</code>: Thời gian phản hồi (milliseconds)
+    </li>
+    <li><code>%&lt;chi&gt;</code>: Địa chỉ IP của client
+    </li>
+    <li><code>%&lt;cquuh&gt;</code>: Host đích của yêu cầu
+    </li>
+    <li><code>%&lt;{User-agent}cqh&gt;</code>: User agent
+    </li>
+    <li><code>%&lt;cr&gt;</code>: Kết quả cache (VD: TCP_MISS, TCP_HIT)
+    </li>
+    <li><code>%&lt;pssc&gt;</code>: HTTP status code
+    </li>
+    <li><code>%&lt;psql&gt;</code>: Kích thước phản hồi
+    </li>
+    <li><code>%&lt;cqhm&gt;</code>: HTTP method
+    </li>
+    <li><code>%&lt;cquc&gt;</code>: URL đích
+    </li>
+    <li><code>%&lt;psct&gt;</code>: Content type
+    </li>
+  </ul>
+  <p id="1e7a6f80-71d9-807a-81f7-c585534ed196" class=" notion-text-block">Ví dụ về một dòng log:
+  </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">1709909405.806 900 16.15.15.205 p1-cdn.cdn.vn &#34;PostmanRuntime/7.36.3&#34; TCP_MISS 200 2711294 GET http://origin.com/tv/155/output/abc.ts video/MP2T</span></span></code></pre>
+  <h2 id="1e7a6f80-71d9-8080-8bce-ca5e320c6d7c" class="">PLG Stack: Promtail, Loki và Grafana
+  </h2>
+  <p id="1e7a6f80-71d9-80c8-837a-e72fca370a67" class=" notion-text-block">PLG Stack là một bộ công cụ mạnh mẽ để thu thập, lưu trữ và trực quan hóa dữ liệu logs:
+  </p>
+  <ol id="1e7a6f80-71d9-80b0-88a7-c88c62ac4dfc" class="numbered-list" start="1">
+    <li><strong>Promtail</strong>: Agent thu thập logs
+    </li>
+    <li><strong>Loki</strong>: Hệ thống lưu trữ và index logs
+    </li>
+    <li><strong>Grafana</strong>: Nền tảng trực quan hóa dữ liệu
+    </li>
+  </ol>
+  <p id="1e7a6f80-71d9-80ce-9fe6-c9c7425bd7ba" class=" notion-text-block">Trong bài viết này, chúng ta sẽ tập trung vào việc cấu hình Promtail để xử lý Squid logs từ ATS và thêm thông tin GeoIP.
+  </p>
+  <h2 id="1e7a6f80-71d9-80dd-ad2c-d346c0439742" class="">Tích hợp GeoIP với Promtail
+  </h2>
+  <p id="1e7a6f80-71d9-8006-a6e4-d490fa7e8f34" class=" notion-text-block">GeoIP là dịch vụ cho phép xác định vị trí địa lý dựa trên địa chỉ IP. MaxMind cung cấp cơ sở dữ liệu GeoIP2 được sử dụng rộng rãi cho mục đích này. Promtail có thể tích hợp với cơ sở dữ liệu GeoIP để làm phong phú thêm dữ liệu logs với thông tin vị trí địa lý.
+  </p>
+  <h3 id="1e7a6f80-71d9-80f5-88ad-c47441746c33" class="">Cấu hình Promtail
+  </h3>
+  <p id="1e7a6f80-71d9-8022-9a83-dca626d5f11a" class=" notion-text-block">Dưới đây là cấu hình Promtail để xử lý Squid logs từ ATS và thêm thông tin GeoIP:
+  </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">scrape_configs:
+</span></span><span class="line"><span class="cl">{% if ats %}
+</span></span><span class="line"><span class="cl">  - job_name: trafficserver_squid_logs
+</span></span><span class="line"><span class="cl">    pipeline_stages:
+</span></span><span class="line"><span class="cl">    - regex:
+</span></span><span class="line"><span class="cl">        expression: &#39;^(?P&lt;timestamp&gt;\d+\.\d+) (?P&lt;response_time&gt;\d+) (?P&lt;ip&gt;\d+\.\d+\.\d+\.\d+) ((?P&lt;edge_fqdn&gt;\S+)+) &#34;(?P&lt;user_agent&gt;[^&#34;]+)&#34; (?P&lt;outcome&gt;\w+) (?P&lt;status&gt;\d+) (?P&lt;size&gt;\d+) (?P&lt;method&gt;[A-Z]+) (?P&lt;url&gt;[^\s]+) (?P&lt;mime&gt;[^$]+)$&#39;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    - labels:
+</span></span><span class="line"><span class="cl">        timestamp:
+</span></span><span class="line"><span class="cl">        response_time:
+</span></span><span class="line"><span class="cl">        ip:
+</span></span><span class="line"><span class="cl">        edge_fqdn:
+</span></span><span class="line"><span class="cl">        user_agent:
+</span></span><span class="line"><span class="cl">        outcome:
+</span></span><span class="line"><span class="cl">        status:
+</span></span><span class="line"><span class="cl">        size:
+</span></span><span class="line"><span class="cl">        method:
+</span></span><span class="line"><span class="cl">        url:
+</span></span><span class="line"><span class="cl">        mime:
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    - geoip:
+</span></span><span class="line"><span class="cl">        source: ip
+</span></span><span class="line"><span class="cl">        db: &#34;/opt/mmdb/GeoLite2-City.mmdb&#34;
+</span></span><span class="line"><span class="cl">        db_type: city
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    - labelallow:
+</span></span><span class="line"><span class="cl">        - geoip_city_name
+</span></span><span class="line"><span class="cl">        - geoip_country_name
+</span></span><span class="line"><span class="cl">        - edge_fqdn
+</span></span><span class="line"><span class="cl">        - outcome
+</span></span><span class="line"><span class="cl">        - status
+</span></span><span class="line"><span class="cl">        - method
+</span></span><span class="line"><span class="cl">        - job
+</span></span><span class="line"><span class="cl">        - host
+</span></span><span class="line"><span class="cl">    - labeldrop:
+</span></span><span class="line"><span class="cl">        - geoip_location_latitude
+</span></span><span class="line"><span class="cl">        - geoip_location_longitude
+</span></span><span class="line"><span class="cl">        - response_time
+</span></span><span class="line"><span class="cl">        - ip
+</span></span><span class="line"><span class="cl">        - url
+</span></span><span class="line"><span class="cl">        - mime
+</span></span><span class="line"><span class="cl">        - size
+</span></span><span class="line"><span class="cl">        - user_agent
+</span></span><span class="line"><span class="cl">    - timestamp:
+</span></span><span class="line"><span class="cl">        source: timestamp
+</span></span><span class="line"><span class="cl">        format: &#34;Unix&#34;
+</span></span><span class="line"><span class="cl">    static_configs:
+</span></span><span class="line"><span class="cl">    - targets:
+</span></span><span class="line"><span class="cl">        - localhost
+</span></span><span class="line"><span class="cl">      labels:
+</span></span><span class="line"><span class="cl">        job: &#34;ats&#34;
+</span></span><span class="line"><span class="cl">        host: {{ ansible_hostname }}
+</span></span><span class="line"><span class="cl">        __path__: &#34;/opt/trafficserver/var/log/trafficserver/squid.log&#34;
+</span></span><span class="line"><span class="cl">{% endif %}</span></span></code></pre>
+  <h3 id="1e7a6f80-71d9-80b2-a1b0-e9d1595d87ce" class="">Phân tích cấu hình
+  </h3>
+  <ol id="1e7a6f80-71d9-8081-b423-c8c5cfc8b23f" class="numbered-list" start="1">
+    <li><strong>Stage regex</strong>: Sử dụng biểu thức chính quy để phân tích cú pháp dòng log và trích xuất các trường dữ liệu.
+    </li>
+    <li><strong>Stage labels</strong>: Chuyển đổi các trường đã trích xuất thành labels.
+    </li>
+    <li><strong>Stage geoip</strong>: Sử dụng IP của client để tra cứu thông tin địa lý từ cơ sở dữ liệu MaxMind.
+    </li>
+    <li><strong>Stage labelallow/labeldrop</strong>: Lọc các labels để chỉ giữ lại những thông tin cần thiết.
+    </li>
+    <li><strong>Stage timestamp</strong>: Chuyển đổi trường timestamp thành định dạng Unix để Loki có thể xử lý.
+    </li>
+  </ol>
+  <h2 id="1e7a6f80-71d9-8024-b2cf-d34709d0cfd6" class="">Lợi ích của việc tích hợp GeoIP với Squid Logs
+  </h2>
+  <p id="1e7a6f80-71d9-8000-a5b6-c9f4109c7403" class=" notion-text-block">Việc kết hợp thông tin GeoIP với Squid logs mang lại nhiều lợi ích:
+  </p>
+  <ol id="1e7a6f80-71d9-801f-b80e-f0390a515efb" class="numbered-list" start="1">
+    <li><strong>Phân tích phân phối địa lý của người dùng</strong>: Hiểu rõ người dùng của bạn đến từ đâu.
+    </li>
+    <li><strong>Phát hiện các mẫu truy cập bất thường</strong>: Xác định các hoạt động đáng ngờ từ các khu vực địa lý không mong đợi.
+    </li>
+    <li><strong>Tối ưu hóa hiệu suất CDN</strong>: Điều chỉnh chiến lược phân phối nội dung dựa trên vị trí địa lý của người dùng.
+    </li>
+  </ol>
+  <h2 id="1e7a6f80-71d9-80cb-a4e8-c11e42fce833" class="">Trực quan hóa dữ liệu trong Grafana
+  </h2>
+  <p id="1e7a6f80-71d9-8035-bd23-ce6ea6bc56dd" class=" notion-text-block">Sau khi đã cấu hình Promtail để thu thập và làm phong phú dữ liệu logs, bạn có thể sử dụng Grafana để tạo các bảng điều khiển trực quan. Dưới đây là một số ý tưởng cho các biểu đồ và bảng điều khiển:
+  </p>
+  <ol id="1e7a6f80-71d9-801c-95c6-db2af2cf0d7a" class="numbered-list" start="1">
+    <li><strong>Bản đồ nhiệt thế giới</strong>: Hiển thị phân phối lưu lượng truy cập theo quốc gia.
+    </li>
+    <li><strong>Top 10 quốc gia/thành phố</strong>: Biểu đồ hiển thị top 10 quốc gia hoặc thành phố có lưu lượng truy cập cao nhất.
+    </li>
+    <li><strong>Tỷ lệ cache hit/miss theo khu vực</strong>: So sánh hiệu suất cache giữa các khu vực địa lý khác nhau.
+    </li>
+    <li><strong>Lưu lượng theo thời gian và khu vực</strong>: Biểu đồ dòng chảy hiển thị lưu lượng truy cập theo thời gian, phân chia theo khu vực địa lý.
+    </li>
+    <li><strong>Mã trạng thái HTTP theo quốc gia</strong>: Phân tích mã trạng thái HTTP (200, 404, 500, v.v.) theo quốc gia để xác định các vấn đề cụ thể của khu vực.
+    </li>
+  </ol>
+  <h2 id="1e7a6f80-71d9-80c4-8bab-cd1a3fb52019" class="">Kết luận
+  </h2>
+  <p id="1e7a6f80-71d9-8040-96d1-eed42b804bde" class=" notion-text-block">Việc kết hợp ATS Squid logs với PLG Stack và tích hợp dữ liệu GeoIP mang lại một giải pháp mạnh mẽ để giám sát và phân tích lưu lượng truy cập theo thời gian thực. Thông qua việc trực quan hóa thông tin vị trí địa lý của người dùng, bạn có thể hiểu rõ hơn về mẫu sử dụng, tối ưu hóa hiệu suất CDN và phát hiện các vấn đề tiềm ẩn.
+  </p>
+  <p id="1e7a6f80-71d9-80c6-8abd-d31d76faf361" class=" notion-text-block">Giải pháp này không chỉ hữu ích cho các hệ thống CDN mà còn áp dụng được cho bất kỳ hệ thống nào sử dụng Apache Traffic Server hoặc các máy chủ proxy khác có khả năng tạo Squid logs.
+  </p>
+  <h2 id="1e7a6f80-71d9-8010-911f-e530339eedfa" class="">Tài liệu tham khảo
+  </h2>
+  <ol id="1e7a6f80-71d9-8015-ae19-d6a293088359" class="numbered-list" start="1">
+    <li><a href="https://docs.trafficserver.apache.org/">Apache Traffic Server Documentation</a>
+    </li>
+    <li><a href="https://grafana.com/docs/loki/latest/">Grafana Loki Documentation</a>
+    </li>
+    <li><a href="https://dev.maxmind.com/geoip/geoip2/geolite2/">MaxMind GeoIP Databases</a>
+    </li>
+    <li><a href="https://grafana.com/docs/loki/latest/clients/promtail/pipelines/">Promtail Pipeline Documentation</a>
+    </li>
+  </ol>
+</div>
+    </div>
+    
+    <p class='social-footer'>—
+        <a href='https://facebook.com/ntheanh201'>
+            @ntheanh201</a></p>
+    
+</div>
+
+
+
+</body>
+
+</html>
