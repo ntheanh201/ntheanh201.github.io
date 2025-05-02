@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script async src="https://cdn.splitbee.io/sb.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="always">
+    <link rel="alternate" type="application/atom+xml" title="RSS 2.0" href="/atom.xml">
+    <link rel="canonical" href="https://ntheanh201.id.vn/articles/apache-traffic-control-migrating-grafana-scripted-cdn-metrics-dashboards-to-scenes-a-seamless-transition.html"/>
+    
+
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@ntheanh201">
+    <meta name="twitter:title" content="Apache Traffic Control - Migrating Grafana scripted CDN metrics dashboards to Scenes: a seamless transition">
+    
+    <meta name="twitter:creator" content="@ntheanh201">
+    
+    <meta name="twitter:image" content="https://ntheanh201.id.vn">
+     
+
+    
+    <meta property="og:title" content="Apache Traffic Control - Migrating Grafana scripted CDN metrics dashboards to Scenes: a seamless transition">
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="https://ntheanh201.id.vn/articles/apache-traffic-control-migrating-grafana-scripted-cdn-metrics-dashboards-to-scenes-a-seamless-transition.html"/>
+     
+    <meta property="og:image" content="https://ntheanh201.id.vn">
+    
+
+    <title>Apache Traffic Control - Migrating Grafana scripted CDN metrics dashboards to Scenes: a seamless transition</title>
+
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script type="text/javascript">
+        function showcontact() {
+            var el = document.getElementById("contact-form");
+            el.style.display = "block";
+            el = document.getElementById("contact-page-url");
+            var uri = window.location.href;
+            uri = uri.replace("#", "");
+            el.value = uri;
+            el = document.getElementById("msg-for-chris");
+            el.focus();
+        }
+
+        function hidecontact() {
+            var el = document.getElementById("contact-form");
+            el.style.display = "none";
+        }
+
+        function isWindows() {
+            return window.navigator &&
+                window.navigator.platform &&
+                window.navigator.platform.indexOf('Win') >= 0
+        }
+
+        function maybeShowAd() {
+            
+            
+
+        }
+
+        function onLoaded() {
+            maybeShowAd();
+        }
+
+        document.addEventListener("DOMContentLoaded", onLoaded);
+    </script>
+    <script type="text/javascript">
+        var galleries = {}; 
+        function buildGalleriesInfo() {
+            var els = document.getElementsByTagName("img");
+            var n = els.length;
+            for (var i = 0; i < n; i++) {
+                var el = els[i];
+                var id = el.id;
+                if (!id.startsWith("id-thumb-img-")) {
+                    continue
+                }
+                id = id.replace("id-thumb-img-", "")
+                
+                var parts = id.split("-");
+                var galleryID = parseInt(parts[0]);
+                var imageNo = parseInt(parts[1]);
+                var galleryInfo = galleries[galleryID] || {};
+                galleryInfo[imageNo] = el.src;
+                galleries[galleryID] = galleryInfo;
+            }
+            var ids = Object.keys(galleries);
+            for (var gid of ids) {
+                var galleryInfo = galleries[gid];
+                galleryInfo.nImages = Object.keys(galleryInfo).length;
+                galleryInfo.currImageNo = 0;
+                changeShot(gid, 0);
+            }
+        }
+
+        function changeShot(galleryID, imgNo) {
+            var gi = galleries[galleryID];
+            gi.currImageNo = imgNo;
+            var url = gi[imgNo];
+            var id = "id-gallery-" + galleryID;
+            var el = document.getElementById(id);
+            el.src = url;
+            
+            for (var i = 0; i < gi.nImages; i++) {
+                id = "id-thumb-" + galleryID + "-" + i;
+                el = document.getElementById(id);
+                if (i == imgNo) {
+                    el.classList.add("selected-img");
+                } else {
+                    el.classList.remove("selected-img");
+                }
+            }
+            var els = document.getElementsByTagName("div");
+            var nEls = els.length;
+        }
+
+        function imgNext(galleryID) {
+            var gi = galleries[galleryID];
+            var nImages = gi.nImages;
+            var imgNo = gi.currImageNo;
+            imgNo = (imgNo + 1) % nImages;
+            changeShot(galleryID, imgNo);
+        }
+
+        function imgPrev(galleryID) {
+            var gi = galleries[galleryID];
+            var imgNo = gi.currImageNo - 1;
+            if (imgNo < 0) {
+                imgNo = gi.nImages - 1;
+            }
+            changeShot(galleryID, imgNo);
+        }
+
+        document.addEventListener("DOMContentLoaded", buildGalleriesInfo);
+    </script>
+
+</head>
+
+<body>
+<div id="content">
+    <p class='name-header'>
+        <a href="/">↫ The Anh Nguyen</a>
+    </p>
+    <h1>Apache Traffic Control - Migrating Grafana scripted CDN metrics dashboards to Scenes: a seamless transition</h1>
+    
+    <p class="date">2024-02-29</p>
+    
+    <div>
+        <p></p>
+<div class="notion-page" id="65c08536-067a-491b-b6be-38dc50b0d940">
+  <p id="133c9cc7-48c6-425f-b31c-d88639dba0ac" class=" notion-text-block">The landscape of data visualization is continuously evolving, and staying current with the latest tools and best practices is crucial. Grafana, a widely-used open-source analytics and monitoring platform, consistently leads with innovative features and enhancements. A significant development is the launch of Grafana Scenes, a potent new tool for creating dynamic dashboard experiences.
+  </p>
+  <h3 id="b2eb3364-2da2-48fc-820d-6d6d4da14737" class=""><strong>What is Grafana Scenes?</strong>
+  </h3>
+  <p id="15f1e2ad-7383-4fa1-94e0-b26577465cd2" class=" notion-text-block"><a href="https://grafana.github.io/scenes/?pg=blog&amp;plcmt=body-txt">Grafana Scenes</a> is a new frontend library that enables developers to create dashboard-like experiences — such as querying and transformations, dynamic panel rendering, and time ranges — directly within their Grafana application plugins. 
+  </p>
+  <p id="58167181-22ee-49c7-85d9-2e2efd3f8df3" class=" notion-text-block">Grafana Scenes was first introduced with the launch of <a href="https://grafana.com/blog/2023/06/13/grafana-10-release-all-the-new-features-to-know/?pg=blog&amp;plcmt=body-txt">Grafana 10</a> at <a href="https://grafana.com/about/events/grafanacon/2023/session/keynote-grafana-10/?pg=blog&amp;plcmt=body-txt">GrafanaCON 2023</a>.
+  </p>
+  <h3 id="e340b2a2-29c0-48f4-ab8e-39f384044797" class=""><strong>Why Migrate to Grafana Scenes?</strong>
+  </h3>
+  <p id="3de01e00-186b-4ea0-99b7-ca5d8b1a9078" class=" notion-text-block"><strong>Context</strong>
+  </p>
+  <p id="4f43c1ff-9eb3-4f6d-a359-a49d91c44d53" class=" notion-text-block">Apache Traffic Control (ATC), an open-source CDN implementation, currently utilizes deprecated scripted dashboards written in pure JavaScript to visualize CDN metrics (bandwidth, connections, TPS, …) and server metrics (CPU, memory, …). (Reference: ‣)
+  </p>
+  <p id="88318177-3ac5-4517-a1c7-1097b9c18e9e" class=" notion-text-block"><strong>Migrating existing scripted dashboards to Grafana Scenes offers several advantages, including:</strong>
+  </p>
+  <ol id="c8168d48-c1a8-46eb-a296-ebda97dae18c" class="numbered-list" start="1">
+    <li><strong>Future-Proof Compatibility:</strong> By adopting Scenes, ATC ensures compatibility with upcoming Grafana updates. Maintaining compatibility with newer versions becomes effortless as Grafana evolves.
+    </li>
+    <li><strong>Enhanced Performance:</strong> Scenes are architected for superior efficiency and lower weight compared to scripted dashboards. This translates to faster loading times and a smoother user experience, especially for complex dashboards.
+    </li>
+    <li><strong>Greater Flexibility:</strong> Scenes grant developers access to a wider array of customization options and features. From interactive components to advanced layout controls, Scenes empower the ATC community to create richer and more engaging dashboards.
+    </li>
+    <li><strong>Thriving Community Support:</strong> As Scenes gain momentum within the Grafana community, ATC contributors can leverage a growing pool of resources, tutorials, and plugins dedicated to enhancing Scenes functionality. Migrating to Scenes ensures access to this expanding ecosystem for collaboration and support.
+    </li>
+  </ol>
+  <p id="cc395ac2-4691-4f23-942c-ad8498062d43" class=" notion-text-block">
+  </p>
+  <p id="81dc3b77-336a-4779-abdf-45306d78c141" class=" notion-text-block"><strong>Exploring the UI of Grafana Scenes:</strong>
+  </p>
+<img class="blog-img" src="/img/22b3094b5c8a933c440cc0be833e7384c5968772.png">
+<img class="blog-img" src="/img/d4591bd379926a784a2698f4637590c664ba1b3c.png">
+<img class="blog-img" src="/img/5192139661d7f3d5c9fffa727b1236397ed2d6ea.png">
+  <p id="6c69f290-bfae-4f4a-9484-d4e877e7e554" class=" notion-text-block">
+  </p>
+  <h2 id="405a05bd-e20a-4e4e-ac78-932ed64440cf" class=""><strong>The Codebase</strong>
+  </h2>
+  <p id="4c2cf0b7-9e7f-4460-8d71-29001f743cac" class=" notion-text-block">The Grafana Scenes code for ATC is available on GitHub: <a href="https://github.com/apache/trafficcontrol/tree/master/traffic_stats/trafficcontrol-scenes">https://github.com/apache/trafficcontrol/tree/master/traffic_stats/trafficcontrol-scenes</a>
+  </p>
+  <p id="107409a0-ec16-4a40-98ac-27e488245a02" class=" notion-text-block">
+  </p>
+  <p id="4447f91d-6727-40fa-bf23-564e86138953" class=" notion-text-block"><strong>Pull Request for Reference</strong>
+  </p>
+  <p id="e3351e87-9348-4261-ad01-db2a9f17dafd" class=" notion-text-block">The pull request details the migration process: ‣
+  </p>
+  <p id="22900ad0-89b4-4598-bf1a-bcb9f441e05e" class=" notion-text-block">
+  </p>
+  <p id="7e254468-4f17-4032-ad16-76d02834a874" class=" notion-text-block"><strong>Code Snippets</strong>
+  </p>
+  <p id="fe3bb3dc-a86b-437b-addc-b11d95d8088b" class=" notion-text-block">Here is the code structure of TrafficControl Grafana Scenes and some basic code snippets to showcase Grafana Scenes implementation:
+  </p>
+<img class="blog-img" src="/img/1601e87c1ee5c3e5c8e770afef1ede0e143ccbbf.png"><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">EmbeddedScene</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">QueryVariable</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">SceneControlsSpacer</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">SceneFlexItem</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">SceneFlexLayout</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">SceneRefreshPicker</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">SceneTimePicker</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">SceneTimeRange</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">SceneVariableSet</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">VariableValueSelectors</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;@grafana/scenes&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">INFLUXDB_DATASOURCES_REF</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;const&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">getBandwidthPanel</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./panels/bandwidth&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">getConnectionsPanel</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;./panels/connections&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Function to get the cache group scene.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @returns The embedded scene representing the cache group.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">getCacheGroupScene</span><span class="p">()</span><span class="o">:</span> <span class="nx">EmbeddedScene</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kr">const</span> <span class="nx">timeRange</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SceneTimeRange</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">		<span class="kr">from</span><span class="o">:</span> <span class="s2">&#34;now-6h&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">to</span><span class="o">:</span> <span class="s2">&#34;now&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kr">const</span> <span class="nx">cachegroup</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QueryVariable</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">datasource</span>: <span class="kt">INFLUXDB_DATASOURCES_REF.cacheStats</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;cachegroup&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">query</span><span class="o">:</span> <span class="s1">&#39;SHOW TAG VALUES ON &#34;cache_stats&#34; FROM &#34;monthly&#34;.&#34;bandwidth&#34; with key = &#34;cachegroup&#34;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="k">new</span> <span class="nx">EmbeddedScene</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">$timeRange</span>: <span class="kt">timeRange</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">$variables</span>: <span class="kt">new</span> <span class="nx">SceneVariableSet</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">variables</span><span class="o">:</span> <span class="p">[</span><span class="nx">cachegroup</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">body</span>: <span class="kt">new</span> <span class="nx">SceneFlexLayout</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">				<span class="k">new</span> <span class="nx">SceneFlexItem</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">body</span>: <span class="kt">getBandwidthPanel</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">minHeight</span>: <span class="kt">300</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}),</span>
+</span></span><span class="line"><span class="cl">				<span class="k">new</span> <span class="nx">SceneFlexItem</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">body</span>: <span class="kt">getConnectionsPanel</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">					<span class="nx">minHeight</span>: <span class="kt">300</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}),</span>
+</span></span><span class="line"><span class="cl">			<span class="p">],</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">direction</span><span class="o">:</span> <span class="s2">&#34;column&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">controls</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">			<span class="k">new</span> <span class="nx">VariableValueSelectors</span><span class="p">({}),</span>
+</span></span><span class="line"><span class="cl">			<span class="k">new</span> <span class="nx">SceneControlsSpacer</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">			<span class="k">new</span> <span class="nx">SceneTimePicker</span><span class="p">({</span><span class="nx">isOnCanvas</span>: <span class="kt">true</span><span class="p">}),</span>
+</span></span><span class="line"><span class="cl">			<span class="k">new</span> <span class="nx">SceneRefreshPicker</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">intervals</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;5s&#34;</span><span class="p">,</span> <span class="s2">&#34;1m&#34;</span><span class="p">,</span> <span class="s2">&#34;1h&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">isOnCanvas</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}),</span>
+</span></span><span class="line"><span class="cl">		<span class="p">],</span>
+</span></span><span class="line"><span class="cl">	<span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+  <p id="f0c3d852-5753-4978-9f82-a40e4132f70d" class=" notion-text-block">
+  </p>
+  <p id="983fcb1e-40ec-453d-b4db-e5af77b2af7a" class=" notion-text-block">To make Grafana work, you need to add some data sources and information about the traffic control scenes app during provisioning.
+  </p>
+<img class="blog-img" src="/img/da7ce0c563cb937f6ae732c481d73c86497a2d95.png">
+  <h2 id="9906dc58-92a2-4e51-85c6-1c4cfa2ea788" class=""><strong>Conclusion</strong>
+  </h2>
+  <p id="0331f15c-db4b-4c60-b6bf-bf9d046c180f" class=" notion-text-block">Migrating ATC&#x27;s CDN metric dashboards to Grafana Scenes empowers developers with a modern, performant, and future-proof visualization solution. This shift unlocks access to a thriving community and a vast array of features to craft exceptional dashboards. By leveraging Scenes, ATC can streamline development and deliver an enhanced user experience for CDN metric visualization.
+  </p>
+  <p id="03d2babf-ac24-4c46-ab51-0f51ee136027" class=" notion-text-block">
+  </p>
+  <p id="298cb51f-9ffd-45dc-bf05-bee0937e4566" class=" notion-text-block">Explore Grafana Scenes documentation: <a href="https://grafana.com/blog/2023/08/03/new-in-grafana-10-grafana-scenes-for-building-dynamic-dashboarding-experiences/">https://grafana.com/blog/2023/08/03/new-in-grafana-10-grafana-scenes-for-building-dynamic-dashboarding-experiences/</a>
+  </p>
+  <p id="d5c68961-b898-487e-8b18-0a7ca7e17fc7" class=" notion-text-block">Contribute to the ATC project: <a href="https://github.com/apache/trafficcontrol">https://github.com/apache/trafficcontrol</a>
+  </p>
+</div>
+    </div>
+    
+    <p class='social-footer'>—
+        <a href='https://facebook.com/ntheanh201'>
+            @ntheanh201</a></p>
+    
+</div>
+
+
+
+</body>
+
+</html>
