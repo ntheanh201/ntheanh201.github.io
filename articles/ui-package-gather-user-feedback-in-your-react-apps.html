@@ -145,12 +145,16 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>UI package: Gather user feedback in your React apps</h1>
-    
-    <p class="date">2024-02-04</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">UI package: Gather user feedback in your React apps</h1>
+        <div class="article-meta">
+            <span class="article-date">2024-02-04</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="70b7e571-b2e1-4281-bd2f-3769b569f12e">
   <p id="1d856649-5c22-41db-9338-b00dcfa516f9" class=" notion-text-block">I spent the weekend diving into publish an npm package that I&#x27;m thrilled to introduce: react-user-feedback. If you&#x27;re a React/FE developer, you know the importance of collecting user feedback to continually improve your applications.
   </p>
@@ -216,6 +220,10 @@
   <p id="93af84cb-3dcd-4e3d-805b-83aff7db857f" class=" notion-text-block">Happy coding!
   </p>
 </div>
+            </div>
+            
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -225,6 +233,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

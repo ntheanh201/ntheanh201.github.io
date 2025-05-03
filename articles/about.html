@@ -145,10 +145,16 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>About</h1>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">About</h1>
+        <div class="article-meta">
+            <span class="article-date">2022-06-24</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="4c0533bd-0707-48e2-b2ae-f23c07bebb27">
   <p id="af14bff0-ef3c-476f-8ee3-c34fac5e1481" class=" notion-text-block">Hi, folks! 👋
   </p>
@@ -176,11 +182,59 @@
   <p id="652855a9-df51-4062-babd-73eca101d203" class=" notion-text-block">🤹‍♂️ This blog’s source code is available at: <a href="https://github.com/ntheanh201/notion-blog">https://github.com/ntheanh201/notion-blog</a>
   </p>
 </div>
+            </div>
+            
+            
+        </div>
     </div>
     
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

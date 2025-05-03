@@ -145,20 +145,24 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>Giám sát ATS Squid Logs với PLG Stack và GeoIP: Phân tích vị trí người dùng theo thời gian thực</h1>
-    
-    <p class="date">2024-03-15</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">Giám sát ATS Squid Logs với PLG Stack và GeoIP: Phân tích vị trí người dùng theo thời gian thực</h1>
+        <div class="article-meta">
+            <span class="article-date">2024-03-15</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="bb29a6d9-5e52-466c-9636-5f6d0e95fb75">
-  <h2 id="1e7a6f80-71d9-8029-8417-ed0ae4fac86b" class="">Giới thiệu
+  <h2 id="heading-gioi-thieu" class="">Giới thiệu
   </h2>
   <p id="1e7a6f80-71d9-8061-b62a-daeff2f38124" class=" notion-text-block">Khi quản lý hệ thống CDN (Content Delivery Network) hoặc proxy server như Apache Traffic Server (ATS), việc phân tích logs là một phần quan trọng để hiểu rõ về lưu lượng truy cập, hiệu suất hệ thống và phát hiện các vấn đề tiềm ẩn.
   </p>
   <p id="1e7a6f80-71d9-80cf-a05a-d3d3c3b8f691" class=" notion-text-block">Trong bài viết này, chúng ta sẽ tìm hiểu cách kết hợp ATS Squid logs với PLG Stack (Promtail, Loki, Grafana) và tích hợp dữ liệu GeoIP để trực quan hóa thông tin vị trí địa lý của người dùng.
   </p>
-  <h2 id="1e7a6f80-71d9-8056-b6a5-d0b2564d699c" class="">Apache Traffic Server và Squid Logs
+  <h2 id="heading-apache-traffic-server-va-squid-logs" class="">Apache Traffic Server và Squid Logs
   </h2>
   <p id="1e7a6f80-71d9-8078-9b80-e1f2c036666f" class=" notion-text-block">Apache Traffic Server (ATS) là một máy chủ proxy mạnh mẽ và có khả năng mở rộng cao, thường được sử dụng trong các hệ thống CDN. ATS cung cấp nhiều định dạng logging khác nhau, và một trong số đó là định dạng Squid logs.
   </p>
@@ -195,7 +199,7 @@
   </ul>
   <p id="1e7a6f80-71d9-807a-81f7-c585534ed196" class=" notion-text-block">Ví dụ về một dòng log:
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">1709909405.806 900 16.15.15.205 p1-cdn.cdn.vn &#34;PostmanRuntime/7.36.3&#34; TCP_MISS 200 2711294 GET http://origin.com/tv/155/output/abc.ts video/MP2T</span></span></code></pre>
-  <h2 id="1e7a6f80-71d9-8080-8bce-ca5e320c6d7c" class="">PLG Stack: Promtail, Loki và Grafana
+  <h2 id="heading-plg-stack-promtail-loki-va-grafana" class="">PLG Stack: Promtail, Loki và Grafana
   </h2>
   <p id="1e7a6f80-71d9-80c8-837a-e72fca370a67" class=" notion-text-block">PLG Stack là một bộ công cụ mạnh mẽ để thu thập, lưu trữ và trực quan hóa dữ liệu logs:
   </p>
@@ -209,11 +213,11 @@
   </ol>
   <p id="1e7a6f80-71d9-80ce-9fe6-c9c7425bd7ba" class=" notion-text-block">Trong bài viết này, chúng ta sẽ tập trung vào việc cấu hình Promtail để xử lý Squid logs từ ATS và thêm thông tin GeoIP.
   </p>
-  <h2 id="1e7a6f80-71d9-80dd-ad2c-d346c0439742" class="">Tích hợp GeoIP với Promtail
+  <h2 id="heading-tich-hop-geoip-voi-promtail" class="">Tích hợp GeoIP với Promtail
   </h2>
   <p id="1e7a6f80-71d9-8006-a6e4-d490fa7e8f34" class=" notion-text-block">GeoIP là dịch vụ cho phép xác định vị trí địa lý dựa trên địa chỉ IP. MaxMind cung cấp cơ sở dữ liệu GeoIP2 được sử dụng rộng rãi cho mục đích này. Promtail có thể tích hợp với cơ sở dữ liệu GeoIP để làm phong phú thêm dữ liệu logs với thông tin vị trí địa lý.
   </p>
-  <h3 id="1e7a6f80-71d9-80f5-88ad-c47441746c33" class="">Cấu hình Promtail
+  <h3 id="heading-cau-hinh-promtail" class="">Cấu hình Promtail
   </h3>
   <p id="1e7a6f80-71d9-8022-9a83-dca626d5f11a" class=" notion-text-block">Dưới đây là cấu hình Promtail để xử lý Squid logs từ ATS và thêm thông tin GeoIP:
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">scrape_configs:
@@ -270,7 +274,7 @@
 </span></span><span class="line"><span class="cl">        host: {{ ansible_hostname }}
 </span></span><span class="line"><span class="cl">        __path__: &#34;/opt/trafficserver/var/log/trafficserver/squid.log&#34;
 </span></span><span class="line"><span class="cl">{% endif %}</span></span></code></pre>
-  <h3 id="1e7a6f80-71d9-80b2-a1b0-e9d1595d87ce" class="">Phân tích cấu hình
+  <h3 id="heading-phan-tich-cau-hinh" class="">Phân tích cấu hình
   </h3>
   <ol id="1e7a6f80-71d9-8081-b423-c8c5cfc8b23f" class="numbered-list" start="1">
     <li><strong>Stage regex</strong>: Sử dụng biểu thức chính quy để phân tích cú pháp dòng log và trích xuất các trường dữ liệu.
@@ -284,7 +288,7 @@
     <li><strong>Stage timestamp</strong>: Chuyển đổi trường timestamp thành định dạng Unix để Loki có thể xử lý.
     </li>
   </ol>
-  <h2 id="1e7a6f80-71d9-8024-b2cf-d34709d0cfd6" class="">Lợi ích của việc tích hợp GeoIP với Squid Logs
+  <h2 id="heading-loi-ich-cua-viec-tich-hop-geoip-voi-squid-logs" class="">Lợi ích của việc tích hợp GeoIP với Squid Logs
   </h2>
   <p id="1e7a6f80-71d9-8000-a5b6-c9f4109c7403" class=" notion-text-block">Việc kết hợp thông tin GeoIP với Squid logs mang lại nhiều lợi ích:
   </p>
@@ -296,7 +300,7 @@
     <li><strong>Tối ưu hóa hiệu suất CDN</strong>: Điều chỉnh chiến lược phân phối nội dung dựa trên vị trí địa lý của người dùng.
     </li>
   </ol>
-  <h2 id="1e7a6f80-71d9-80cb-a4e8-c11e42fce833" class="">Trực quan hóa dữ liệu trong Grafana
+  <h2 id="heading-truc-quan-hoa-du-lieu-trong-grafana" class="">Trực quan hóa dữ liệu trong Grafana
   </h2>
   <p id="1e7a6f80-71d9-8035-bd23-ce6ea6bc56dd" class=" notion-text-block">Sau khi đã cấu hình Promtail để thu thập và làm phong phú dữ liệu logs, bạn có thể sử dụng Grafana để tạo các bảng điều khiển trực quan. Dưới đây là một số ý tưởng cho các biểu đồ và bảng điều khiển:
   </p>
@@ -312,13 +316,13 @@
     <li><strong>Mã trạng thái HTTP theo quốc gia</strong>: Phân tích mã trạng thái HTTP (200, 404, 500, v.v.) theo quốc gia để xác định các vấn đề cụ thể của khu vực.
     </li>
   </ol>
-  <h2 id="1e7a6f80-71d9-80c4-8bab-cd1a3fb52019" class="">Kết luận
+  <h2 id="heading-ket-luan" class="">Kết luận
   </h2>
   <p id="1e7a6f80-71d9-8040-96d1-eed42b804bde" class=" notion-text-block">Việc kết hợp ATS Squid logs với PLG Stack và tích hợp dữ liệu GeoIP mang lại một giải pháp mạnh mẽ để giám sát và phân tích lưu lượng truy cập theo thời gian thực. Thông qua việc trực quan hóa thông tin vị trí địa lý của người dùng, bạn có thể hiểu rõ hơn về mẫu sử dụng, tối ưu hóa hiệu suất CDN và phát hiện các vấn đề tiềm ẩn.
   </p>
   <p id="1e7a6f80-71d9-80c6-8abd-d31d76faf361" class=" notion-text-block">Giải pháp này không chỉ hữu ích cho các hệ thống CDN mà còn áp dụng được cho bất kỳ hệ thống nào sử dụng Apache Traffic Server hoặc các máy chủ proxy khác có khả năng tạo Squid logs.
   </p>
-  <h2 id="1e7a6f80-71d9-8010-911f-e530339eedfa" class="">Tài liệu tham khảo
+  <h2 id="heading-tai-lieu-tham-khao" class="">Tài liệu tham khảo
   </h2>
   <ol id="1e7a6f80-71d9-8015-ae19-d6a293088359" class="numbered-list" start="1">
     <li><a href="https://docs.trafficserver.apache.org/">Apache Traffic Server Documentation</a>
@@ -331,6 +335,52 @@
     </li>
   </ol>
 </div>
+            </div>
+            
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">TABLE OF CONTENTS</div>
+                    <div class="table-of-contents">
+<h2>Table of Contents</h2>
+<ul>
+<li>
+<a href="#heading-gioi-thieu">Giới thiệu</a>
+</li>
+<li>
+<a href="#heading-apache-traffic-server-va-squid-logs">Apache Traffic Server và Squid Logs</a>
+</li>
+<li>
+<a href="#heading-plg-stack-promtail-loki-va-grafana">PLG Stack: Promtail, Loki và Grafana</a>
+</li>
+<li>
+<a href="#heading-tich-hop-geoip-voi-promtail">Tích hợp GeoIP với Promtail</a>
+</li>
+<li>
+<a href="#heading-cau-hinh-promtail">Cấu hình Promtail</a>
+</li>
+<li>
+<a href="#heading-phan-tich-cau-hinh">Phân tích cấu hình</a>
+</li>
+<li>
+<a href="#heading-loi-ich-cua-viec-tich-hop-geoip-voi-squid-logs">Lợi ích của việc tích hợp GeoIP với Squid Logs</a>
+</li>
+<li>
+<a href="#heading-truc-quan-hoa-du-lieu-trong-grafana">Trực quan hóa dữ liệu trong Grafana</a>
+</li>
+<li>
+<a href="#heading-ket-luan">Kết luận</a>
+</li>
+<li>
+<a href="#heading-tai-lieu-tham-khao">Tài liệu tham khảo</a>
+</li>
+</ul>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -340,6 +390,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

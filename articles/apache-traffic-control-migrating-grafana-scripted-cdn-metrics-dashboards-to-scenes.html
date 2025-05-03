@@ -145,22 +145,26 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>Apache Traffic Control - Migrating Grafana scripted CDN metrics dashboards to Scenes: a seamless transition</h1>
-    
-    <p class="date">2024-02-29</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">Apache Traffic Control - Migrating Grafana scripted CDN metrics dashboards to Scenes: a seamless transition</h1>
+        <div class="article-meta">
+            <span class="article-date">2024-02-29</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="65c08536-067a-491b-b6be-38dc50b0d940">
   <p id="133c9cc7-48c6-425f-b31c-d88639dba0ac" class=" notion-text-block">The landscape of data visualization is continuously evolving, and staying current with the latest tools and best practices is crucial. Grafana, a widely-used open-source analytics and monitoring platform, consistently leads with innovative features and enhancements. A significant development is the launch of Grafana Scenes, a potent new tool for creating dynamic dashboard experiences.
   </p>
-  <h3 id="b2eb3364-2da2-48fc-820d-6d6d4da14737" class=""><strong>What is Grafana Scenes?</strong>
+  <h3 id="heading-what-is-grafana-scenes" class=""><strong>What is Grafana Scenes?</strong>
   </h3>
   <p id="15f1e2ad-7383-4fa1-94e0-b26577465cd2" class=" notion-text-block"><a href="https://grafana.github.io/scenes/?pg=blog&amp;plcmt=body-txt">Grafana Scenes</a> is a new frontend library that enables developers to create dashboard-like experiences — such as querying and transformations, dynamic panel rendering, and time ranges — directly within their Grafana application plugins. 
   </p>
   <p id="58167181-22ee-49c7-85d9-2e2efd3f8df3" class=" notion-text-block">Grafana Scenes was first introduced with the launch of <a href="https://grafana.com/blog/2023/06/13/grafana-10-release-all-the-new-features-to-know/?pg=blog&amp;plcmt=body-txt">Grafana 10</a> at <a href="https://grafana.com/about/events/grafanacon/2023/session/keynote-grafana-10/?pg=blog&amp;plcmt=body-txt">GrafanaCON 2023</a>.
   </p>
-  <h3 id="e340b2a2-29c0-48f4-ab8e-39f384044797" class=""><strong>Why Migrate to Grafana Scenes?</strong>
+  <h3 id="heading-why-migrate-to-grafana-scenes" class=""><strong>Why Migrate to Grafana Scenes?</strong>
   </h3>
   <p id="3de01e00-186b-4ea0-99b7-ca5d8b1a9078" class=" notion-text-block"><strong>Context</strong>
   </p>
@@ -187,7 +191,7 @@
 <img class="blog-img" src="/img/5192139661d7f3d5c9fffa727b1236397ed2d6ea.png">
   <p id="6c69f290-bfae-4f4a-9484-d4e877e7e554" class=" notion-text-block">
   </p>
-  <h2 id="405a05bd-e20a-4e4e-ac78-932ed64440cf" class=""><strong>The Codebase</strong>
+  <h2 id="heading-the-codebase" class=""><strong>The Codebase</strong>
   </h2>
   <p id="4c2cf0b7-9e7f-4460-8d71-29001f743cac" class=" notion-text-block">The Grafana Scenes code for ATC is available on GitHub: <a href="https://github.com/apache/trafficcontrol/tree/master/traffic_stats/trafficcontrol-scenes">https://github.com/apache/trafficcontrol/tree/master/traffic_stats/trafficcontrol-scenes</a>
   </p>
@@ -271,7 +275,7 @@
   <p id="983fcb1e-40ec-453d-b4db-e5af77b2af7a" class=" notion-text-block">To make Grafana work, you need to add some data sources and information about the traffic control scenes app during provisioning.
   </p>
 <img class="blog-img" src="/img/da7ce0c563cb937f6ae732c481d73c86497a2d95.png">
-  <h2 id="9906dc58-92a2-4e51-85c6-1c4cfa2ea788" class=""><strong>Conclusion</strong>
+  <h2 id="heading-conclusion" class=""><strong>Conclusion</strong>
   </h2>
   <p id="0331f15c-db4b-4c60-b6bf-bf9d046c180f" class=" notion-text-block">Migrating ATC&#x27;s CDN metric dashboards to Grafana Scenes empowers developers with a modern, performant, and future-proof visualization solution. This shift unlocks access to a thriving community and a vast array of features to craft exceptional dashboards. By leveraging Scenes, ATC can streamline development and deliver an enhanced user experience for CDN metric visualization.
   </p>
@@ -282,6 +286,34 @@
   <p id="d5c68961-b898-487e-8b18-0a7ca7e17fc7" class=" notion-text-block">Contribute to the ATC project: <a href="https://github.com/apache/trafficcontrol">https://github.com/apache/trafficcontrol</a>
   </p>
 </div>
+            </div>
+            
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">TABLE OF CONTENTS</div>
+                    <div class="table-of-contents">
+<h2>Table of Contents</h2>
+<ul>
+<li>
+<a href="#heading-what-is-grafana-scenes">What is Grafana Scenes?</a>
+</li>
+<li>
+<a href="#heading-why-migrate-to-grafana-scenes">Why Migrate to Grafana Scenes?</a>
+</li>
+<li>
+<a href="#heading-the-codebase">The Codebase</a>
+</li>
+<li>
+<a href="#heading-conclusion">Conclusion</a>
+</li>
+</ul>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -291,6 +323,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

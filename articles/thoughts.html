@@ -145,12 +145,16 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>A few words</h1>
-    
-    <p class="date">2022-08-18</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">A few words</h1>
+        <div class="article-meta">
+            <span class="article-date">2022-08-18</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="b0a75a28-fdd6-491e-8c57-cd61259fd20a">
   <p id="39ea9dc6-9cb1-471d-94f6-4f9ec6676ce1" class=" notion-text-block">Hi folks, this is <strong>The Anh</strong>.
   </p>
@@ -162,13 +166,13 @@
   </p>
   <p id="c77e0e31-9f22-454d-9298-6956a219b4d0" class=" notion-text-block">If something goes wrong, feel free to contact me, and I will fix it.
   </p>
-  <h2 id="fa52aff5-8a46-42b0-b615-59983085bf4a" class="">I like simple things
+  <h2 id="heading-i-like-simple-things" class="">I like simple things
   </h2>
   <p id="57c40cc9-f90a-48e0-a773-4a5223bc2740" class=" notion-text-block">You can see my site’s theme is very similar to: <a href="https://markmcgranaghan.com/">https://markmcgranaghan.com/</a>
   </p>
   <p id="5e84e4ef-762e-42bc-af1c-9c6c9f15a6a1" class=" notion-text-block">I don’t remember how I know his site 😄. But the first time I see, I also wanna make my own website like that, simple &amp; nice, focusing on content.
   </p>
-  <h2 id="97cf57c0-dd64-4d2b-a7fc-6288f60a5934" class=""><strong>I’m not good at writing</strong>
+  <h2 id="heading-im-not-good-at-writing" class=""><strong>I’m not good at writing</strong>
   </h2>
   <p id="c5555017-2eca-4d77-b038-552a590a04b6" class=" notion-text-block">I wanna become a good writer, I mean at least I can explain exactly what I wrote.
   </p>
@@ -176,7 +180,7 @@
   </p>
   <p id="7ca5acb1-d45b-4d59-8855-50cd1b22d548" class=" notion-text-block"><code>Just remember: you will never become a good writer unless you practice writing every day for years. You </code><code><em>will become</em></code><code> a good writer, eventually.</code>
   </p>
-  <h2 id="a4dc02c0-94d5-4c40-a4d5-9404637e4ef3" class="">I wanna improve my English skills
+  <h2 id="heading-i-wanna-improve-my-english-skills" class="">I wanna improve my English skills
   </h2>
   <p id="e7828750-a1be-4ab4-abde-3844bdc78e29" class=" notion-text-block">I mean I can use English when working with foreigners, my boss at <strong>Vietkentech Ltd. </strong>(where I worked in office for almost 2 years) is German and I also work with others from <strong>Snapify</strong>, <strong>Grindery</strong>, ... But my English skills still need to be improved, grammar, especially speaking &amp; writing.
   </p>
@@ -185,6 +189,31 @@
   <p id="9365e87f-cae4-416a-a02b-4d4ed65c7512" class=" notion-text-block"> …
   </p>
 </div>
+            </div>
+            
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">TABLE OF CONTENTS</div>
+                    <div class="table-of-contents">
+<h2>Table of Contents</h2>
+<ul>
+<li>
+<a href="#heading-i-like-simple-things">I like simple things</a>
+</li>
+<li>
+<a href="#heading-im-not-good-at-writing">I’m not good at writing</a>
+</li>
+<li>
+<a href="#heading-i-wanna-improve-my-english-skills">I wanna improve my English skills</a>
+</li>
+</ul>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -194,6 +223,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

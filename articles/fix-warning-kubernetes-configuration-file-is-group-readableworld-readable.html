@@ -145,12 +145,16 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>Fix Warning: Kubernetes configuration file is group-readable/world-readable</h1>
-    
-    <p class="date">2022-08-19</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">Fix Warning: Kubernetes configuration file is group-readable/world-readable</h1>
+        <div class="article-meta">
+            <span class="article-date">2022-08-19</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="89a815c7-5bd3-480a-9d95-47699da770b1">
   <p id="cdd930de-39b4-4711-ac7f-79314ad9bb0b" class=" notion-text-block"><strong>WARNING</strong>: Kubernetes configuration file is group-readable. This is insecure. Location: /home/ubuntu/.kube/config
 WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/ubuntu/.kube/config
@@ -162,6 +166,10 @@ WARNING: Kubernetes configuration file is world-readable. This is insecure. Loca
   <p id="0118d0b8-5a73-4ab9-83d1-623451d5e97b" class=" notion-text-block"><code>chmod g-r ~/.kube/config</code>
   </p>
 </div>
+            </div>
+            
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -171,6 +179,50 @@ WARNING: Kubernetes configuration file is world-readable. This is insecure. Loca
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

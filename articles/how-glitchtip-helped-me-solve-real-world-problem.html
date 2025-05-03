@@ -145,12 +145,16 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>How GlitchTip helped me solve real-world problem</h1>
-    
-    <p class="date">2023-05-04</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">How GlitchTip helped me solve real-world problem</h1>
+        <div class="article-meta">
+            <span class="article-date">2023-05-04</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="b63dca30-db46-4c93-8ac6-b4b8b1c9ee38">
   <p id="a227b838-4faf-4148-8d63-d45b8dbdb644" class=" notion-text-block">Hi folks 👋,
   </p>
@@ -170,7 +174,7 @@
   </p>
   <p id="878a4dd1-c677-43cf-9eb2-7ebb61fc6d00" class=" notion-text-block">Trước tiên nói sơ qua chút về vấn đề cần giải quyết:
   </p>
-  <h2 id="65f8826c-f996-4426-aefe-1fcbb25e0021" class="">Yêu cầu
+  <h2 id="heading-yeu-cau" class="">Yêu cầu
   </h2>
   <p id="daf267fa-9401-469f-ad00-daa250152c4e" class=" notion-text-block">Với yêu cầu được đặt ra là: bảo mật về dữ liệu và có thể tự triển khai trên hạ tầng Viettel Cloud để theo dõi lỗi cho ứng dụng <strong>VCar</strong> (được code bằng React Native), báo cáo KPI/KQI, mình đã tìm kiếm các tools với tiêu chí sau:
   </p>
@@ -184,12 +188,12 @@
     <li>Có thể dùng cách nào đó để lấy dữ liệu và visualize với Grafana dùng cho việc báo cáo KPI/KQI.
     </li>
   </ul>
-  <h2 id="b579e5f0-eda3-4d6e-9b4b-d1ef91df0c68" class="">Triển khai Sentry và những khó khăn
+  <h2 id="heading-trien-khai-sentry-va-nhung-kho-khan" class="">Triển khai Sentry và những khó khăn
   </h2>
 <img class="blog-img" src="/img/fa2dcd35259fc17ad4bdb6c6081ee9c3d2d18bcb.png">
   <p id="2a803d1d-b093-4a70-9148-4a03ee24af90" class=" notion-text-block">First choice, Sentry hoàn toàn đáp ứng được những yêu cầu trên, ngoài bản lưu dữ liệu trên hạ tầng Sentry, Sentry còn cung cấp bản <strong>Self-Hosted Sentry</strong> (<a href="https://develop.sentry.dev/self-hosted/">https://develop.sentry.dev/self-hosted</a>).
   </p>
-  <h3 id="09048f5f-6872-4fd6-bc6d-e4c0b1381848" class="">Khó khăn 
+  <h3 id="heading-kho-khan-" class="">Khó khăn 
   </h3>
   <p id="8ef52696-48fb-46bc-b7a6-397418353f0e" class=" notion-text-block">Khi quyết định triển khai thực tế, guide của Sentry thì hướng dẫn chạy theo dạng docker-compose, nhưng hạ tầng hiện tại đang được dựng trên Kubernetes. Giờ phải tìm cách để chạy được trên K8s.
   </p>
@@ -207,7 +211,7 @@
   </p>
   <p id="70ec56cb-c9c3-4496-8bb9-e5c56bafee73" class=" notion-text-block">Vấn đề tiếp theo là việc query dữ liệu để dựng Dashboard Grafana, bản Self-hosted Sentry hiện tại chưa support để Grafana lấy dữ liệu 😥
   </p>
-  <h3 id="fa40dd3b-cd2b-4524-9663-27cc353f71ce" class="">Sự chuyển đổi
+  <h3 id="heading-su-chuyen-oi" class="">Sự chuyển đổi
   </h3>
   <p id="6fca0bd1-f4f2-4ed5-8226-d813577ec46c" class=" notion-text-block">Với việc phải kiểm soát 1 hạ tầng quá phức tạp của Sentry, cộng thêm chưa thể hiểu rõ nền tảng này và chưa đáp ứng sát nhu cầu thực tế là có thể dễ dàng lấy dữ liệu để dựng Dashboard trên Grafana, mình quyết định tìm tới phương án Sentry alternative.
   </p>
@@ -215,10 +219,10 @@
   </p>
   <p id="8226f0a8-4d05-4201-a9f7-046ee0dc0eae" class=" notion-text-block">Tại sao lại là <strong>GlitchTip</strong>? Cùng tìm hiểu nhé.
   </p>
-  <h2 id="1f721bd1-63c8-4ded-b03e-b05f3f6e92ad" class="">Glitchtip
+  <h2 id="heading-glitchtip" class="">Glitchtip
   </h2>
 <img class="blog-img" src="/img/ee854a7773bc1d05cb25008ac82ffa6cf0f82c32.png">
-  <h3 id="98bcef1b-24c8-4f7d-b256-3512cba29e3b" class="">Giới thiệu
+  <h3 id="heading-gioi-thieu" class="">Giới thiệu
   </h3>
   <p id="fc44cda8-f4cd-46c7-9c9c-55699abaa15a" class=" notion-text-block">GlitchTip cung cấp những tính năng:
   </p>
@@ -267,7 +271,7 @@
     <li>Không có nhiều tính năng bằng Sentry (Session Replay, User Feedback, …)
     </li>
   </ul>
-  <h3 id="a182470c-4bf3-4863-be12-34dc55640397" class="">Khó khăn khi triển khai
+  <h3 id="heading-kho-khan-khi-trien-khai" class="">Khó khăn khi triển khai
   </h3>
   <p id="d33d3656-49fa-48d0-af64-4647eafed236" class=" notion-text-block">Nhìn chung thì với việc deploy GlitchTip sẽ không có quá nhiều khó khăn, việc cần làm cẩn thận đó là đọc kĩ các thông số của các manifest trong Helm charts để thêm values cho đúng với nhu cầu là được.
   </p>
@@ -304,7 +308,7 @@
   </ul>
   <p id="d09b3896-7661-4e65-b951-e152d303407e" class=" notion-text-block">Update image trong Deployment, update Ingress và chạy thôi nào 🚀
   </p>
-  <h3 id="6347a11a-550a-4a4d-a2ac-b62b0a83b840" class="">Thành quả
+  <h3 id="heading-thanh-qua" class="">Thành quả
   </h3>
   <p id="146b028c-c9af-434e-885b-b0c4ecc79ac9" class=" notion-text-block">Giao diện của GlitchTip
   </p>
@@ -316,7 +320,7 @@
 <img class="blog-img" src="/img/de68df2caddf1f45d313f2ffc265de14ee2ffcff.png">
   <p id="6fbc041e-c7f5-405a-a515-0c6381ce2253" class=" notion-text-block">
   </p>
-  <h2 id="0c93bab7-7f7f-4046-860c-e1ec81b94432" class="">Kết luận
+  <h2 id="heading-ket-luan" class="">Kết luận
   </h2>
   <p id="c51dfd90-2444-4779-ba8d-de852daaf12c" class=" notion-text-block"><strong>Sentry</strong> và <strong>GlitchTip</strong> đều là những lựa chọn tốt. Tùy vào yêu cầu và mục đích sử dụng, bạn có thể lựa chọn công cụ phù hợp để giúp đội ngũ phát triển của mình phát hiện và sửa chữa các lỗi một cách hiệu quả nhất.
   </p>
@@ -325,6 +329,49 @@
   <p id="11aaf5ab-399b-4dd7-94cf-1fa44687a6d3" class=" notion-text-block">Hẹn gặp mọi người vào những bài tiếp theo 😁
   </p>
 </div>
+            </div>
+            
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">TABLE OF CONTENTS</div>
+                    <div class="table-of-contents">
+<h2>Table of Contents</h2>
+<ul>
+<li>
+<a href="#heading-yeu-cau">Yêu cầu</a>
+</li>
+<li>
+<a href="#heading-trien-khai-sentry-va-nhung-kho-khan">Triển khai Sentry và những khó khăn</a>
+</li>
+<li>
+<a href="#heading-kho-khan-">Khó khăn </a>
+</li>
+<li>
+<a href="#heading-su-chuyen-oi">Sự chuyển đổi</a>
+</li>
+<li>
+<a href="#heading-glitchtip">Glitchtip</a>
+</li>
+<li>
+<a href="#heading-gioi-thieu">Giới thiệu</a>
+</li>
+<li>
+<a href="#heading-kho-khan-khi-trien-khai">Khó khăn khi triển khai</a>
+</li>
+<li>
+<a href="#heading-thanh-qua">Thành quả</a>
+</li>
+<li>
+<a href="#heading-ket-luan">Kết luận</a>
+</li>
+</ul>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -334,6 +381,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

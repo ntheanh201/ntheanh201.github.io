@@ -145,22 +145,26 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>Kubernetes pull image from private registry</h1>
-    
-    <p class="date">2022-08-18</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">Kubernetes pull image from private registry</h1>
+        <div class="article-meta">
+            <span class="article-date">2022-08-18</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="fe00a2ac-e8f8-4fce-bf59-b1c18379f646">
-  <h1 id="1e7a6f80-71d9-8079-8af0-fe20d0624841" class="">Hướng dẫn Pull Image từ Private Registry trong Kubernetes
+  <h1 id="heading-huong-dan-pull-image-tu-private-registry-trong-kubernetes" class="">Hướng dẫn Pull Image từ Private Registry trong Kubernetes
   </h1>
-  <h2 id="1e7a6f80-71d9-8091-abca-df803095e4f4" class="">1. Giới thiệu
+  <h2 id="heading-1-gioi-thieu" class="">1. Giới thiệu
   </h2>
   <p id="1e7a6f80-71d9-804b-aaf9-ee9e60451ee7" class=" notion-text-block">Trong thực tế, nhiều doanh nghiệp sử dụng private registry để lưu trữ Docker images vì lý do bảo mật. Bài viết này sẽ hướng dẫn cách cấu hình Kubernetes để pull images từ private registry.
   </p>
-  <h2 id="1e7a6f80-71d9-8024-b60b-db38e52d6ec5" class="">2. Các bước thực hiện
+  <h2 id="heading-2-cac-buoc-thuc-hien" class="">2. Các bước thực hiện
   </h2>
-  <h3 id="1e7a6f80-71d9-800b-a040-dda84e7b70bc" class="">2.1. Tạo Docker registry secret
+  <h3 id="heading-21-tao-docker-registry-secret" class="">2.1. Tạo Docker registry secret
   </h3>
   <p id="1e7a6f80-71d9-80ef-8935-c22dbcee945d" class=" notion-text-block">Đầu tiên, cần tạo một secret chứa thông tin đăng nhập vào registry:
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">kubectl create secret docker-registry regcred <span class="se">\\</span>
@@ -182,7 +186,7 @@
     <li><code>-docker-email</code>: email đăng ký với registry
     </li>
   </ul>
-  <h3 id="1e7a6f80-71d9-80ef-a344-ca4e7d46d962" class="">2.2. Sử dụng secret trong Pod configuration
+  <h3 id="heading-22-su-dung-secret-trong-pod-configuration" class="">2.2. Sử dụng secret trong Pod configuration
   </h3>
   <p id="1e7a6f80-71d9-8005-b13c-d12ed674cf35" class=" notion-text-block">Sau khi tạo secret, thêm trường <code>imagePullSecrets</code> vào Pod specification:
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
@@ -195,11 +199,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">private-registry.io/apps/internal-app:v1.2.3</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">imagePullSecrets</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">regcred</span></span></span></code></pre>
-  <h2 id="1e7a6f80-71d9-8051-a729-e144a8f02298" class="">3. Kiểm tra cấu hình
+  <h2 id="heading-3-kiem-tra-cau-hinh" class="">3. Kiểm tra cấu hình
   </h2>
   <p id="1e7a6f80-71d9-80c3-a524-e6ac2e9f5669" class=" notion-text-block">Có thể kiểm tra secret đã tạo bằng lệnh:
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">kubectl get secret regcred -oyaml</span></span></code></pre>
-  <h2 id="1e7a6f80-71d9-8089-87bc-f68569d26728" class="">4. Một số lưu ý quan trọng
+  <h2 id="heading-4-mot-so-luu-y-quan-trong" class="">4. Một số lưu ý quan trọng
   </h2>
   <ul id="1e7a6f80-71d9-80dc-9148-dad8fab68703" class="bulleted-list">
     <li>Secret phải được tạo trong cùng namespace với Pod
@@ -211,7 +215,7 @@
     <li>Nên sử dụng Kubernetes Secrets Management để bảo mật thông tin đăng nhập
     </li>
   </ul>
-  <h2 id="1e7a6f80-71d9-800d-badc-e818c52388ca" class="">5. Xử lý lỗi thường gặp
+  <h2 id="heading-5-xu-ly-loi-thuong-gap" class="">5. Xử lý lỗi thường gặp
   </h2>
   <p id="1e7a6f80-71d9-8054-a7c0-ecb5c963bbe7" class=" notion-text-block">Một số lỗi phổ biến khi pull image từ private registry:
   </p>
@@ -225,7 +229,7 @@
   </ul>
   <p id="1e7a6f80-71d9-80bc-816a-f8519f89887b" class=" notion-text-block">Để debug, có thể sử dụng lệnh:
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">kubectl describe pod &lt;pod-name&gt;</span></span></code></pre>
-  <h2 id="1e7a6f80-71d9-805d-a53c-db30dc4d85e4" class="">6. Best Practices
+  <h2 id="heading-6-best-practices" class="">6. Best Practices
   </h2>
   <ul id="1e7a6f80-71d9-80b0-8078-f420a6478e2a" class="bulleted-list">
     <li>Sử dụng namespace riêng cho từng môi trường (development, staging, production)
@@ -242,6 +246,49 @@
   <p id="dd5d3151-bf59-4c17-831d-cf8033486513" class=" notion-text-block">Source: <a href="https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/">https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/</a>
   </p>
 </div>
+            </div>
+            
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">TABLE OF CONTENTS</div>
+                    <div class="table-of-contents">
+<h2>Table of Contents</h2>
+<ul>
+<li>
+<a href="#heading-huong-dan-pull-image-tu-private-registry-trong-kubernetes">Hướng dẫn Pull Image từ Private Registry trong Kubernetes</a>
+</li>
+<li>
+<a href="#heading-1-gioi-thieu">1. Giới thiệu</a>
+</li>
+<li>
+<a href="#heading-2-cac-buoc-thuc-hien">2. Các bước thực hiện</a>
+</li>
+<li>
+<a href="#heading-21-tao-docker-registry-secret">2.1. Tạo Docker registry secret</a>
+</li>
+<li>
+<a href="#heading-22-su-dung-secret-trong-pod-configuration">2.2. Sử dụng secret trong Pod configuration</a>
+</li>
+<li>
+<a href="#heading-3-kiem-tra-cau-hinh">3. Kiểm tra cấu hình</a>
+</li>
+<li>
+<a href="#heading-4-mot-so-luu-y-quan-trong">4. Một số lưu ý quan trọng</a>
+</li>
+<li>
+<a href="#heading-5-xu-ly-loi-thuong-gap">5. Xử lý lỗi thường gặp</a>
+</li>
+<li>
+<a href="#heading-6-best-practices">6. Best Practices</a>
+</li>
+</ul>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -251,6 +298,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

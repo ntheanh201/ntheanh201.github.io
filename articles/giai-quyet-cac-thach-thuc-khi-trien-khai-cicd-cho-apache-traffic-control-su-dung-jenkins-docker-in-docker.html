@@ -145,12 +145,16 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>Giải quyết các thách thức khi triển khai CI/CD cho Apache Traffic Control sử dụng Jenkins Docker-in-Docker</h1>
-    
-    <p class="date">2024-11-13</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">Giải quyết các thách thức khi triển khai CI/CD cho Apache Traffic Control sử dụng Jenkins Docker-in-Docker</h1>
+        <div class="article-meta">
+            <span class="article-date">2024-11-13</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="13da6f80-71d9-80f4-a120-fdd51adbdae1">
   <p id="13fa6f80-71d9-8051-957b-e06f7430e7de" class=" notion-text-block">Gần đây, mình đang thử nghiệm CI/CD cho source code Apache Traffic Control (ATC), stack mình quyết định dùng là Jenkins cho CI/CD và Nexus dùng làm repository, vì những bản build của ATC hiện tại đều là file RPM.
   </p>
@@ -158,11 +162,11 @@
   </p>
   <p id="13fa6f80-71d9-809b-8bb1-daff0694f867" class=" notion-text-block">Tuy nhiên, trong quá trình thực hiện, một số lỗi đã xuất hiện liên quan đến pkg builder của ATC và sẽ được trình bày chi tiết cùng với các giải pháp khả thi.
   </p>
-  <h2 id="13da6f80-71d9-80e3-ab0c-d2e30fa061bc" class=""><strong>Bối cảnh</strong>
+  <h2 id="heading-boi-canh" class=""><strong>Bối cảnh</strong>
   </h2>
   <p id="13da6f80-71d9-80ba-be84-dedb324a2f6f" class=" notion-text-block">Khi làm việc với Apache Traffic Control, trong mã nguồn đã có sẵn các script hỗ trợ việc xây dựng cả ATC và modified ATS. Tuy nhiên, việc tích hợp Jenkins với Docker:dind để thực hiện các bước build này đã gặp phải một số thách thức.
   </p>
-  <h2 id="13da6f80-71d9-8045-9033-d6cf66e891ff" class=""><strong>Cài đặt Jenkins và Nexus</strong>
+  <h2 id="heading-cai-atjenkins-va-nexus" class=""><strong>Cài đặt Jenkins và Nexus</strong>
   </h2>
   <p id="13da6f80-71d9-8039-b604-e6a14f5e626f" class=" notion-text-block">Để bắt đầu, có thể tham khảo tài liệu chính thức của Jenkins về cách cài đặt với Docker tại <a href="https://www.jenkins.io/doc/book/installing/docker/">https://www.jenkins.io/doc/book/installing/docker/</a> và Nexus tại: <a href="https://hub.docker.com/r/sonatype/nexus3/">https://hub.docker.com/r/sonatype/nexus3/</a>.
   </p>
@@ -170,9 +174,9 @@
   </p>
   <p id="13fa6f80-71d9-8061-9e0d-e23ee510c593" class=" notion-text-block">Sử dụng Docker:dind cho phép chạy Docker bên trong một container khác, điều này rất hữu ích cho việc xây dựng và triển khai ứng dụng. Việc này không chỉ giúp tiết kiệm tài nguyên mà còn tạo ra một môi trường cách ly, giúp dễ dàng quản lý các phiên bản và cấu hình khác nhau.
   </p>
-  <h2 id="13da6f80-71d9-8048-a96b-dec7f4d9409c" class=""><strong>Các lỗi gặp phải trong quá trình triển khai</strong>
+  <h2 id="heading-cacloigapphai-trong-qua-trinh-trien-khai" class=""><strong>Các lỗi gặp phải trong quá trình triển khai</strong>
   </h2>
-  <h3 id="13da6f80-71d9-808a-93cc-f4493b8c03ef" class=""><strong>1. Không kết nối được tới Docker Dind</strong>
+  <h3 id="heading-1-khong-ketnoiuoc-toi-dockerdind" class=""><strong>1. Không kết nối được tới Docker Dind</strong>
   </h3>
   <p id="13da6f80-71d9-80e0-9a97-f5d6cf1ebe94" class=" notion-text-block">Trong quá trình chạy lệnh build, đã có lỗi xảy ra:
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">+ ./pkg -o -b -v ats
@@ -215,7 +219,7 @@
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl"><span class="nv">COMPOSECMD</span><span class="o">=(</span>docker run --rm <span class="s2">&#34;</span><span class="si">${</span><span class="nv">DOCKER_ADDR</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span> <span class="nv">$COMPOSE_OPTIONS</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">VOLUMES</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span> --network host -w <span class="s2">&#34;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&#34;</span> <span class="nv">$IMAGE</span> docker compose<span class="o">)</span></span></span></code></pre>
   <p id="13fa6f80-71d9-80ea-8c58-c9648e411adf" class=" notion-text-block">
   </p>
-  <h3 id="13da6f80-71d9-8039-8790-dfcca85a0985" class=""><strong>2. Thiếu Certs</strong>
+  <h3 id="heading-2-thieu-certs" class=""><strong>2. Thiếu Certs</strong>
   </h3>
   <p id="13da6f80-71d9-8041-b9a6-c4237ba63df0" class=" notion-text-block">Một lỗi khác cũng đã xuất hiện trong quá trình cài đặt:
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">+ ./pkg -o -b -v ats
@@ -259,7 +263,7 @@
   </p>
   <p id="13da6f80-71d9-80ab-a04b-ec62df96667c" class=" notion-text-block">Việc này đảm bảo rằng các cert cần thiết sẽ có sẵn trong pkg builder container, giúp thiết lập kết nối an toàn với Docker daemon (Dind).
   </p>
-  <h2 id="13da6f80-71d9-8085-973e-fa5d10db4ff8" class=""><strong>Thành quả</strong>
+  <h2 id="heading-thanh-qua" class=""><strong>Thành quả</strong>
   </h2>
 <img class="blog-img" src="/img/90eec5eda2e2c9481855ec7cbfe1b651dbcb3538.png">
   <p id="13da6f80-71d9-8030-b72c-f8d164cb81b6" class=" notion-text-block">Sau khi thực hiện các thay đổi trên, quá trình build Apache Traffic Server đã thành công.
@@ -385,11 +389,48 @@
   </p>
   <p id="13fa6f80-71d9-804b-87d3-c90cb19104bc" class=" notion-text-block">Lí do chiếc PR này mình không contribute lên apache trafficcontrol repo là bởi vì nó là một phần riêng biệt so với các CI tests mà trafficcontrol đang sử dụng, cũng như là 1 thử nghiệm với hướng đi chi tiết hơn so với mức độ tổng quát của trafficcontrol.
   </p>
-  <h2 id="13da6f80-71d9-8081-ab56-d3e62d2b700b" class=""><strong>Kết luận</strong>
+  <h2 id="heading-ketluan" class=""><strong>Kết luận</strong>
   </h2>
   <p id="13da6f80-71d9-8045-ab3c-d9457092d1ad" class=" notion-text-block">Cài đặt Jenkins bằng Docker:dind có thể gặp phải một số thách thức, nhưng với những giải pháp phù hợp, người dùng có thể vượt qua chúng một cách hiệu quả. Việc hiểu rõ nguyên nhân của các lỗi và cách khắc phục sẽ giúp cho quá trình triển khai trở nên suôn sẻ hơn. Hy vọng bài viết này sẽ cung cấp thông tin hữu ích cho những ai đang tìm hiểu về việc triển khai Jenkins trong môi trường Docker, đồng thời khuyến khích cộng đồng chia sẻ thêm kinh nghiệm và giải pháp để cải thiện quy trình phát triển phần mềm.
   </p>
 </div>
+            </div>
+            
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">TABLE OF CONTENTS</div>
+                    <div class="table-of-contents">
+<h2>Table of Contents</h2>
+<ul>
+<li>
+<a href="#heading-boi-canh">Bối cảnh</a>
+</li>
+<li>
+<a href="#heading-cai-atjenkins-va-nexus">Cài đặt Jenkins và Nexus</a>
+</li>
+<li>
+<a href="#heading-cacloigapphai-trong-qua-trinh-trien-khai">Các lỗi gặp phải trong quá trình triển khai</a>
+</li>
+<li>
+<a href="#heading-1-khong-ketnoiuoc-toi-dockerdind">1. Không kết nối được tới Docker Dind</a>
+</li>
+<li>
+<a href="#heading-2-thieu-certs">2. Thiếu Certs</a>
+</li>
+<li>
+<a href="#heading-thanh-qua">Thành quả</a>
+</li>
+<li>
+<a href="#heading-ketluan">Kết luận</a>
+</li>
+</ul>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -399,6 +440,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

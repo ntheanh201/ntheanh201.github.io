@@ -145,12 +145,16 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>Pagination service using Sequelize for NestJS</h1>
-    
-    <p class="date">2022-09-28</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">Pagination service using Sequelize for NestJS</h1>
+        <div class="article-meta">
+            <span class="article-date">2022-09-28</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="661edee1-b016-435a-a13a-ca0862f29f6a">
   <p id="05002d66-0585-4d3b-840d-10d20d58e61b" class=" notion-text-block">I’ve just published a new NPM package named: <a href="https://github.com/ntheanh201/nestjs-sequelize-pagination">https://github.com/ntheanh201/nestjs-sequelize-pagination</a>
   </p>
@@ -163,6 +167,10 @@
   <p id="33564057-121e-4fc1-8558-64855637792c" class=" notion-text-block"><a href="https://www.npmjs.com/package/@ntheanh201/nestjs-sequelize-pagination">https://www.npmjs.com/package/@ntheanh201/nestjs-sequelize-pagination</a>
   </p>
 </div>
+            </div>
+            
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -172,6 +180,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

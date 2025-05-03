@@ -145,12 +145,16 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>Fork: Extract version from package.json (NPM) using bash / shell</h1>
-    
-    <p class="date">2023-08-28</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">Fork: Extract version from package.json (NPM) using bash / shell</h1>
+        <div class="article-meta">
+            <span class="article-date">2023-08-28</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="355ca973-d09a-4085-ac5b-23d1b2876d97">
   <p id="3b55bf5e-02d2-423c-8770-1feb41ff2120" class=" notion-text-block">Link: <a href="https://gist.github.com/ntheanh201/3375b61dd6dfc3f55faad7061665a8da">https://gist.github.com/ntheanh201/3375b61dd6dfc3f55faad7061665a8da</a>
   </p>
@@ -163,6 +167,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$PACKAGE_VERSION</span></span></span></code></pre>
 </div>
+            </div>
+            
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -172,6 +180,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

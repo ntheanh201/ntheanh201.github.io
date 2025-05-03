@@ -145,18 +145,22 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>Hướng dẫn đóng góp dịch thuật cho CNCF Glossary</h1>
-    
-    <p class="date">2025-05-02</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">Hướng dẫn đóng góp dịch thuật cho CNCF Glossary</h1>
+        <div class="article-meta">
+            <span class="article-date">2025-05-02</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="1e7a6f80-71d9-802a-b47d-d5430b781e27">
   <p id="1e7a6f80-71d9-8047-bef0-d20c27ffaf87" class=" notion-text-block">CNCF Glossary là một dự án mã nguồn mở nhằm cung cấp định nghĩa đơn giản, dễ hiểu về các thuật ngữ Cloud Native bằng nhiều ngôn ngữ khác nhau. Bài viết này sẽ hướng dẫn bạn cách tham gia đóng góp dịch thuật cho dự án.
   </p>
-  <h2 id="1e7a6f80-71d9-80ad-b9d3-ceb43c99099d" class="">Các bước tham gia đóng góp
+  <h2 id="heading-cac-buoc-tham-gia-ong-gop" class="">Các bước tham gia đóng góp
   </h2>
-  <h3 id="1e7a6f80-71d9-809e-8274-c58017204134" class="">1. Fork Repository
+  <h3 id="heading-1-fork-repository" class="">1. Fork Repository
   </h3>
   <ul id="1e7a6f80-71d9-80fe-b49f-c26d194a361f" class="bulleted-list">
     <li>Truy cập <a href="https://github.com/cncf/glossary">https://github.com/cncf/glossary</a>
@@ -164,17 +168,17 @@
     <li>Click nút &quot;Fork&quot; để fork repository về GitHub của bạn, lưu ý: fork nhánh dev-vi.
     </li>
   </ul>
-  <h3 id="1e7a6f80-71d9-80f7-b9b2-e61df3252f8c" class="">2. Clone Repository về máy local
+  <h3 id="heading-2-clone-repository-ve-may-local" class="">2. Clone Repository về máy local
   </h3><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">git clone &lt;https://github.com/<span class="nv">$user</span>/glossary.git&gt;
 </span></span><span class="line"><span class="cl"><span class="nb">cd</span> glossary
 </span></span><span class="line"><span class="cl">git remote add upstream &lt;https://github.com/cncf/glossary.git&gt;
 </span></span><span class="line"><span class="cl">git remote set-url --push upstream no_push</span></span></code></pre>
-  <h3 id="1e7a6f80-71d9-806e-b03f-ebaf90bcf5e4" class="">3. Tạo branch mới
+  <h3 id="heading-3-tao-branch-moi" class="">3. Tạo branch mới
   </h3><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">git fetch upstream
 </span></span><span class="line"><span class="cl">git checkout dev-vi
 </span></span><span class="line"><span class="cl">git rebase upstream/dev-vi
 </span></span><span class="line"><span class="cl">git checkout -b translate-vi</span></span></code></pre>
-  <h3 id="1e7a6f80-71d9-8042-9507-e2c1cdc4ed87" class="">4. Thực hiện công việc dịch thuật
+  <h3 id="heading-4-thuc-hien-cong-viec-dich-thuat" class="">4. Thực hiện công việc dịch thuật
   </h3>
   <ul id="1e7a6f80-71d9-80b5-9772-c19ee38a940c" class="bulleted-list">
     <li>Các file cần dịch nằm trong thư mục content/
@@ -186,7 +190,7 @@
     <li>Thực hiện dịch thuật, đảm bảo giữ nguyên format
     </li>
   </ul>
-  <h3 id="1e7a6f80-71d9-80b3-aef3-e5483b3749cf" class="">5. Commit và Push với sign-off
+  <h3 id="heading-5-commit-va-push-voi-sign-off" class="">5. Commit và Push với sign-off
   </h3>
   <p id="1e7a6f80-71d9-8031-963d-e14e11ef4735" class=" notion-text-block"><strong>Phương pháp 1</strong>: Sử dụng flag <code>--signoff</code> hoặc <code>-s</code>
   </p><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">git add content/vi/
@@ -210,11 +214,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="s2">
 </span></span></span><span class="line"><span class="cl"><span class="s2">Signed-off-by: Tên của bạn &lt;email@example.com&gt;&#34;</span>
 </span></span><span class="line"><span class="cl">git push origin translate-vi</span></span></code></pre>
-  <h3 id="1e7a6f80-71d9-807c-954d-fc7bbf06974f" class="">Ý nghĩa của sign-off
-  </h3>
+  <p id="1e7a6f80-71d9-807c-954d-fc7bbf06974f" class=" notion-text-block"><strong>Ý nghĩa của sign-off</strong>
+  </p>
   <p id="1e7a6f80-71d9-8014-a2c8-dd4c16523002" class=" notion-text-block">Khi bạn sign-off một commit, bạn đang xác nhận rằng bạn có quyền đóng góp code theo giấy phép của dự án và tuân thủ Developer Certificate of Origin (DCO). Đây là yêu cầu bắt buộc của nhiều dự án mã nguồn mở, bao gồm cả các dự án CNCF.
   </p>
-  <h3 id="1e7a6f80-71d9-8005-8130-c0ed88a4f49b" class="">6. Tạo Pull Request
+  <h3 id="heading-6-tao-pull-request" class="">6. Tạo Pull Request
   </h3>
   <ul id="1e7a6f80-71d9-80b3-b4a8-cd863aa82be0" class="bulleted-list">
     <li>Truy cập repository đã fork trên GitHub của bạn
@@ -226,7 +230,7 @@
     <li>Điền thông tin Pull Request theo mẫu
     </li>
   </ul>
-  <h2 id="1e7a6f80-71d9-80c9-81c3-d6df13a4c907" class="">Lưu ý khi dịch
+  <h2 id="heading-luu-y-khi-dich" class="">Lưu ý khi dịch
   </h2>
   <ul id="1e7a6f80-71d9-802d-96d6-e5de02b05497" class="bulleted-list">
     <li>Giữ nguyên các thuật ngữ kỹ thuật
@@ -247,6 +251,46 @@
   <p id="1e7a6f80-71d9-80a6-bc46-fd4cd1f2a9fe" class=" notion-text-block">Chúc bạn thành công trong việc đóng góp cho dự án CNCF Glossary!
   </p>
 </div>
+            </div>
+            
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">TABLE OF CONTENTS</div>
+                    <div class="table-of-contents">
+<h2>Table of Contents</h2>
+<ul>
+<li>
+<a href="#heading-cac-buoc-tham-gia-ong-gop">Các bước tham gia đóng góp</a>
+</li>
+<li>
+<a href="#heading-1-fork-repository">1. Fork Repository</a>
+</li>
+<li>
+<a href="#heading-2-clone-repository-ve-may-local">2. Clone Repository về máy local</a>
+</li>
+<li>
+<a href="#heading-3-tao-branch-moi">3. Tạo branch mới</a>
+</li>
+<li>
+<a href="#heading-4-thuc-hien-cong-viec-dich-thuat">4. Thực hiện công việc dịch thuật</a>
+</li>
+<li>
+<a href="#heading-5-commit-va-push-voi-sign-off">5. Commit và Push với sign-off</a>
+</li>
+<li>
+<a href="#heading-6-tao-pull-request">6. Tạo Pull Request</a>
+</li>
+<li>
+<a href="#heading-luu-y-khi-dich">Lưu ý khi dịch</a>
+</li>
+</ul>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -256,6 +300,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

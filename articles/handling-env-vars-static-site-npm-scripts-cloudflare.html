@@ -145,14 +145,18 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages</h1>
-    
-    <p class="date">2025-05-02</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages</h1>
+        <div class="article-meta">
+            <span class="article-date">2025-05-02</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="1e7a6f80-71d9-8027-b757-fec1c9602e0c">
-  <h2 id="1e7a6f80-71d9-809f-af35-e4ca9023ba0a" class=""><strong>Problem</strong>
+  <h2 id="heading-problem" class=""><strong>Problem</strong>
   </h2>
   <ul id="1e7a6f80-71d9-8031-be2d-e17371478434" class="bulleted-list">
     <li>When deploying a static site with NPM scripts that utilize bash commands and environment variables inside <code>package.json</code> scripts, you might define something like:
@@ -163,7 +167,7 @@
   <p id="1e7a6f80-71d9-8042-b8c8-c48e00c4d748" class=" notion-text-block">However, when deploying with Cloudflare Pages, this approach can lead to errors such as:
   </p>
 <img class="blog-img" src="/img/0cb8b545ee0e0074d338fd98727cdb8dcb35197d.png">
-  <h2 id="1e7a6f80-71d9-8021-b745-c5cc5c9ebcba" class=""><strong>Solution</strong>
+  <h2 id="heading-solution" class=""><strong>Solution</strong>
   </h2>
   <ul id="1e7a6f80-71d9-8011-b8c8-d49a84439fbb" class="bulleted-list">
     <li>Set the environment variables in the Cloudflare Pages dashboard.
@@ -177,13 +181,38 @@
   </ul>
   <p id="1e7a6f80-71d9-8095-b9f4-efa93e3fa7d5" class=" notion-text-block">For a complete example, you can check out the code: <strong><a href="https://github.com/ntheanh201/cloudflare-static-site">https://github.com/ntheanh201/cloudflare-static-site</a></strong>
   </p>
-  <h2 id="1e7a6f80-71d9-80c7-85e9-c7a78147b3af" class=""><strong>Result</strong>
+  <h2 id="heading-result" class=""><strong>Result</strong>
   </h2>
   <ul id="1e7a6f80-71d9-801d-bc49-f65f82245c4d" class="bulleted-list">
     <li>The error is gone and the deployment is successful.
     </li>
   </ul>
 </div>
+            </div>
+            
+            
+            <div class="toc-container">
+                <div class="toc-sticky">
+                    <div class="toc-header">TABLE OF CONTENTS</div>
+                    <div class="table-of-contents">
+<h2>Table of Contents</h2>
+<ul>
+<li>
+<a href="#heading-problem">Problem</a>
+</li>
+<li>
+<a href="#heading-solution">Solution</a>
+</li>
+<li>
+<a href="#heading-result">Result</a>
+</li>
+</ul>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -193,6 +222,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 

@@ -145,12 +145,16 @@
     <p class='name-header'>
         <a href="/">↫ The Anh Nguyen</a>
     </p>
-    <h1>New domain name ^^</h1>
-    
-    <p class="date">2023-06-14</p>
-    
-    <div>
-        <p></p>
+    <div class="article">
+        <h1 class="article-title">New domain name ^^</h1>
+        <div class="article-meta">
+            <span class="article-date">2023-06-14</span>
+            
+        </div>
+
+        <div class="article-container">
+            <div class="article-content">
+                <p></p>
 <div class="notion-page" id="0905a24f-0939-4e97-bc66-1af00da2a6ba">
   <p id="ba38d61d-c53d-4f04-9b85-5455192d7faf" class=" notion-text-block">Recently, I changed my blog from <a href="https://ntheanh201.vercel.app">https://ntheanh201.vercel.app</a> to <a href="https://ntheanh201.id.vn">https://ntheanh201.id.vn</a>
   </p>
@@ -191,6 +195,10 @@
 <img class="blog-img" src="/img/0b7c3d90d20066c482a8dbe309f853b877726bc7.png">
 <img class="blog-img" src="/img/81c3bc2f09c26ec1e181941330d7fcdfadae70ce.png">
 </div>
+            </div>
+            
+            
+        </div>
     </div>
     
     <p class='social-footer'>—
@@ -200,6 +208,50 @@
 </div>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const tocLinks = document.querySelectorAll('.table-of-contents a');
+        
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    
+                    history.pushState(null, null, '#' + targetId);
+                }
+            });
+        });
+        
+        
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
+            }
+        }
+    });
+</script>
 
 </body>
 
