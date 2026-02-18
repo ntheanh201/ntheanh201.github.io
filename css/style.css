@@ -64,11 +64,24 @@ h1, h2, b {
 
 /* Colors */
 body {
-    background-color: #fffff8;
+    background-color: #f6f5e9;
+    background-image: linear-gradient(to bottom right, #f6f5e9, #faf8fa);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, p, blockquote, li, a, th, td {
-    color: #0c0c0c;
+h1, h2, th, td {
+    color: #111827;
+}
+
+p, blockquote, li {
+    color: #374151;
+}
+
+a {
+    color: #111827;
 }
 
 img.contrast-border {
@@ -93,7 +106,7 @@ img.contrast-border {
 
 /* Layout */
 div#content {
-    margin: 5em auto 14em;
+    margin: 5em auto 4em;
 }
 
 h1 {
@@ -117,18 +130,19 @@ h2 {
 }
 
 p, figure {
-    line-height: 1.5em;
-    font-size: 1.1em;
+    line-height: 1.75em;
+    font-size: 1.125rem;
     margin-bottom: 1em;
 }
 
 blockquote {
-    line-height: 1.5em;
+    line-height: 1.75em;
     margin-bottom: 1em;
     padding: 0.2em 0.75em;
     font-style: italic;
-    font-size: 1.1em;
-    border-left: 4px solid #4580c2;
+    font-size: 1.125rem;
+    border-left: 4px solid #e5e7eb;
+    color: #111827;
 }
 
 sup {
@@ -156,8 +170,8 @@ span.index-date {
 }
 
 li {
-    line-height: 1.5em;
-    font-size: 1.1em;
+    line-height: 1.75em;
+    font-size: 1.125rem;
     list-style-position: outside;
     margin-bottom: 1em;
 }
