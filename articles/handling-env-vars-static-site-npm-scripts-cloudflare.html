@@ -162,14 +162,17 @@
         <h1 class="article-title">Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages</h1>
       </div>
 
+      
+
       <div class="article-layout">
+        
         
         <div class="article-sidebar-left">
           <div class="article-sidebar-sticky">
             <div class="article-sidebar-block">
               <div class="article-sidebar-type">Article</div>
               <div class="article-sidebar-title">Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages</div>
-              <div class="article-sidebar-permalink">🔗</div>
+              <a href="/articles/handling-env-vars-static-site-npm-scripts-cloudflare.html" class="article-sidebar-permalink">🔗</a>
             </div>
 
             <div class="article-sidebar-block">
@@ -207,6 +210,7 @@
             </div>
           </div>
         </div>
+        
 
         
         <div class="article-center">
@@ -217,9 +221,9 @@
   <ul id="1e7a6f80-71d9-8031-be2d-e17371478434" class="bulleted-list">
     <li>When deploying a static site with NPM scripts that utilize bash commands and environment variables inside <code>package.json</code> scripts, you might define something like:
     </li>
-  </ul><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">  &#34;scripts&#34;: {
-</span></span><span class="line"><span class="cl">    &#34;transpile-js&#34;: &#34;. .env; for file in &#34;\${JS_FILES[@]}&#34;; do(babel js/&#34;\$file&#34;.js -o dist/js/&#34;\$file&#34;.js --presets=@babel/preset-env); done&#34;
-</span></span><span class="line"><span class="cl">  }</span></span></code></pre>
+  </ul><pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">  <span class="s2">&#34;scripts&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transpile-js&#34;</span><span class="p">:</span> <span class="s2">&#34;. .env; for file in &#34;</span><span class="err">\$</span><span class="p">{</span><span class="err">JS_FILES[@]</span><span class="p">}</span><span class="s2">&#34;; do(babel js/&#34;</span><span class="err">\$file</span><span class="s2">&#34;.js -o dist/js/&#34;</span><span class="err">\$file</span><span class="s2">&#34;.js --presets=@babel/preset-env); done&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span></span></span></code></pre>
   <p id="1e7a6f80-71d9-8042-b8c8-c48e00c4d748" class=" notion-text-block">However, when deploying with Cloudflare Pages, this approach can lead to errors such as:
   </p>
 <img class="blog-img" src="/img/0cb8b545ee0e0074d338fd98727cdb8dcb35197d.png">
@@ -229,9 +233,9 @@
     <li>Set the environment variables in the Cloudflare Pages dashboard.
     <img class="blog-img" src="/img/783600eaa50536dafadb7d635f59f01db8f217b8.png">
     </li>
-    <li>Use <strong>dotenvx</strong> to preload environment variables instead of using the .env file, as Cloudflare doesn&#x27;t support .env files.<pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">  &#34;scripts&#34;: {
-</span></span><span class="line"><span class="cl">    &#34;transpile-js&#34;: &#34;dotenvx run -- bash -c &#39;read -r -a JS_FILES &lt;&lt;&lt; &#34;$JS_FILES&#34;; for file in &#34;${JS_FILES[@]}&#34;; do(babel js/$file.js -o dist/js/$file.js --presets=@babel/preset-env); done&#39;&#34;
-</span></span><span class="line"><span class="cl">  }
+    <li>Use <strong>dotenvx</strong> to preload environment variables instead of using the .env file, as Cloudflare doesn&#x27;t support .env files.<pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">  <span class="s2">&#34;scripts&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;transpile-js&#34;</span><span class="p">:</span> <span class="s2">&#34;dotenvx run -- bash -c &#39;read -r -a JS_FILES &lt;&lt;&lt; &#34;</span><span class="err">$JS_FILES</span><span class="s2">&#34;; for file in &#34;</span><span class="err">$</span><span class="p">{</span><span class="err">JS_FILES[@]</span><span class="p">}</span><span class="s2">&#34;; do(babel js/$file.js -o dist/js/$file.js --presets=@babel/preset-env); done&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span></code></pre>
     </li>
   </ul>
@@ -250,7 +254,7 @@
         
         <div class="toc-container">
           <div class="toc-sticky">
-            <div class="toc-header">TABLE OF CONTENTS</div>
+            <div class="article-sidebar-type">Table of contents</div>
             <div class="table-of-contents">
 <h2>Table of Contents</h2>
 <ul>

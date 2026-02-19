@@ -22,7 +22,7 @@
     
     <meta name="twitter:creator" content="@ntheanh201" />
     
-    <meta name="twitter:image" content="https://ntheanh201.id.vn" />
+    <meta name="twitter:image" content="https://ntheanh201.id.vn/img/03a52ae66fd3a4fa30520fc7ee8a61354dd0fcd9.jpg" />
      
 
     
@@ -30,7 +30,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://ntheanh201.id.vn/articles/kubernetes-pull-image-from-private-registry.html" />
      
-    <meta property="og:image" content="https://ntheanh201.id.vn" />
+    <meta property="og:image" content="https://ntheanh201.id.vn/img/03a52ae66fd3a4fa30520fc7ee8a61354dd0fcd9.jpg" />
     
 
     <title>Kubernetes pull image from private registry</title>
@@ -162,14 +162,21 @@
         <h1 class="article-title">Kubernetes pull image from private registry</h1>
       </div>
 
+      
+      <div class="article-cover">
+        <img src="/img/03a52ae66fd3a4fa30520fc7ee8a61354dd0fcd9.jpg" alt="Kubernetes pull image from private registry" class="article-cover-img" />
+      </div>
+      
+
       <div class="article-layout">
+        
         
         <div class="article-sidebar-left">
           <div class="article-sidebar-sticky">
             <div class="article-sidebar-block">
               <div class="article-sidebar-type">Article</div>
               <div class="article-sidebar-title">Kubernetes pull image from private registry</div>
-              <div class="article-sidebar-permalink">🔗</div>
+              <a href="/articles/kubernetes-pull-image-from-private-registry.html" class="article-sidebar-permalink">🔗</a>
             </div>
 
             <div class="article-sidebar-block">
@@ -207,13 +214,12 @@
             </div>
           </div>
         </div>
+        
 
         
         <div class="article-center">
           <div class="article-content"><p></p>
 <div class="notion-page" id="fe00a2ac-e8f8-4fce-bf59-b1c18379f646">
-  <h1 id="heading-huong-dan-pull-image-tu-private-registry-trong-kubernetes" class="">Hướng dẫn Pull Image từ Private Registry trong Kubernetes
-  </h1>
   <h2 id="heading-1-gioi-thieu" class="">1. Giới thiệu
   </h2>
   <p id="1e7a6f80-71d9-804b-aaf9-ee9e60451ee7" class=" notion-text-block">Trong thực tế, nhiều doanh nghiệp sử dụng private registry để lưu trữ Docker images vì lý do bảo mật. Bài viết này sẽ hướng dẫn cách cấu hình Kubernetes để pull images từ private registry.
@@ -308,24 +314,23 @@
         
         <div class="toc-container">
           <div class="toc-sticky">
-            <div class="toc-header">TABLE OF CONTENTS</div>
+            <div class="article-sidebar-type">Table of contents</div>
             <div class="table-of-contents">
 <h2>Table of Contents</h2>
 <ul>
-<li>
-<a href="#heading-huong-dan-pull-image-tu-private-registry-trong-kubernetes">Hướng dẫn Pull Image từ Private Registry trong Kubernetes</a>
-</li>
 <li>
 <a href="#heading-1-gioi-thieu">1. Giới thiệu</a>
 </li>
 <li>
 <a href="#heading-2-cac-buoc-thuc-hien">2. Các bước thực hiện</a>
-</li>
+<ul>
 <li>
 <a href="#heading-21-tao-docker-registry-secret">2.1. Tạo Docker registry secret</a>
 </li>
 <li>
 <a href="#heading-22-su-dung-secret-trong-pod-configuration">2.2. Sử dụng secret trong Pod configuration</a>
+</li>
+</ul>
 </li>
 <li>
 <a href="#heading-3-kiem-tra-cau-hinh">3. Kiểm tra cấu hình</a>
