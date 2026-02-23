@@ -22,7 +22,7 @@
     
     <meta name="twitter:creator" content="@ntheanh201" />
     
-    <meta name="twitter:image" content="https://ntheanh201.id.vn" />
+    <meta name="twitter:image" content="https://ntheanh201.id.vn/img/d80c9fbd071a2ccc81285732d94f69d718cab03d.jpg" />
      
 
     
@@ -30,7 +30,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://ntheanh201.id.vn/articles/handling-env-vars-static-site-npm-scripts-cloudflare.html" />
      
-    <meta property="og:image" content="https://ntheanh201.id.vn" />
+    <meta property="og:image" content="https://ntheanh201.id.vn/img/d80c9fbd071a2ccc81285732d94f69d718cab03d.jpg" />
     
 
     <title>Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages</title>
@@ -163,6 +163,10 @@
       </div>
 
       
+      <div class="article-cover">
+        <img src="/img/d80c9fbd071a2ccc81285732d94f69d718cab03d.jpg" alt="Handling environment variables when Deploying a Static Site with NPM Scripts and Cloudflare Pages" class="article-cover-img" />
+      </div>
+      
 
       <div class="article-layout">
         
@@ -235,8 +239,7 @@
     </li>
     <li>Use <strong>dotenvx</strong> to preload environment variables instead of using the .env file, as Cloudflare doesn&#x27;t support .env files.<pre tabindex="0" class="chroma"><code><span class="line"><span class="cl">  <span class="s2">&#34;scripts&#34;</span><span class="err">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;transpile-js&#34;</span><span class="p">:</span> <span class="s2">&#34;dotenvx run -- bash -c &#39;read -r -a JS_FILES &lt;&lt;&lt; &#34;</span><span class="err">$JS_FILES</span><span class="s2">&#34;; for file in &#34;</span><span class="err">$</span><span class="p">{</span><span class="err">JS_FILES[@]</span><span class="p">}</span><span class="s2">&#34;; do(babel js/$file.js -o dist/js/$file.js --presets=@babel/preset-env); done&#39;&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span></code></pre>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span></span></span></code></pre>
     </li>
   </ul>
   <p id="1e7a6f80-71d9-8095-b9f4-efa93e3fa7d5" class=" notion-text-block">For a complete example, you can check out the code: <strong><a href="https://github.com/ntheanh201/cloudflare-static-site">https://github.com/ntheanh201/cloudflare-static-site</a></strong>
