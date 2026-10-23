@@ -1,0 +1,59 @@
+---
+import Base from "../../layouts/Base.astro";
+import Note from "../../components/Note.astro";
+import { getNotes, noteURL } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const notes = await getNotes();
+  return notes.map((note, i) => ({
+    params: { slug: note.id },
+    props: { note, newer: notes[i - 1], older: notes[i + 1] },
+  }));
+}
+
+const { note, newer, older } = Astro.props;
+const firstImage = note.body?.match(/!\[[^\]]*\]\(([^)\s]+)/)?.[1];
+---
+
+<Base title={note.data.title} image={firstImage} type="article">
+  <div class="wrap single">
+    <p class="back meta"><a href="/notes.html">← All notes</a></p>
+    <Note note={note} heading="h1" />
+
+    {
+      (newer || older) && (
+        <nav class="pager" aria-label="More notes">
+          {older ? (
+            <a href={noteURL(older.id)}>
+              <span class="meta">← Older</span>
+              {older.data.title}
+            </a>
+          ) : (
+            <span />
+          )}
+          {newer && (
+            <a class="next" href={noteURL(newer.id)}>
+              <span class="meta">Newer →</span>
+              {newer.data.title}
+            </a>
+          )}
+        </nav>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .single {
+    padding-top: 3rem;
+  }
+
+  .back {
+    margin: 0 0 1.25rem;
+  }
+
+  .back a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+import { render } from "astro:content";
+import { formatDate, noteURL, type Note } from "../lib/posts";
+
+interface Props {
+  note: Note;
+  heading?: "h1" | "h2";
+}
+
+const { note, heading: Heading = "h2" } = Astro.props;
+const { Content } = await render(note);
+---
+
+<article class="note" lang={note.data.lang}>
+  <header>
+    <p class="meta">
+      <time datetime={note.data.date.toISOString()}>{formatDate(note.data.date)}</time>
+      <span aria-hidden="true"> · </span>
+      <a href={note.data.sourceUrl} rel="noopener">Originally on {note.data.source} ↗</a>
+    </p>
+    <Heading>
+      {Heading === "h2" ? <a href={noteURL(note.id)}>{note.data.title}</a> : note.data.title}
+    </Heading>
+  </header>
+  <div class="prose">
+    <Content />
+  </div>
+</article>
+
+<style>
+  .note header .meta {
+    margin: 0 0 0.35rem;
+  }
+
+  .note h1 {
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0 0 1.25rem;
+  }
+
+  .note h2 {
+    font-size: 1.25rem;
+    line-height: 1.35;
+    margin: 0 0 0.75rem;
+  }
+
+  .note h2 a {
+    color: var(--fg);
+    text-decoration: none;
+  }
+
+  .note h2 a:hover {
+    color: var(--accent);
+  }
+
+  /* Social images are often 4:5 portraits; cap the height so they don't
+     run past the screen, and let landscape figures use the full column. */
+  .note .prose :global(img) {
+    width: auto;
+    max-width: 100%;
+    max-height: 25rem;
+  }
+</style>

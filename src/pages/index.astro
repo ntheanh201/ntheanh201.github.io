@@ -1,12 +1,13 @@
 ---
 import Base from "../layouts/Base.astro";
 import PostList from "../components/PostList.astro";
-import { formatDate, getPosts } from "../lib/posts";
+import { formatDate, getNotes, getPosts, noteURL } from "../lib/posts";
 import { ALL_BADGES, CERTIFICATIONS, EXTERNAL_WRITING, TALKS } from "../site";
 import { certLabel } from "../lib/certs";
 
 const posts = await getPosts();
 const recent = posts.slice(0, 6);
+const notes = await getNotes();
 const certCount = CERTIFICATIONS.reduce((n, g) => n + g.items.length, 0);
 ---
 
@@ -63,26 +64,31 @@ const certCount = CERTIFICATIONS.reduce((n, g) => n + g.items.length, 0);
         <h2>Writing</h2>
         <a href="/archives.html">All {posts.length} posts →</a>
       </div>
+      <PostList posts={recent} external={EXTERNAL_WRITING} />
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Notes</h2>
+        <a href="/notes.html">All {notes.length} notes →</a>
+      </div>
       <ul class="post-list">
         {
-          EXTERNAL_WRITING.map((w) => (
+          notes.slice(0, 4).map((n) => (
             <li>
-              <time datetime={w.date}>{formatDate(new Date(w.date))}</time>
+              <time datetime={n.data.date.toISOString()}>{formatDate(n.data.date)}</time>
               <div>
-                <a class="title" href={w.href}>
-                  {w.title} ↗
+                <a class="title" href={noteURL(n.id)}>
+                  {n.data.title}
                 </a>
                 <div class="sub">
-                  <span>{w.where}</span>
-                  {w.alt && <a href={w.alt.href}>{w.alt.label}</a>}
-                  {w.featured && <a href={w.featured.href}>{w.featured.label} ↗</a>}
+                  <span>{n.data.source}</span>
                 </div>
               </div>
             </li>
           ))
         }
       </ul>
-      <PostList posts={recent} />
     </section>
 
     <section class="section">

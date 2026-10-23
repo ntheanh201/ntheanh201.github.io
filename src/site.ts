@@ -139,8 +139,17 @@ export const TALKS: { title: string; event: string; href: string; year?: string 
   },
 ];
 
+export interface ExternalPost {
+  title: string;
+  where: string;
+  date: string; // YYYY-MM-DD
+  href: string;
+  alt?: { label: string; href: string };
+  featured?: { label: string; href: string };
+}
+
 // Writing published elsewhere, listed next to the posts on this site.
-export const EXTERNAL_WRITING = [
+export const EXTERNAL_WRITING: ExternalPost[] = [
   {
     title: "Turning GPU-hours into tokens: how Viettel Cloud serves multiple LLM families with NVIDIA Dynamo",
     where: "Viettel Cloud Tech Blog",

@@ -1,36 +1,57 @@
 ---
 import { formatDate, postURL, readingMinutes, tagSlug, type Post } from "../lib/posts";
+import type { ExternalPost } from "../site";
 
 interface Props {
   posts: Post[];
+  // Writing published elsewhere, merged into the list by date.
+  external?: ExternalPost[];
   showTags?: boolean;
 }
 
-const { posts, showTags = true } = Astro.props;
+const { posts, external = [], showTags = true } = Astro.props;
+const items = [
+  ...posts.map((post) => ({ date: post.data.date, post, ext: undefined })),
+  ...external.map((ext) => ({ date: new Date(ext.date), post: undefined, ext })),
+].sort((a, b) => b.date.valueOf() - a.date.valueOf());
 ---
 
 <ul class="post-list">
   {
-    posts.map((post) => (
+    items.map(({ date, post, ext }) => (
       <li>
-        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-        <div>
-          <a class="title" href={postURL(post.id)}>
-            {post.data.title}
-          </a>
-          <div class="sub">
-            <span>{readingMinutes(post.body)} min read</span>
-            {showTags && post.data.tags.length > 0 && (
-              <span class="tags">
-                {post.data.tags.map((t) => (
-                  <a class="tag" href={`/tag/${tagSlug(t)}.html`}>
-                    {t}
-                  </a>
-                ))}
-              </span>
-            )}
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+        {post && (
+          <div>
+            <a class="title" href={postURL(post.id)}>
+              {post.data.title}
+            </a>
+            <div class="sub">
+              <span>{readingMinutes(post.body)} min read</span>
+              {showTags && post.data.tags.length > 0 && (
+                <span class="tags">
+                  {post.data.tags.map((t) => (
+                    <a class="tag" href={`/tag/${tagSlug(t)}.html`}>
+                      {t}
+                    </a>
+                  ))}
+                </span>
+              )}
+            </div>
           </div>
-        </div>
+        )}
+        {ext && (
+          <div>
+            <a class="title" href={ext.href}>
+              {ext.title} ↗
+            </a>
+            <div class="sub">
+              <span>{ext.where}</span>
+              {ext.alt && <a href={ext.alt.href}>{ext.alt.label}</a>}
+              {ext.featured && <a href={ext.featured.href}>{ext.featured.label} ↗</a>}
+            </div>
+          </div>
+        )}
       </li>
     ))
   }

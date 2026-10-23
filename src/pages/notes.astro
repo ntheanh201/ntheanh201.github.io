@@ -1,0 +1,49 @@
+---
+import Base from "../layouts/Base.astro";
+import Note from "../components/Note.astro";
+import { getNotes } from "../lib/posts";
+
+const notes = await getNotes();
+---
+
+<Base title="Notes" description="Short posts from LinkedIn and Facebook, kept here so they stay findable.">
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Notes</h1>
+      <p class="meta">
+        Short posts first shared on LinkedIn and Facebook, kept here so they stay findable. Longer pieces are under{" "}
+        <a href="/archives.html">Writing</a>.
+      </p>
+    </header>
+
+    <div class="notes">
+      {notes.map((note) => <Note note={note} />)}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .page-head {
+    padding-top: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .page-head h1 {
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.25rem;
+  }
+
+  .page-head .meta {
+    margin: 0;
+  }
+
+  .notes > :global(.note) {
+    padding: 2.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .notes > :global(.note:last-child) {
+    border-bottom: 0;
+  }
+</style>

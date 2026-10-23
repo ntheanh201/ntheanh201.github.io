@@ -546,3 +546,41 @@ img {
     display: inline;
   }
 }
+
+/* Older/newer links at the end of a post or a note. */
+.pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.pager a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 550;
+  line-height: 1.4;
+}
+
+.pager a:hover {
+  color: var(--accent);
+}
+
+.pager .next {
+  text-align: right;
+}
+
+@media (max-width: 34rem) {
+  .pager {
+    grid-template-columns: 1fr;
+  }
+
+  .pager .next {
+    text-align: left;
+  }
+}

@@ -20,7 +20,10 @@ const tags = [...tagCounts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0
   <div class="wrap">
     <header class="page-head">
       <h1>Writing</h1>
-      <p class="meta">{posts.length} posts on Kubernetes, CDN, monitoring and the odd tool fix.</p>
+      <p class="meta">
+        {posts.length} posts on GPU platforms, Kubernetes, CDN, monitoring and the odd tool fix. Shorter posts are in{" "}
+        <a href="/notes.html">Notes</a>.
+      </p>
       <div class="tags">
         {
           tags.map(([t, n]) => (

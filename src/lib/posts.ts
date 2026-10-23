@@ -7,6 +7,17 @@ export async function getPosts(): Promise<Post[]> {
   return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
+export type Note = CollectionEntry<"notes">;
+
+export async function getNotes(): Promise<Note[]> {
+  const notes = await getCollection("notes");
+  return notes.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+}
+
+export function noteURL(id: string): string {
+  return `/notes/${id}.html`;
+}
+
 // Same mapping as notion-blog's SafeTagForURL, so /tag/ci-cd.html still resolves.
 export function tagSlug(tag: string): string {
   return tag.replace(/[/?&=#+ :;]/g, "-");
