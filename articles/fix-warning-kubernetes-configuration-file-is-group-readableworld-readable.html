@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Fix Warning: Kubernetes configuration file is group-readable/world-readable · The Anh Nguyen</title><meta name="description" content="WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/ubuntu/.kube/config WARNING: Kubernetes configuration file is world-readable. This is…"><link rel="canonical" href="https://ntheanh201.id.vn/articles/fix-warning-kubernetes-configuration-file-is-group-readableworld-readable.html"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="The Anh Nguyen" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="article"><meta property="og:title" content="Fix Warning: Kubernetes configuration file is group-readable/world-readable"><meta property="og:description" content="WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/ubuntu/.kube/config WARNING: Kubernetes configuration file is world-readable. This is…"><meta property="og:url" content="https://ntheanh201.id.vn/articles/fix-warning-kubernetes-configuration-file-is-group-readableworld-readable.html"><meta property="og:image" content="https://ntheanh201.id.vn/thumbnail.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@ntheanh201"><meta name="color-scheme" content="light dark"><script>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem("theme"); } catch {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.CgWflc-e.css"><style>.article[data-astro-cid-57z6rh23]{max-width:var(--measure);margin:0 auto;padding:0 1rem}@media (width>=72rem){.article[data-astro-cid-57z6rh23].has-toc{max-width:calc(var(--measure) + 15rem + 3rem);grid-template-columns:minmax(0, var(--measure)) 15rem;gap:3rem;display:grid}}.article-head[data-astro-cid-57z6rh23]{margin-bottom:2rem;padding-top:3.5rem}.article-head[data-astro-cid-57z6rh23] h1[data-astro-cid-57z6rh23]{letter-spacing:-.02em;margin:0 0 .75rem;font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.2}.article-head[data-astro-cid-57z6rh23] .meta[data-astro-cid-57z6rh23]{flex-wrap:wrap;align-items:center;gap:.35rem;margin:0;display:flex}.cover[data-astro-cid-57z6rh23]{border:1px solid var(--border);border-radius:8px;width:100%;margin-bottom:2.25rem;display:block}.pager[data-astro-cid-57z6rh23]{border-top:1px solid var(--border);grid-template-columns:1fr 1fr;gap:1rem;margin-top:4rem;padding-top:1.5rem;display:grid}.pager[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--fg);flex-direction:column;gap:.2rem;font-weight:550;line-height:1.4;text-decoration:none;display:flex}.pager[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--accent)}.pager[data-astro-cid-57z6rh23] .next[data-astro-cid-57z6rh23]{text-align:right}@media (width<=34rem){.pager[data-astro-cid-57z6rh23]{grid-template-columns:1fr}.pager[data-astro-cid-57z6rh23] .next[data-astro-cid-57z6rh23]{text-align:left}}.toc[data-astro-cid-57z6rh23]{display:none}@media (width>=72rem){.toc[data-astro-cid-57z6rh23]{align-self:start;max-height:calc(100vh - 3rem);margin-top:3.75rem;font-size:.85rem;line-height:1.45;display:block;position:sticky;top:1.5rem;overflow-y:auto}.toc[data-astro-cid-57z6rh23] ol[data-astro-cid-57z6rh23]{border-left:1px solid var(--border);margin:0;padding:0 0 0 .75rem;list-style:none}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23]{margin:.45rem 0}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23].d3{padding-left:.85rem}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--muted);text-decoration:none}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--fg)}}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap header-inner"><a href="/" class="brand"><span class="avatar"><img class="ink" src="/images/portrait-head.svg" alt="" width="30" height="30"></span>ntheanh201</a><nav aria-label="Main"><a href="/archives.html">Writing</a><a href="/certifications.html"><span class="nav-long">Certifications</span><span class="nav-short">Certs</span></a><a href="/articles/about.html">About</a><button class="theme-toggle" type="button" aria-label="Toggle dark mode"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></button></nav></div></header><main id="main"><div class="article" data-astro-cid-57z6rh23><article data-astro-cid-57z6rh23><header class="article-head" data-astro-cid-57z6rh23><h1 data-astro-cid-57z6rh23>Fix Warning: Kubernetes configuration file is group-readable/world-readable</h1><p class="meta" data-astro-cid-57z6rh23><time datetime="2022-08-19T00:00:00.000Z" data-astro-cid-57z6rh23>Aug 19, 2022</time><span aria-hidden="true" data-astro-cid-57z6rh23> · </span>1 min read<span aria-hidden="true" data-astro-cid-57z6rh23> · </span><span class="tags" data-astro-cid-57z6rh23><a class="tag" href="/tag/kubernetes.html" data-astro-cid-57z6rh23>kubernetes</a></span></p></header><div class="prose" data-astro-cid-57z6rh23><p><strong>WARNING</strong>: Kubernetes configuration file is group-readable. This is insecure. Location: /home/ubuntu/.kube/config WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/ubuntu/.kube/config</p>
+<p><code>chmod o-r ~/.kube/config</code></p>
+<p><code>chmod g-r ~/.kube/config</code></p>
+</div><nav class="pager" aria-label="More posts" data-astro-cid-57z6rh23><a href="/articles/kubernetes-pull-image-from-private-registry.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>← Older</span>Kubernetes pull image from private registry</a><a class="next" href="/articles/nestjs-sequelize-pagination.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>Newer →</span>Pagination service using Sequelize for NestJS</a></nav></article></div></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 The Anh Nguyen</span><span class="footer-links"><a href="https://github.com/ntheanh201" rel="me noopener" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/ntheanh201/" rel="me noopener" target="_blank">LinkedIn</a><a href="https://x.com/ntheanh201" rel="me noopener" target="_blank">X</a><a href="https://facebook.com/ntheanh201" rel="me noopener" target="_blank">Facebook</a><a href="/rss.xml">RSS</a><a href="/articles/colophon.html">Colophon</a></span></div></footer><script>
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+      });
+    </script></body></html><script>
+  for (const pre of document.querySelectorAll(".prose pre")) {
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    pre.replaceWith(wrap);
+    wrap.append(pre);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = "Copied";
+        btn.dataset.copied = "";
+      } catch {
+        btn.textContent = "Press ⌘C";
+      }
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        delete btn.dataset.copied;
+      }, 1600);
+    });
+    wrap.append(btn);
+  }
+</script>

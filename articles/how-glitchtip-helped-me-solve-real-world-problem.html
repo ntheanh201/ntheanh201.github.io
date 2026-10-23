@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How GlitchTip helped me solve real-world problem · The Anh Nguyen</title><meta name="description" content="Ở bài viết lần đầu tiên chia sẻ về công việc tại Viettel, mình muốn nói về công cụ để theo dõi hiệu năng và tracking lỗi cho ứng dụng mobile, đây là lần mà mình phải đưa ra quyế…"><link rel="canonical" href="https://ntheanh201.id.vn/articles/how-glitchtip-helped-me-solve-real-world-problem.html"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="The Anh Nguyen" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="article"><meta property="og:title" content="How GlitchTip helped me solve real-world problem"><meta property="og:description" content="Ở bài viết lần đầu tiên chia sẻ về công việc tại Viettel, mình muốn nói về công cụ để theo dõi hiệu năng và tracking lỗi cho ứng dụng mobile, đây là lần mà mình phải đưa ra quyế…"><meta property="og:url" content="https://ntheanh201.id.vn/articles/how-glitchtip-helped-me-solve-real-world-problem.html"><meta property="og:image" content="https://ntheanh201.id.vn/img/2e66564b03a6c8ef007249b1260bf62a68cb21c0.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@ntheanh201"><meta name="color-scheme" content="light dark"><script>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem("theme"); } catch {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.CgWflc-e.css"><style>.article[data-astro-cid-57z6rh23]{max-width:var(--measure);margin:0 auto;padding:0 1rem}@media (width>=72rem){.article[data-astro-cid-57z6rh23].has-toc{max-width:calc(var(--measure) + 15rem + 3rem);grid-template-columns:minmax(0, var(--measure)) 15rem;gap:3rem;display:grid}}.article-head[data-astro-cid-57z6rh23]{margin-bottom:2rem;padding-top:3.5rem}.article-head[data-astro-cid-57z6rh23] h1[data-astro-cid-57z6rh23]{letter-spacing:-.02em;margin:0 0 .75rem;font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.2}.article-head[data-astro-cid-57z6rh23] .meta[data-astro-cid-57z6rh23]{flex-wrap:wrap;align-items:center;gap:.35rem;margin:0;display:flex}.cover[data-astro-cid-57z6rh23]{border:1px solid var(--border);border-radius:8px;width:100%;margin-bottom:2.25rem;display:block}.pager[data-astro-cid-57z6rh23]{border-top:1px solid var(--border);grid-template-columns:1fr 1fr;gap:1rem;margin-top:4rem;padding-top:1.5rem;display:grid}.pager[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--fg);flex-direction:column;gap:.2rem;font-weight:550;line-height:1.4;text-decoration:none;display:flex}.pager[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--accent)}.pager[data-astro-cid-57z6rh23] .next[data-astro-cid-57z6rh23]{text-align:right}@media (width<=34rem){.pager[data-astro-cid-57z6rh23]{grid-template-columns:1fr}.pager[data-astro-cid-57z6rh23] .next[data-astro-cid-57z6rh23]{text-align:left}}.toc[data-astro-cid-57z6rh23]{display:none}@media (width>=72rem){.toc[data-astro-cid-57z6rh23]{align-self:start;max-height:calc(100vh - 3rem);margin-top:3.75rem;font-size:.85rem;line-height:1.45;display:block;position:sticky;top:1.5rem;overflow-y:auto}.toc[data-astro-cid-57z6rh23] ol[data-astro-cid-57z6rh23]{border-left:1px solid var(--border);margin:0;padding:0 0 0 .75rem;list-style:none}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23]{margin:.45rem 0}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23].d3{padding-left:.85rem}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--muted);text-decoration:none}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--fg)}}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap header-inner"><a href="/" class="brand"><span class="avatar"><img class="ink" src="/images/portrait-head.svg" alt="" width="30" height="30"></span>ntheanh201</a><nav aria-label="Main"><a href="/archives.html">Writing</a><a href="/certifications.html"><span class="nav-long">Certifications</span><span class="nav-short">Certs</span></a><a href="/articles/about.html">About</a><button class="theme-toggle" type="button" aria-label="Toggle dark mode"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></button></nav></div></header><main id="main"><div class="article has-toc" data-astro-cid-57z6rh23><article data-astro-cid-57z6rh23><header class="article-head" data-astro-cid-57z6rh23><h1 data-astro-cid-57z6rh23>How GlitchTip helped me solve real-world problem</h1><p class="meta" data-astro-cid-57z6rh23><time datetime="2023-05-04T00:00:00.000Z" data-astro-cid-57z6rh23>May 4, 2023</time><span aria-hidden="true" data-astro-cid-57z6rh23> · </span>5 min read<span aria-hidden="true" data-astro-cid-57z6rh23> · </span><span class="tags" data-astro-cid-57z6rh23><a class="tag" href="/tag/monitoring.html" data-astro-cid-57z6rh23>monitoring</a></span></p></header><img class="cover" src="/img/2e66564b03a6c8ef007249b1260bf62a68cb21c0.png" alt="" loading="eager" data-astro-cid-57z6rh23><div class="prose" data-astro-cid-57z6rh23><p>Hi folks 👋,</p>
+<p>Ở bài viết lần đầu tiên chia sẻ về công việc tại Viettel, mình muốn nói về công cụ để theo dõi hiệu năng và tracking lỗi cho ứng dụng mobile, đây là lần mà mình phải đưa ra quyết định lựa chọn 1 giải pháp cụ thể nào đó để giải quyết vấn đề, cảm xúc khá lo lắng vì mọi thứ hoàn toàn có thể hoạt động không đúng như dự kiến, gây tốn thời gian và có thể dẫn tới sai sót về số liệu báo cáo 🥲.</p>
+<p>Lan man là vậy, nhắc tới việc theo dõi ứng dụng mobile và error tracking, chắc hẳn đa số mọi người đều sẽ nghĩ đến Sentry chăng? 🤔</p>
+<p>Sentry là một công cụ giám sát và theo dõi lỗi được sử dụng rộng rãi, hướng tới developer. Nó giúp phát hiện và thông báo các lỗi xảy ra trong hệ thống.</p>
+<p><img src="/img/500f5f4e384fc212d428ccdbf4198c94340e21e1.png" alt=""></p>
+<p><img src="/img/f894724232e8dd394395fca7ac7c2d86f2f2e562.png" alt=""></p>
+<p>Nhưng ở bài viết lần này, mình muốn giới thiệu thêm cho mọi người một công cụ khác mà mình đã áp dụng tại hệ thống của team: <strong>GlitchTip</strong>.</p>
+<p>Trước tiên nói sơ qua chút về vấn đề cần giải quyết:</p>
+<h2 id="yêu-cầu">Yêu cầu</h2>
+<p>Với yêu cầu được đặt ra là: bảo mật về dữ liệu và có thể tự triển khai trên hạ tầng Viettel Cloud để theo dõi lỗi cho ứng dụng <strong>VCar</strong> (được code bằng React Native), báo cáo KPI/KQI, mình đã tìm kiếm các tools với tiêu chí sau:</p>
+<ul>
+<li>Open Source</li>
+<li>Self-hosted</li>
+<li>Dễ dàng tích hợp phía client, cụ thể ở đây cần 1 nền tảng hỗ trợ tốt React Native</li>
+<li>Có thể dùng cách nào đó để lấy dữ liệu và visualize với Grafana dùng cho việc báo cáo KPI/KQI.</li>
+</ul>
+<h2 id="triển-khai-sentry-và-những-khó-khăn">Triển khai Sentry và những khó khăn</h2>
+<p><img src="/img/fa2dcd35259fc17ad4bdb6c6081ee9c3d2d18bcb.png" alt=""></p>
+<p>First choice, Sentry hoàn toàn đáp ứng được những yêu cầu trên, ngoài bản lưu dữ liệu trên hạ tầng Sentry, Sentry còn cung cấp bản <strong>Self-Hosted Sentry</strong> (<a href="https://develop.sentry.dev/self-hosted/">https://develop.sentry.dev/self-hosted</a>).</p>
+<h3 id="khó-khăn">Khó khăn</h3>
+<p>Khi quyết định triển khai thực tế, guide của Sentry thì hướng dẫn chạy theo dạng docker-compose, nhưng hạ tầng hiện tại đang được dựng trên Kubernetes. Giờ phải tìm cách để chạy được trên K8s.</p>
+<p>Lượn lờ trên Google thì cũng tìm đến 1 bản Helm charts community (<a href="https://github.com/sentry-kubernetes/charts">https://github.com/sentry-kubernetes/charts</a>), Sentry là 1 hệ thống cực kì phức tạp, có thể thấy được thông qua số lượng manifest.</p>
+<p><img src="/img/b8d401dc1907e1a007cbd89da106683fad6c47dc.png" alt=""></p>
+<p><img src="/img/063443eda200baa283d24d5b414b087ffb9f7340.png" alt=""></p>
+<p>Sau khi dựng thành công, truy cập trang Sentry thì thi thoảng sẽ xuất hiện lỗi mà không rõ nguyên nhân, chỉ có error message là <em><strong>Internal Error</strong></em>, kiểm tra Network thì thấy sẽ có 1 vài query báo lỗi (I still dunno why 🤔).</p>
+<p><img src="/img/73c2a919be443261fab5b0ead9942799c2719442.png" alt=""></p>
+<p><img src="/img/77c9678b5e7c736fd58b59da090e452c45b6a1f1.png" alt=""></p>
+<p>Vấn đề tiếp theo là việc query dữ liệu để dựng Dashboard Grafana, bản Self-hosted Sentry hiện tại chưa support để Grafana lấy dữ liệu 😥</p>
+<h3 id="sự-chuyển-đổi">Sự chuyển đổi</h3>
+<p>Với việc phải kiểm soát 1 hạ tầng quá phức tạp của Sentry, cộng thêm chưa thể hiểu rõ nền tảng này và chưa đáp ứng sát nhu cầu thực tế là có thể dễ dàng lấy dữ liệu để dựng Dashboard trên Grafana, mình quyết định tìm tới phương án Sentry alternative.</p>
+<p>Từ 1 người bạn, mình biết được có <strong>GlitchTip</strong> (<a href="https://glitchtip.com/">https://glitchtip.com/</a>), viết lại hoàn toàn dựa trên phiên bản opensource của Sentry (phiên bản chưa thực hiện chuyển đổi sang Snuba, Clickhouse, …)</p>
+<p>Tại sao lại là <strong>GlitchTip</strong>? Cùng tìm hiểu nhé.</p>
+<h2 id="glitchtip">Glitchtip</h2>
+<p><img src="/img/ee854a7773bc1d05cb25008ac82ffa6cf0f82c32.png" alt=""></p>
+<h3 id="giới-thiệu">Giới thiệu</h3>
+<p>GlitchTip cung cấp những tính năng:</p>
+<ul>
+<li>
+<p><strong>Error Tracking</strong>: Báo cáo, phân loại lỗi ứng dụng, website</p>
+<p><img src="/img/3c3066b4b46412259be481dfc5ac267bdc57375b.png" alt=""></p>
+</li>
+<li>
+<p><strong>Application Performance Monitoring</strong>: Theo dõi hiệu năng ứng dụng</p>
+<p><img src="/img/c91f7e374d8dd6bd786def9332cc09d7785c7a6e.png" alt=""></p>
+</li>
+<li>
+<p><strong>Uptime Monitoring</strong>: GlitchTip có thể ping tới trang web và cảnh báo khi trang web không phản hồi. Nếu GlitchTip không nhận được lệnh ping, nó sẽ gửi cho bạn một cảnh báo qua email hoặc webhook.</p>
+<p><img src="/img/9a2e6ff6d85ac611f2091ac45a2a5cc1b41ac99b.png" alt=""></p>
+</li>
+</ul>
+<p>GlitchTip có đáp ứng được những yêu cầu ban đầu được đưa ra? ⇒ <strong>Có</strong></p>
+<p><strong>Ưu điểm:</strong></p>
+<ul>
+<li>Hoàn toàn opensource: <a href="https://gitlab.com/glitchtip">https://gitlab.com/glitchtip</a></li>
+<li>Chỉ sử dụng duy nhất Postgres cho việc lưu trữ các dữ liệu về issue, monitor, … connect vào db là hoàn toàn có thể nhìn thấy rõ các trường dữ liệu. Không cần care về việc khởi chạy Clickhouse, …</li>
+<li>Dễ dàng kết nối tới db và lấy dữ liệu ra visualize bằng Grafana.</li>
+<li>Có official Helm charts (<a href="https://gitlab.com/glitchtip/glitchtip-helm-chart">https://gitlab.com/glitchtip/glitchtip-helm-chart</a>) giúp cho việc triển khai self-hosted dễ dàng hơn khi làm việc với Sentry.</li>
+<li>Sử dụng chính thư viện client của Sentry cho việc gửi dữ liệu lên server (@sentry/react-native)</li>
+</ul>
+<p><strong>Nhược điểm:</strong></p>
+<ul>
+<li>Giao diện của GlitchTip thì quá cơ bản và đơn giản, điểm này thì hoàn toàn không thể bằng Sentry được.</li>
+<li>Không có nhiều tính năng bằng Sentry (Session Replay, User Feedback, …)</li>
+</ul>
+<h3 id="khó-khăn-khi-triển-khai">Khó khăn khi triển khai</h3>
+<p>Nhìn chung thì với việc deploy GlitchTip sẽ không có quá nhiều khó khăn, việc cần làm cẩn thận đó là đọc kĩ các thông số của các manifest trong Helm charts để thêm values cho đúng với nhu cầu là được.</p>
+<p><img src="/img/5972e654d3a605efcd26eda2d00c3fbf4f7c6460.png" alt=""></p>
+<p>Ngoài ra, community của GlitchTip hoạt động khá sôi nổi: <a href="https://app.gitter.im/#/room/#GlitchTip_community:gitter.im">https://app.gitter.im/#/room/#GlitchTip_community:gitter.im</a></p>
+<p><strong>Domain</strong></p>
+<p>Ở team mình có 1 vấn đề gặp phải đó là không trực tiếp cấu hình được domain của sản phẩm, hoặc thêm subdomain, mặc định Glitchtip được serve tại path “/”.</p>
+<p>Do đó mình và anh lead đã bắt tay vào nghiên cứu và sửa code của chính Glitchtip. Anh lead có kinh nghiệm code Angular nên sửa code FE, mình thì sửa code BE được viết bằng Django để có thể sửa cái path sang “/apm”.</p>
+<p>Cũng tính contribute thêm vào Backend của GlitchTip mà không main Python nên lại lười <strong>😂</strong></p>
+<p><strong>Rebuild image</strong></p>
+<p>Tiếp theo là đọc file GitlabCI rồi tự tay build lại image theo từng bước:</p>
+<ul>
+<li>Build glitchtip-frontend bằng cmd: <code>yarn build-prod</code></li>
+<li>Copy build folder: glitchtip-frontend sang glitchtip-backend và đổi tên thành <code>dist</code></li>
+<li>Update <code>ARG</code> <code>*COLLECT_STATIC*``=True</code> trong Dockerfile của glitchtip-backend</li>
+<li>Build docker image → finished.</li>
+</ul>
+<p>Update image trong Deployment, update Ingress và chạy thôi nào 🚀</p>
+<h3 id="thành-quả">Thành quả</h3>
+<p>Giao diện của GlitchTip</p>
+<p><img src="/img/a9fa12b66fed2e5742f4684cf1730af7e4919ace.png" alt=""></p>
+<p>Và hoàn toàn có thể tạo được Dashboard theo nhu cầu trên Grafana từ dữ liệu lấy từ db Postgres của GlitchTip phục vụ việc báo cáo (<em>Hình ảnh mang tính chất minh hoạ, dữ liệu nhạy cảm mình xin phép không đưa lên được</em> 😄)</p>
+<p><img src="/img/de68df2caddf1f45d313f2ffc265de14ee2ffcff.png" alt=""></p>
+<h2 id="kết-luận">Kết luận</h2>
+<p><strong>Sentry</strong> và <strong>GlitchTip</strong> đều là những lựa chọn tốt. Tùy vào yêu cầu và mục đích sử dụng, bạn có thể lựa chọn công cụ phù hợp để giúp đội ngũ phát triển của mình phát hiện và sửa chữa các lỗi một cách hiệu quả nhất.</p>
+<p>Hẹn gặp mọi người vào những bài tiếp theo 😁</p>
+</div><nav class="pager" aria-label="More posts" data-astro-cid-57z6rh23><a href="/articles/offline-install-of-oh-my-zsh-on-ubuntu.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>← Older</span>Offline install of oh-my-zsh on Ubuntu</a><a class="next" href="/articles/new-domain-name.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>Newer →</span>New domain name ^^</a></nav></article><aside class="toc" aria-label="On this page" data-astro-cid-57z6rh23><p class="eyebrow" data-astro-cid-57z6rh23>On this page</p><ol data-astro-cid-57z6rh23><li class="d2" data-astro-cid-57z6rh23><a href="#yêu-cầu" data-astro-cid-57z6rh23>Yêu cầu</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#triển-khai-sentry-và-những-khó-khăn" data-astro-cid-57z6rh23>Triển khai Sentry và những khó khăn</a></li><li class="d3" data-astro-cid-57z6rh23><a href="#khó-khăn" data-astro-cid-57z6rh23>Khó khăn</a></li><li class="d3" data-astro-cid-57z6rh23><a href="#sự-chuyển-đổi" data-astro-cid-57z6rh23>Sự chuyển đổi</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#glitchtip" data-astro-cid-57z6rh23>Glitchtip</a></li><li class="d3" data-astro-cid-57z6rh23><a href="#giới-thiệu" data-astro-cid-57z6rh23>Giới thiệu</a></li><li class="d3" data-astro-cid-57z6rh23><a href="#khó-khăn-khi-triển-khai" data-astro-cid-57z6rh23>Khó khăn khi triển khai</a></li><li class="d3" data-astro-cid-57z6rh23><a href="#thành-quả" data-astro-cid-57z6rh23>Thành quả</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#kết-luận" data-astro-cid-57z6rh23>Kết luận</a></li></ol></aside></div></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 The Anh Nguyen</span><span class="footer-links"><a href="https://github.com/ntheanh201" rel="me noopener" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/ntheanh201/" rel="me noopener" target="_blank">LinkedIn</a><a href="https://x.com/ntheanh201" rel="me noopener" target="_blank">X</a><a href="https://facebook.com/ntheanh201" rel="me noopener" target="_blank">Facebook</a><a href="/rss.xml">RSS</a><a href="/articles/colophon.html">Colophon</a></span></div></footer><script>
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+      });
+    </script></body></html><script>
+  for (const pre of document.querySelectorAll(".prose pre")) {
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    pre.replaceWith(wrap);
+    wrap.append(pre);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = "Copied";
+        btn.dataset.copied = "";
+      } catch {
+        btn.textContent = "Press ⌘C";
+      }
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        delete btn.dataset.copied;
+      }, 1600);
+    });
+    wrap.append(btn);
+  }
+</script>
