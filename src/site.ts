@@ -147,5 +147,6 @@ export const EXTERNAL_WRITING = [
     date: "2026-10-05",
     href: "https://viettelcloud.vn/en/tech-blog/4/142",
     alt: { label: "Tiếng Việt", href: "https://viettelcloud.vn/tech-blog/4/142" },
+    featured: { label: "Listed in NVIDIA Dynamo External Publications", href: "https://docs.nvidia.com/dynamo/external-publications" },
   },
 ];

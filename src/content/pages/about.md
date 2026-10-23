@@ -23,6 +23,7 @@ I'm the **Solutions Architect for the Viettel AI Platform** at **Viettel Network
 - **NVIDIA-Certified Professional**: [AI Operations (NCP-AIO)](https://www.credly.com/badges/9237fdde-0176-416a-95e0-5c2568599ae4), [AI Infrastructure (NCP-AII)](https://credential.nvidia.com/3a8e0b7b-32b6-47bd-a127-49cc8ebc77f5), [AI Networking (NCP-AIN)](https://credential.nvidia.com/9beb4b0a-85a7-474f-b915-e64161966efa)
 - [**Claude Certified Architect – Foundations**](https://www.credly.com/badges/323137e3-08d9-475d-b03e-3dd8f0f3740a), Anthropic
 - **The Shubhra Kar Linux Foundation Training (LiFT) Scholarship**, 2025 recipient
+- [**Turning GPU-hours into tokens**](https://viettelcloud.vn/en/tech-blog/4/142), my case study on serving multiple LLM families with NVIDIA Dynamo, is listed in [NVIDIA Dynamo External Publications](https://docs.nvidia.com/dynamo/external-publications)
 
 See [all certifications](/certifications.html), including NVIDIA NCP-AII and NCP-AIN, LFCS and the Nebius AI certifications.
 

@@ -75,6 +75,7 @@ const certCount = CERTIFICATIONS.reduce((n, g) => n + g.items.length, 0);
                 <div class="sub">
                   <span>{w.where}</span>
                   {w.alt && <a href={w.alt.href}>{w.alt.label}</a>}
+                  {w.featured && <a href={w.featured.href}>{w.featured.label} ↗</a>}
                 </div>
               </div>
             </li>
