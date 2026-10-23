@@ -1,0 +1,200 @@
+---
+import Base from "../layouts/Base.astro";
+import PostList from "../components/PostList.astro";
+import { formatDate, getPosts } from "../lib/posts";
+import { ALL_BADGES, CERTIFICATIONS, EXTERNAL_WRITING, TALKS } from "../site";
+import { certLabel } from "../lib/certs";
+
+const posts = await getPosts();
+const recent = posts.slice(0, 6);
+const certCount = CERTIFICATIONS.reduce((n, g) => n + g.items.length, 0);
+---
+
+<Base image="/images/the-anh-nguyen-speaking.jpg">
+  <div class="wrap">
+    <section class="hero">
+      <img class="ink portrait" src="/images/portrait.svg" alt="Line drawing of The Anh Nguyen speaking with a microphone" width="1007" height="1112" />
+      <p class="eyebrow">Hanoi, Vietnam</p>
+      <h1>The Anh Nguyen</h1>
+      <p class="lede">
+        Solutions Architect for the <strong>Viettel AI Platform</strong> at Viettel Networks, a multi-tenant GPU
+        platform on NVIDIA H200 clusters with InfiniBand, GPUDirect RDMA and fractional GPUs. I also lead{" "}
+        <strong>Token Factory</strong>, serving LLMs at scale with NVIDIA Dynamo.
+      </p>
+      <p class="lede">
+        CNCF Ambassador and Kubestronaut. I contribute to NVIDIA DSX OS components:{" "}
+        <a href="https://github.com/kai-scheduler/KAI-Scheduler/pulls?q=is%3Apr+author%3Antheanh201+">KAI Scheduler</a>,{" "}
+        <a href="https://github.com/dsx-ai-factory/run-ai/pulls?q=is%3Apr+author%3Antheanh201+">Run:ai</a>,{" "}
+        <a href="https://github.com/dsx-ai-factory/workload-map/pulls?q=is%3Apr+author%3Antheanh201+">Workload Map</a>,{" "}
+        <a href="https://github.com/NVIDIA/aicr/pulls?q=is%3Apr+author%3Antheanh201+">AI Cluster Runtime (AICR)</a> and{" "}
+        <a href="https://github.com/NVIDIA/cluster-readiness-engine/pulls?q=is%3Apr+author%3Antheanh201+">Cluster Readiness Engine (NVCRE)</a>.
+        I also review Vietnamese docs for{" "}
+        <a href="https://github.com/kubernetes/website/pulls?q=is%3Apr+author%3Antheanh201+">Kubernetes</a>, lead the
+        Vietnamese <a href="https://github.com/cncf/glossary/pulls?q=is%3Apr+author%3Antheanh201+">CNCF Glossary</a>,
+        and contribute to <a href="https://github.com/Project-HAMi/HAMi/pulls?q=is%3Apr+author%3Antheanh201+">HAMi</a>,{" "}
+        <a href="https://github.com/kubeflow/kubeflow/pulls/ntheanh201">Kubeflow</a> and{" "}
+        <a href="https://github.com/apache/trafficcontrol/pulls?q=is%3Apr+author%3Antheanh201+">Apache Traffic Control</a>.
+      </p>
+      <p class="hero-links">
+        <a href="/articles/about.html">More about me →</a>
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Certifications</h2>
+        <a href="/certifications.html">All {certCount} →</a>
+      </div>
+      <ul class="badges">
+        {
+          ALL_BADGES.map((b) => (
+            <li>
+              <a href={b.href} title={certLabel(b)}>
+                <img src={b.img} alt={certLabel(b)} width="64" height="64" loading="lazy" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Writing</h2>
+        <a href="/archives.html">All {posts.length} posts →</a>
+      </div>
+      <ul class="post-list">
+        {
+          EXTERNAL_WRITING.map((w) => (
+            <li>
+              <time datetime={w.date}>{formatDate(new Date(w.date))}</time>
+              <div>
+                <a class="title" href={w.href}>
+                  {w.title} ↗
+                </a>
+                <div class="sub">
+                  <span>{w.where}</span>
+                  {w.alt && <a href={w.alt.href}>{w.alt.label}</a>}
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+      <PostList posts={recent} />
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Talks</h2>
+      </div>
+      <ul class="talks">
+        {
+          TALKS.map((t) => (
+            <li>
+              <a href={t.href}>{t.title}</a>
+              <span class="meta">
+                {t.event}
+                {t.year && `, ${t.year}`}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .hero {
+    padding-top: 4rem;
+  }
+
+  .portrait {
+    display: block;
+    width: 9.5rem;
+    height: auto;
+    margin: 0 0 1.25rem -0.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin: 0 0 1.25rem;
+  }
+
+  .lede {
+    font-size: 1.125rem;
+    color: var(--muted);
+    margin: 0 0 1rem;
+    max-width: 40rem;
+  }
+
+  .lede strong {
+    color: var(--fg);
+    font-weight: 600;
+  }
+
+  .hero-links {
+    margin: 1.5rem 0 0;
+    font-size: 0.95rem;
+  }
+
+  .badges {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(3.75rem, 1fr));
+    gap: 0.75rem;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  .badges a {
+    display: block;
+    transition: transform 0.15s;
+  }
+
+  .badges a:hover {
+    transform: translateY(-2px);
+  }
+
+  .badges img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
+  }
+
+  .talks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .talks li {
+    display: flex;
+    flex-direction: column;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .talks li:last-child {
+    border-bottom: 0;
+  }
+
+  .talks a {
+    color: var(--fg);
+    font-weight: 550;
+    text-decoration: none;
+    line-height: 1.45;
+  }
+
+  .talks a:hover {
+    color: var(--accent);
+  }
+</style>

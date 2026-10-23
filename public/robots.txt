@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://ntheanh201.id.vn/sitemap-index.xml

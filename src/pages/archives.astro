@@ -1,0 +1,75 @@
+---
+import Base from "../layouts/Base.astro";
+import PostList from "../components/PostList.astro";
+import { getPosts, tagSlug } from "../lib/posts";
+
+const posts = await getPosts();
+
+const years = new Map<number, typeof posts>();
+for (const post of posts) {
+  const y = post.data.date.getUTCFullYear();
+  years.set(y, [...(years.get(y) ?? []), post]);
+}
+
+const tagCounts = new Map<string, number>();
+for (const post of posts) for (const t of post.data.tags) tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+const tags = [...tagCounts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+---
+
+<Base title="Writing" description="Every post on the blog, newest first.">
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Writing</h1>
+      <p class="meta">{posts.length} posts on Kubernetes, CDN, monitoring and the odd tool fix.</p>
+      <div class="tags">
+        {
+          tags.map(([t, n]) => (
+            <a class="tag" href={`/tag/${tagSlug(t)}.html`}>
+              {t} <span aria-label={`${n} posts`}>{n}</span>
+            </a>
+          ))
+        }
+      </div>
+    </header>
+
+    {
+      [...years].map(([year, list]) => (
+        <section class="year">
+          <h2>{year}</h2>
+          <PostList posts={list} />
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .page-head {
+    padding-top: 3.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .page-head h1 {
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.25rem;
+  }
+
+  .page-head .meta {
+    margin: 0 0 1rem;
+  }
+
+  .year {
+    margin-top: 2.5rem;
+  }
+
+  .year h2 {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--faint);
+    margin: 0;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+</style>

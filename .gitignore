@@ -1,1 +1,6 @@
-tmpl
+node_modules/
+dist/
+.astro/
+.migrate-input/
+.DS_Store
+.scratch/

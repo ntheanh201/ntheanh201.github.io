@@ -1,0 +1,44 @@
+---
+import Base from "../../layouts/Base.astro";
+import PostList from "../../components/PostList.astro";
+import { getPosts, tagSlug } from "../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tags = new Set(posts.flatMap((p) => p.data.tags));
+  return [...tags].map((tag) => ({
+    params: { tag: tagSlug(tag) },
+    props: { tag, posts: posts.filter((p) => p.data.tags.includes(tag)) },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<Base title={`#${tag}`} description={`Posts tagged ${tag}.`}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="eyebrow"><a href="/archives.html">Writing</a> / tag</p>
+      <h1>#{tag}</h1>
+      <p class="meta">{posts.length} {posts.length === 1 ? "post" : "posts"}</p>
+    </header>
+    <PostList posts={posts} showTags={false} />
+  </div>
+</Base>
+
+<style>
+  .page-head {
+    padding-top: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .eyebrow a {
+    color: inherit;
+  }
+
+  h1 {
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+</style>

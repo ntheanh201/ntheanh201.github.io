@@ -1,0 +1,20 @@
+{
+  "name": "ntheanh201.id.vn",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "migrate": "node scripts/migrate-from-notion.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.3.8"
+  },
+  "devDependencies": {
+    "node-html-parser": "7.0.1",
+    "turndown": "7.2.0"
+  }
+}
