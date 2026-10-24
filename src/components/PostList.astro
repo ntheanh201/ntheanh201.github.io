@@ -1,5 +1,5 @@
 ---
-import { formatDate, postURL, readingMinutes, tagSlug, type Post } from "../lib/posts";
+import { formatDate, getTranslations, postURL, readingMinutes, tagSlug, type Post } from "../lib/posts";
 import type { ExternalPost } from "../site";
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { posts, external = [], showTags = true } = Astro.props;
+const translations = await getTranslations();
 const items = [
   ...posts.map((post) => ({ date: post.data.date, post, ext: undefined })),
   ...external.map((ext) => ({ date: new Date(ext.date), post: undefined, ext })),
@@ -28,6 +29,7 @@ const items = [
             </a>
             <div class="sub">
               <span>{readingMinutes(post.body)} min read</span>
+              {translations.has(post.id) && <a href={postURL(translations.get(post.id)!.id)}>Tiếng Việt</a>}
               {showTags && post.data.tags.length > 0 && (
                 <span class="tags">
                   {post.data.tags.map((t) => (

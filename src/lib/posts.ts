@@ -7,6 +7,17 @@ export async function getPosts(): Promise<Post[]> {
   return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 }
 
+// Posts shown in lists: translations are left out and linked from their original.
+export async function getListedPosts(): Promise<Post[]> {
+  return (await getPosts()).filter((p) => !p.data.translationOf);
+}
+
+export async function getTranslations(): Promise<Map<string, Post>> {
+  const byOriginal = new Map<string, Post>();
+  for (const p of await getPosts()) if (p.data.translationOf) byOriginal.set(p.data.translationOf, p);
+  return byOriginal;
+}
+
 export type Note = CollectionEntry<"notes">;
 
 export async function getNotes(): Promise<Note[]> {

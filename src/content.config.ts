@@ -11,11 +11,17 @@ const posts = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
+    // Shown under the title. Separate from description, which older posts
+    // filled with their first paragraph during the Notion migration.
+    subtitle: z.string().optional(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
     cover: z.string().optional(),
     draft: z.boolean().default(false),
+    // Id of the post this one translates. It gets its own page but is listed
+    // as a link under the original instead of as a second entry.
+    translationOf: z.string().optional(),
   }),
 });
 

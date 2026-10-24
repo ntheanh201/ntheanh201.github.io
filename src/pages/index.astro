@@ -1,11 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
 import PostList from "../components/PostList.astro";
-import { formatDate, getNotes, getPosts, noteURL } from "../lib/posts";
+import { formatDate, getListedPosts, getNotes, noteURL } from "../lib/posts";
 import { ALL_BADGES, CERTIFICATIONS, EXTERNAL_WRITING, TALKS } from "../site";
 import { certLabel } from "../lib/certs";
 
-const posts = await getPosts();
+const posts = await getListedPosts();
 const recent = posts.slice(0, 6);
 const notes = await getNotes();
 const certCount = CERTIFICATIONS.reduce((n, g) => n + g.items.length, 0);

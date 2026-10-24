@@ -6,11 +6,16 @@ import { formatDate, getPosts, postURL, readingMinutes, tagSlug } from "../../li
 export async function getStaticPaths() {
   const posts = await getPosts();
   const pages = await getCollection("pages");
+  // Pager walks listed posts only; a translation borrows its original's neighbours.
+  const listed = posts.filter((p) => !p.data.translationOf);
   return [
-    ...posts.map((entry, i) => ({
-      params: { slug: entry.id },
-      props: { entry, kind: "post" as const, newer: posts[i - 1], older: posts[i + 1] },
-    })),
+    ...posts.map((entry) => {
+      const i = listed.findIndex((p) => p.id === (entry.data.translationOf ?? entry.id));
+      return {
+        params: { slug: entry.id },
+        props: { entry, kind: "post" as const, newer: listed[i - 1], older: listed[i + 1] },
+      };
+    }),
     ...pages.map((entry) => ({ params: { slug: entry.id }, props: { entry, kind: "page" as const } })),
   ];
 }
@@ -32,6 +37,7 @@ const post = kind === "post" ? (entry as Extract<typeof entry, { collection: "po
     <article>
       <header class="article-head">
         <h1>{entry.data.title}</h1>
+        {post?.data.subtitle && <p class="subtitle">{post.data.subtitle}</p>}
         {
           post && (
             <p class="meta">
@@ -153,6 +159,13 @@ const post = kind === "post" ? (entry as Extract<typeof entry, { collection: "po
     line-height: 1.2;
     letter-spacing: -0.02em;
     margin: 0 0 0.75rem;
+  }
+
+  .article-head .subtitle {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0 0 1rem;
   }
 
   .article-head .meta {

@@ -1,9 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
 import PostList from "../components/PostList.astro";
-import { getPosts, tagSlug } from "../lib/posts";
+import { getListedPosts, tagSlug } from "../lib/posts";
 
-const posts = await getPosts();
+const posts = await getListedPosts();
 
 const years = new Map<number, typeof posts>();
 for (const post of posts) {
