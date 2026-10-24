@@ -1,8 +1,10 @@
 ---
-title: "Recap VOI & CNVN x AWS FCAJ Meetup: Turning GPU-Hours into Tokens, and Tokens into a Service"
-description: "Bài nói của mình và Minh, thành viên trong team, ở meetup Cloud & AI Infrastructure do OpenInfra User Group Vietnam, Cloud Native Vietnam và AWS First Cloud AI Journey tổ chức tại AWS Hà Nội, 24/10/2026: một hub nhiều cụm GPU, Agent Router ở cửa, NVIDIA Dynamo phía sau, và những câu mọi người hỏi sau buổi nói."
+title: "Recap meetup VOI & CNVN x AWS FCAJ: biến GPU-hour thành token, và token thành dịch vụ"
+description: "Phần lớn chia sẻ dừng ở tầng serving. Bài này nói về kiến trúc tổng thể bao quanh nó: phục vụ nhiều tenant trên nhiều cụm GPU mà vẫn scale được, bảo trì được. Recap bài nói của mình và Minh, thành viên trong team, ở meetup Cloud & AI Infrastructure, AWS Hà Nội, 24/10/2026."
+subtitle: "Phần lớn chia sẻ dừng ở tầng serving. Bài này nói về kiến trúc tổng thể bao quanh nó: phục vụ nhiều tenant trên nhiều cụm GPU mà vẫn scale được, bảo trì được."
 date: 2026-10-24
-tags: ["talk", "multi-cluster", "agent-router", "nvidia", "dynamo", "llm-d", "kubernetes", "gpu"]
+tags: ["talk", "multi-cluster", "agent-router", "dynamo", "kubernetes"]
+translationOf: recap-turning-gpu-hours-into-tokens
 ---
 
 *[Read in English](/articles/recap-turning-gpu-hours-into-tokens.html).*
@@ -23,24 +25,39 @@ study trong docs của Dynamo. Bài đó nói về việc vắt thêm token từ
 
 ![Bài viết về Dynamo trong mục case study ở docs NVIDIA Dynamo](/img/talks/2026-10-24/slide-3.jpg)
 
-Phục vụ nhiều model cho nhiều người dùng trên nhiều cụm thì cần nhiều hơn một tầng serving: quản lý endpoint
-trên nhiều cụm, xác thực từng request, giới hạn ai được gọi model nào và được dùng bao nhiêu, và ghi lại usage
-của từng request. Tầng nền tảng đó là phần
-buổi nói kể thêm, và bài recap này cũng đi sâu vào đó.
+Phần lớn những gì mình đọc về LLM đều dừng ở tầng serving: engine nào nhanh hơn, route thế nào, scale ra
+sao. Nhưng để thành một dịch vụ cho nhiều tenant thì cần cả một kiến trúc tổng thể bao quanh: quản lý
+endpoint trên nhiều cụm, xác thực từng request, giới hạn ai được gọi model nào và được dùng bao nhiêu, ghi
+lại usage của từng request. Và tất cả phải scale được, bảo trì được khi số cụm và số model cứ tăng lên.
 
-## Ai cũng bắt đầu từ đây
+Bức tranh trọn vẹn đó thì mình ít thấy ai chia sẻ, nên đó là phần buổi nói kể thêm, và bài recap này cũng
+đi sâu vào đó.
+
+## Năng lực tính bằng gigawatt, đầu ra là token
 
 ![Năng lực giờ tính bằng gigawatt](/img/talks/2026-10-24/slide-4.jpg)
 
 Thời công nghiệp, muốn biết một nhà máy lớn cỡ nào thì người ta hỏi có bao nhiêu công nhân, bao nhiêu
-nguyên liệu, còn bây giờ nói về hạ tầng AI thì người ta hỏi data center đó bao nhiêu gigawatt. Đầu vào là
-đất, điện và chip, đầu ra là token, còn cái hộp ở giữa thì biến GPU-hour thành token. Ý tưởng này mình mượn từ báo cáo Publics Update của Coatue
-(tháng 10/2026), hình thì mình vẽ lại.
+nguyên liệu và làm ra bao nhiêu hàng. Bây giờ nói về hạ tầng AI thì người ta hỏi một câu khác: data center
+này bao nhiêu gigawatt. Đầu vào đổi thành đất, điện và chip, còn đầu ra là token. Ý tưởng này mình mượn từ
+báo cáo Publics Update của Coatue (tháng 10/2026), hình thì mình vẽ lại.
 
 ![Token là đơn vị của trí tuệ](/img/talks/2026-10-24/slide-5.jpg)
 
-Phiên bản nhỏ nhất của cái hộp đó thì chắc ai cũng từng dựng: một pod chạy `vllm serve`, phía trước là
-một Kubernetes Service chia đều request cho các pod. Cách này chạy tốt, với một nhóm nhỏ thì đủ dùng thật.
+Phóng to cái hộp ở giữa thì bên trái là ba thứ phải có: đất, điện chạy 24/7, và silicon gồm GPU, HBM,
+network. Bên phải là thứ người dùng thật sự cần, từ chat, code, agent, search cho tới tóm tắt và dịch, và
+tất cả đều đi ra dưới dạng token. Cái hộp ở giữa là AI factory: GPU-hour đi vào, token đi ra, cũng chính là
+nửa đầu tên bài nói.
+
+Đất và điện là chuyện của người xây data center. Buổi nói tập trung vào phần mềm bên trong cái hộp: làm sao
+một GPU-hour ra được nhiều token nhất, và làm sao để nhiều người dùng chung số token đó một cách an toàn.
+
+## Chúng ta đều bắt đầu từ đây
+
+![Điểm xuất phát: vllm serve sau một Kubernetes Service](/img/talks/2026-10-24/slide-6.jpg)
+
+Cái hộp nhỏ nhất thì chắc ai cũng từng dựng: một pod chạy `vllm serve`, phía trước là một Kubernetes
+Service chia đều request cho các pod. Cách này chạy tốt, với một nhóm nhỏ thì đủ dùng thật.
 
 Nhưng khi có nhiều người dùng, mỗi người một API key và một hạn mức, nhiều model chạy cùng lúc, và nhất là
 prompt dài cả trăm nghìn token như với coding agent, thì từng chỗ một bắt đầu hỏng. Buổi nói đi qua những

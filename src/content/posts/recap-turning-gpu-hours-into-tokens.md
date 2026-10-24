@@ -1,8 +1,9 @@
 ---
 title: "Recap VOI & CNVN x AWS FCAJ Meetup: Turning GPU-Hours into Tokens, and Tokens into a Service"
-description: "My talk with my teammate Minh at the Cloud & AI Infrastructure meetup by OpenInfra User Group Vietnam, Cloud Native Vietnam and AWS First Cloud AI Journey, AWS Hanoi, 24 Oct 2026: one hub, many GPU clusters, Agent Router at the door, NVIDIA Dynamo behind it, and what people asked after."
+description: "Most talks stop at the serving layer. This one covers the architecture around it: serving many tenants across many GPU clusters while staying scalable and maintainable. Recap of my talk with my teammate Minh at the Cloud & AI Infrastructure meetup, AWS Hanoi, 24 Oct 2026."
+subtitle: "Most talks stop at the serving layer. This one is about the architecture around it: serving many tenants across many GPU clusters while staying scalable and maintainable."
 date: 2026-10-24
-tags: ["talk", "multi-cluster", "agent-router", "nvidia", "dynamo", "llm-d", "kubernetes", "gpu"]
+tags: ["talk", "multi-cluster", "agent-router", "dynamo", "kubernetes"]
 ---
 
 *[Đọc bản tiếng Việt](/articles/recap-turning-gpu-hours-into-tokens-vi.html).*
@@ -25,27 +26,43 @@ doesn't cover the layer around it.
 
 ![The Dynamo write-up, listed as a case study in the NVIDIA Dynamo docs](/img/talks/2026-10-24/slide-3.jpg)
 
-Serving many models to many users across several clusters needs more than a serving layer: managing
-endpoints across clusters, authenticating every call, enforcing who may call which model and how much,
-and recording usage per request. That platform layer is what the talk added, and it's where this recap
-goes deeper.
+Most of what I read about LLMs stops at the serving layer: which engine is faster, how to route, how to
+scale. Turning it into a service for many tenants takes a whole architecture around it. Endpoints have
+to be managed across clusters, every call authenticated, limits enforced on who may call which model and
+how much, usage recorded per request. And all of it has to stay scalable and maintainable as clusters
+and models keep being added.
 
-## Where everyone starts
+I've rarely seen anyone share that end-to-end picture. That's the part the talk added, and it's where
+this recap goes deeper.
+
+## Capacity in gigawatts, output in tokens
 
 ![Capacity is now counted in gigawatts](/img/talks/2026-10-24/slide-4.jpg)
 
-Infrastructure capacity used to be counted in workers and raw materials. Now people ask how many
-gigawatts a data center has. Land, power and silicon go in, tokens come out, and the box in the middle
-turns GPU-hours into tokens. The framing is borrowed from Coatue's Publics Update (October 2026); the
-diagrams are my redraw.
+In the industrial age, you sized a factory by its workers, its raw materials and the goods it shipped.
+For AI infrastructure people ask a different question: how many gigawatts is this data center? The
+inputs became land, power and chips, and the output is tokens. The framing is borrowed from Coatue's
+Publics Update (October 2026); the diagrams are my redraw.
 
 ![Tokens are the unit of intelligence](/img/talks/2026-10-24/slide-5.jpg)
 
-Most of us have built the smallest version of that box. A pod running `vllm serve`, a Kubernetes Service in front,
-requests spread evenly across pods. It works, and for a small team it's enough. Then you get many users,
-each with an API key and a limit, several models at once, and prompts of a hundred thousand tokens from
-coding agents. Things start breaking one at a time. The talk went through those breaks, adding one piece
-for each.
+Zoom into the box in the middle. On the left are the three things it needs: land, power around the
+clock, and silicon, meaning GPUs, HBM and network. On the right is what users actually want: chat, code,
+agents, search, summaries, translation. All of it comes out as tokens. The box is an AI factory,
+GPU-hours in and tokens out, which is the first half of the talk's title.
+
+Land and power are for the people who build data centers. The talk was about the software inside the
+box: how to get the most tokens out of a GPU-hour, and how to let many users share those tokens safely.
+
+## We all start here
+
+![The starting point: vllm serve behind a Kubernetes Service](/img/talks/2026-10-24/slide-6.jpg)
+
+Most of us have built the smallest version of that box. A pod running `vllm serve`, a Kubernetes Service
+in front, requests spread evenly across pods. It works, and for a small team it's enough. Then you get
+many users, each with an API key and a limit, several models at once, and prompts of a hundred thousand
+tokens from coding agents. Things start breaking one at a time. The talk went through those breaks,
+adding one piece for each.
 
 ## Control plane and data plane, kept apart
 
