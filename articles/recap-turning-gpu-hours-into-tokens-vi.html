@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Recap VOI &amp; CNVN x AWS FCAJ Meetup: Turning GPU-Hours into Tokens, and Tokens into a Service · The Anh Nguyen</title><meta name="description" content="Bài nói của mình và Minh, thành viên trong team, ở meetup Cloud &amp; AI Infrastructure do OpenInfra User Group Vietnam, Cloud Native Vietnam và AWS First Cloud AI Journey tổ chức tại AWS Hà Nội, 24/10/2026: một hub nhiều cụm GPU, Agent Router ở cửa, NVIDIA Dynamo phía sau, và những câu mọi người hỏi sau buổi nói."><link rel="canonical" href="https://ntheanh201.id.vn/articles/recap-turning-gpu-hours-into-tokens-vi.html"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="The Anh Nguyen" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="article"><meta property="og:title" content="Recap VOI &amp; CNVN x AWS FCAJ Meetup: Turning GPU-Hours into Tokens, and Tokens into a Service"><meta property="og:description" content="Bài nói của mình và Minh, thành viên trong team, ở meetup Cloud &amp; AI Infrastructure do OpenInfra User Group Vietnam, Cloud Native Vietnam và AWS First Cloud AI Journey tổ chức tại AWS Hà Nội, 24/10/2026: một hub nhiều cụm GPU, Agent Router ở cửa, NVIDIA Dynamo phía sau, và những câu mọi người hỏi sau buổi nói."><meta property="og:url" content="https://ntheanh201.id.vn/articles/recap-turning-gpu-hours-into-tokens-vi.html"><meta property="og:image" content="https://ntheanh201.id.vn/thumbnail.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@ntheanh201"><meta name="color-scheme" content="light dark"><script>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem("theme"); } catch {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.C9Fi5y78.css"><style>.article[data-astro-cid-57z6rh23]{max-width:var(--measure);margin:0 auto;padding:0 1rem}@media (width>=72rem){.article[data-astro-cid-57z6rh23].has-toc{max-width:calc(var(--measure) + 15rem + 3rem);grid-template-columns:minmax(0, var(--measure)) 15rem;gap:3rem;display:grid}}.article-head[data-astro-cid-57z6rh23]{margin-bottom:2rem;padding-top:3.5rem}.article-head[data-astro-cid-57z6rh23] h1[data-astro-cid-57z6rh23]{letter-spacing:-.02em;margin:0 0 .75rem;font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.2}.article-head[data-astro-cid-57z6rh23] .meta[data-astro-cid-57z6rh23]{flex-wrap:wrap;align-items:center;gap:.35rem;margin:0;display:flex}.cover[data-astro-cid-57z6rh23]{border:1px solid var(--border);border-radius:8px;width:100%;margin-bottom:2.25rem;display:block}.toc[data-astro-cid-57z6rh23]{display:none}@media (width>=72rem){.toc[data-astro-cid-57z6rh23]{align-self:start;max-height:calc(100vh - 3rem);margin-top:3.75rem;font-size:.85rem;line-height:1.45;display:block;position:sticky;top:1.5rem;overflow-y:auto}.toc[data-astro-cid-57z6rh23] ol[data-astro-cid-57z6rh23]{border-left:1px solid var(--border);margin:0;padding:0 0 0 .75rem;list-style:none}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23]{margin:.45rem 0}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23].d3{padding-left:.85rem}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--muted);text-decoration:none}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--fg)}}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap header-inner"><a href="/" class="brand"><span class="avatar"><img class="ink" src="/images/portrait-head.svg" alt="" width="30" height="30"></span>ntheanh201</a><nav aria-label="Main"><a href="/archives.html">Writing</a><a href="/certifications.html"><span class="nav-long">Certifications</span><span class="nav-short">Certs</span></a><a href="/articles/about.html">About</a><button class="theme-toggle" type="button" aria-label="Toggle dark mode"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></button></nav></div></header><main id="main"><div class="article has-toc" data-astro-cid-57z6rh23><article data-astro-cid-57z6rh23><header class="article-head" data-astro-cid-57z6rh23><h1 data-astro-cid-57z6rh23>Recap VOI &amp; CNVN x AWS FCAJ Meetup: Turning GPU-Hours into Tokens, and Tokens into a Service</h1><p class="meta" data-astro-cid-57z6rh23><time datetime="2026-10-24T00:00:00.000Z" data-astro-cid-57z6rh23>Oct 24, 2026</time><span aria-hidden="true" data-astro-cid-57z6rh23> · </span>13 min read<span aria-hidden="true" data-astro-cid-57z6rh23> · </span><span class="tags" data-astro-cid-57z6rh23><a class="tag" href="/tag/talk.html" data-astro-cid-57z6rh23>talk</a><a class="tag" href="/tag/multi-cluster.html" data-astro-cid-57z6rh23>multi-cluster</a><a class="tag" href="/tag/agent-router.html" data-astro-cid-57z6rh23>agent-router</a><a class="tag" href="/tag/nvidia.html" data-astro-cid-57z6rh23>nvidia</a><a class="tag" href="/tag/dynamo.html" data-astro-cid-57z6rh23>dynamo</a><a class="tag" href="/tag/llm-d.html" data-astro-cid-57z6rh23>llm-d</a><a class="tag" href="/tag/kubernetes.html" data-astro-cid-57z6rh23>kubernetes</a><a class="tag" href="/tag/gpu.html" data-astro-cid-57z6rh23>gpu</a></span></p></header><div class="prose" data-astro-cid-57z6rh23><p><em><a href="/articles/recap-turning-gpu-hours-into-tokens.html">Read in English</a>.</em></p>
+<p><a href="/talks/turning-gpu-hours-into-tokens.pdf"><img src="/img/talks/2026-10-24/slide-1.jpg" alt="Turning GPU-Hours into Tokens, and Tokens into a Service: mở slide"></a></p>
+<p><em>Bấm vào ảnh bìa để xem toàn bộ slide.</em></p>
+<p>Tách control plane khỏi data plane thì một nền tảng GPU lớn lên được theo từng component: thêm cụm mới, đổi
+engine, nâng gateway, mỗi thứ thay hay nâng cấp riêng mà không đụng phần còn lại. Đó là sợi chỉ xuyên suốt bài nói của mình và Minh, thành viên trong team,
+hôm nay ở Cloud &amp; AI Infrastructure, buổi meetup cộng đồng tại văn phòng AWS ở Hà Nội. Phần lớn câu hỏi
+sau buổi nói cũng đổ vào đúng chỗ này.</p>
+<p><img src="/img/talks/2026-10-24/slide-2.jpg" alt="Hai diễn giả: Minh và mình"></p>
+<p>Phần NVIDIA Dynamo bọn mình đã có <a href="https://viettelcloud.vn/en/tech-blog/4/142">bài viết đầy đủ</a>, và NVIDIA đã đưa bài đó vào mục case
+study trong docs của Dynamo. Bài đó nói về việc vắt thêm token từ mỗi GPU, nhưng chưa kể tầng bao quanh nó.</p>
+<p><img src="/img/talks/2026-10-24/slide-3.jpg" alt="Bài viết về Dynamo trong mục case study ở docs NVIDIA Dynamo"></p>
+<p>Phục vụ nhiều model cho nhiều người dùng trên nhiều cụm thì cần nhiều hơn một tầng serving: quản lý endpoint
+trên nhiều cụm, xác thực từng request, giới hạn ai được gọi model nào và được dùng bao nhiêu, và ghi lại usage
+của từng request. Tầng nền tảng đó là phần
+buổi nói kể thêm, và bài recap này cũng đi sâu vào đó.</p>
+<h2 id="ai-cũng-bắt-đầu-từ-đây">Ai cũng bắt đầu từ đây</h2>
+<p><img src="/img/talks/2026-10-24/slide-4.jpg" alt="Năng lực giờ tính bằng gigawatt"></p>
+<p>Thời công nghiệp, muốn biết một nhà máy lớn cỡ nào thì người ta hỏi có bao nhiêu công nhân, bao nhiêu
+nguyên liệu, còn bây giờ nói về hạ tầng AI thì người ta hỏi data center đó bao nhiêu gigawatt. Đầu vào là
+đất, điện và chip, đầu ra là token, còn cái hộp ở giữa thì biến GPU-hour thành token. Ý tưởng này mình mượn từ báo cáo Publics Update của Coatue
+(tháng 10/2026), hình thì mình vẽ lại.</p>
+<p><img src="/img/talks/2026-10-24/slide-5.jpg" alt="Token là đơn vị của trí tuệ"></p>
+<p>Phiên bản nhỏ nhất của cái hộp đó thì chắc ai cũng từng dựng: một pod chạy <code>vllm serve</code>, phía trước là
+một Kubernetes Service chia đều request cho các pod. Cách này chạy tốt, với một nhóm nhỏ thì đủ dùng thật.</p>
+<p>Nhưng khi có nhiều người dùng, mỗi người một API key và một hạn mức, nhiều model chạy cùng lúc, và nhất là
+prompt dài cả trăm nghìn token như với coding agent, thì từng chỗ một bắt đầu hỏng. Buổi nói đi qua những
+chỗ hỏng đó, mỗi chỗ thêm một component vào hệ thống.</p>
+<h2 id="tách-control-plane-và-data-plane">Tách control plane và data plane</h2>
+<p><img src="/img/talks/2026-10-24/slide-7.jpg" alt="Một hub, nhiều cụm GPU"></p>
+<p>Bọn mình không chạy một cụm mà nhiều cụm GPU ở nhiều nơi, dựng vào những thời điểm khác nhau. Hình trên
+slide là hub-and-spoke, nhưng ý phía sau thì quen thuộc: tách phần ra quyết định khỏi phần phục vụ,
+giống cách Kubernetes tách API server với kubelet.</p>
+<p><strong>Hub là control plane</strong>, nơi tạo và xoá endpoint, quản lý tenant và policy, và quyết định model chạy ở
+cụm nào. Nó ghi trạng thái mong muốn xuống rồi đứng ngoài đường đi của request.</p>
+<p>Mỗi <strong>spoke là data plane</strong>, một cụm GPU tự phục vụ được: Agent Router ở cửa, Dynamo ở giữa, GPU ở dưới.
+Request của người dùng đi thẳng vào spoke, không đi qua hub.</p>
+<p>Thứ đi qua ranh giới giữa hai bên được giữ thật ít:</p>
+<ol>
+<li>Một bản khai báo deployment đi xuống (hiện là <code>DynamoGraphDeployment</code>).</li>
+<li>Một revision policy đi xuống, spoke kéo về cache local rồi ACK.</li>
+<li>Usage event và trạng thái đi lên.</li>
+</ol>
+<p>Chính cái hợp đồng nhỏ đó cho bọn mình chỗ để mở rộng về sau:</p>
+<ul>
+<li><strong>Phục vụ không phải chờ control plane.</strong> Không request nào phải đi một vòng về trung tâm, và nếu hub
+có trục trặc thì spoke vẫn phục vụ theo policy nó đang giữ.</li>
+<li><strong>Mở rộng là thêm một spoke.</strong> Cụm mới chỉ cần tuân theo hợp đồng đó, không hơn.</li>
+<li><strong>Thay hay nâng cấp từng component một.</strong> Bên trong spoke, các component cũng nói chuyện qua interface hẹp:
+gateway chỉ thấy một backend chuẩn OpenAI, Dynamo chỉ thấy engine như image của worker. Nâng Dynamo ở
+một cụm hay chuyển một endpoint từ vLLM sang SGLang không đụng gì tới hub. Ngược lại, control plane có
+thể đổi cách đặt model, ví dụ sau này giao việc chọn cụm cho Karmada, mà không đụng tới phần phục vụ.</li>
+</ul>
+<p>Còn chưa làm được thì nói thẳng: một endpoint nằm trong một cụm, và chưa có failover tự động giữa các cụm.
+Phần còn lại của buổi nói là nhìn vào bên trong một spoke.</p>
+<h2 id="phần-1-mỗi-cụm-một-gateway">Phần 1: mỗi cụm một gateway</h2>
+<p>Phần này Minh nói. Mỗi cụm có một gateway riêng là
+<a href="https://github.com/theagentrouter/agent-router">Agent Router</a>, tên cũ là Envoy AI Gateway, từ tháng 9 là
+project của Agentic AI Foundation. Nó hiểu request LLM, đọc trường <code>model</code> trong body để route. Phần lớn
+việc nằm ở hai filter của Envoy: <code>ext_authz</code> gọi auth service trước khi request đi tiếp, còn <code>ext_proc</code>
+phát usage event sau khi có response.</p>
+<p><strong>Danh tính và quyền vào.</strong> Client gửi API key và tên model, auth service kiểm key có hợp lệ không và có
+được dùng model đó không. Nếu hợp lệ, nó dựng một trusted context chứa danh tính người gọi,
+ghi vào header nội bộ.</p>
+<p>Mọi giá trị về danh tính mà client tự gửi lên đều bị bỏ và ghi đè. Hạn mức chia ba tầng
+(platform và model, team, từng API key), mỗi tầng đặt được số request mỗi giây, số request đồng thời và hạn
+mức token. Phải qua hết mọi kiểm tra thì request mới tới model, trượt một cái là gateway
+trả 401, 403 hay 429 ngay, không tốn GPU.</p>
+<p><img src="/img/talks/2026-10-24/slide-12.jpg" alt="Thực thi policy theo vùng"></p>
+<p><strong>Policy kiểm tra ngay trong spoke.</strong> Nếu request nào cũng phải gọi về hub thì latency cộng thêm, và hub
+thành điểm chết chung của cả hệ thống. Nên mỗi cụm có auth service riêng cùng một cache giữ policy và bộ
+đếm, hub giữ quyền truy cập model, rate limit và quota rồi đồng bộ xuống. Đường đi bình thường của một
+request chỉ kiểm tra tại chỗ, không gọi về hub.</p>
+<p>Cái giá là trạng thái giữa các vùng cập nhật có độ trễ, nên trong khoảng trễ đó usage có thể vượt hạn mức
+một chút. Bọn mình chấp nhận để đổi lấy latency, và để một vùng lỗi không kéo vùng khác.</p>
+<p>Ba nguyên tắc giữ cả phần này: không có cửa phụ, auth lỗi thì đóng, và chỉ tin context đã xác minh.</p>
+<h2 id="phần-2-mỗi-gpu-hour-ra-nhiều-token-hơn">Phần 2: mỗi GPU-hour ra nhiều token hơn</h2>
+<p>Phần sau mình nói. Trước khi vào Dynamo là bối cảnh: bọn mình gặp ba vấn đề và không cái nào nằm ở model.
+Endpoint agentic coding ra ít throughput trên mỗi GPU hơn mức phần cứng cho phép, scale thì bằng tay và
+chậm, còn engine thì chọn một lần lúc deploy rồi để đó, không có cách nào rẻ để kiểm lại. Ba vấn đề chung một gốc: chỗ sửa nằm phía trên
+inference engine.</p>
+<p>Dynamo không phải inference engine, phần chạy model vẫn là vLLM, SGLang hay TensorRT-LLM. Dynamo nằm phía
+trên: một frontend theo chuẩn OpenAI, một router chọn worker, một Planner lo scale, và một lớp KV cache
+dùng chung, tất cả khai báo trong một <code>DynamoGraphDeployment</code>. Tóm tắt những gì bọn mình đo được:</p>
+<ul>
+<li><strong>KV-aware routing và KV pool dùng chung.</strong> Prompt của coding agent có trung vị khoảng 83 nghìn token,
+khoảng 95% lặp lại từ các lượt trước, mà round-robin thì cứ bốn lượt có ba lượt rơi vào worker chưa từng
+thấy session đó. Route về worker đang giữ prefix, rồi thêm một pool trên RAM host
+(<a href="https://github.com/kvcache-ai/Mooncake">Mooncake Store</a>) đọc qua RDMA, đưa cache hit từ 17% lên 29%
+rồi 82%.</li>
+<li><strong>Cộng dồn trên hai node H200</strong>, thêm speculative decoding ở trên cùng: từ khoảng 340 lên khoảng 1.500
+token output mỗi giây, gần 4,5 lần, không thêm phần cứng.</li>
+<li><strong>Tách prefill và decode</strong> giảm ITL p99 một nửa, từ 53 xuống 26 ms, đổi lại khoảng 7% throughput. KV
+chuyển giữa các worker bằng NIXL qua RDMA trên mạng backend InfiniBand, tách khỏi mạng frontend Ethernet
+chở request và token.</li>
+<li><strong>Scale theo KV-cache utilization</strong> thay vì GPU utilization: TTFT p95 từ 44,5 giây xuống 1,4 đến 3,4
+giây.</li>
+<li><strong>Chọn engine bằng cách đo.</strong> Với Qwen3.8-27B, SGLang hơn 26 đến 39% ở concurrency 32, nhưng bản sau có
+khi lại đảo, và trong Dynamo đổi engine chỉ là sửa một component.</li>
+</ul>
+<p>Toàn bộ số liệu, cấu hình và lưu ý nằm trong bài viết.</p>
+<h3 id="hai-mạng-dưới-một-request">Hai mạng dưới một request</h3>
+<p><img src="/img/talks/2026-10-24/slide-21.jpg" alt="Hai mạng dưới một request"></p>
+<p>Phần mạng được hỏi nhiều hơn mình nghĩ, nên mình viết thêm một chút ở đây. Một request đi qua hai mạng
+khác nhau.</p>
+<p>Mạng <strong>frontend</strong> là Ethernet thông thường, hướng north-south: client gọi vào Agent Router, Agent Router
+chuyển cho Dynamo frontend, token chảy ngược về client theo SSE. Control plane, metrics và kéo model weights
+từ storage cũng đi đường này. Mạng này có NIC riêng trên mỗi node, hai cổng 200G, cắm lên switch Ethernet
+và không dính gì tới fabric InfiniBand.</p>
+<p>Mạng <strong>backend</strong> là mạng riêng của GPU, hướng east-west. Mỗi node HGX có 8 GPU, mỗi GPU một NIC InfiniBand
+400 Gb/s riêng. Các NIC nối theo kiểu rail: GPU số 0 của mọi node cắm chung một leaf switch, GPU số 1 chung
+một leaf khác, cứ thế. Trong cùng một node thì GPU nói chuyện với nhau qua NVLink, khoảng 900 GB/s mỗi GPU,
+và để ý đơn vị: NVLink tính bằng gigabyte, còn InfiniBand tính bằng gigabit.</p>
+<p>Trong setup này, thứ chạy trên
+mạng backend là KV cache, theo hai đường: từ prefill sang decode qua NIXL, và vào ra shared pool qua
+Mooncake.</p>
+<p>Điều cần nhớ là nếu NIXL không tìm thấy đường RDMA thì nó lặng lẽ rơi xuống TCP: vẫn chạy, không báo lỗi,
+chỉ chậm đi hàng chục lần. Nên với P/D, RDMA là điều kiện bắt buộc chứ không phải tối ưu thêm.</p>
+<p>“Lặng lẽ”
+còn theo kiểu ngược lại nữa: khi chạy P/D với NIXL qua UCX, KV đã chuyển xong mà request vẫn bị trả 500, vì
+lỗi nằm ở đoạn ghi metric sau khi truyền. Bọn mình gửi bản sửa lên vLLM và đã được merge
+(<a href="https://github.com/vllm-project/vllm/pull/57734">#57734</a>).</p>
+<h2 id="mỗi-tầng-quyết-định-một-việc">Mỗi tầng quyết định một việc</h2>
+<p><img src="/img/talks/2026-10-24/slide-28.jpg" alt="Mỗi tầng quyết định một việc"></p>
+<p>Ghép lại thì hub quyết định model chạy ở cụm nào. Trong cụm, Agent Router quyết định request có được vào
+không, được dùng bao nhiêu và đi tới model nào, còn Dynamo frontend quyết định request đi tới worker nào và
+cần bao nhiêu replica.</p>
+<p>Mỗi quyết định nằm đúng một chỗ nên muốn đổi gì thì chỉ đụng một tầng. Đổi hạn mức thì sửa ở control
+plane, gateway không phải deploy lại. Đổi engine hay tách prefill/decode thì sửa trong
+<code>DynamoGraphDeployment</code>, gateway và control plane không biết gì. Và không tầng nào đoán thay tầng khác:
+gateway không chọn worker theo KV cache, vì nó không nhìn thấy cache.</p>
+<h2 id="tiếp-theo-nvidia-dsx-os">Tiếp theo: NVIDIA DSX OS</h2>
+<p><img src="/img/talks/2026-10-24/slide-29.jpg" alt="Dynamo là một phần của NVIDIA DSX OS"></p>
+<p>Bọn mình kết bằng NVIDIA DSX OS, bộ phần mềm mà Dynamo, Grove và KAI Scheduler thuộc về. Nó giống một kho
+package hơn là một hệ điều hành cài một lần, và bọn mình lấy từng component, chỉ khi component đó giải quyết
+một vấn đề đã đo được. Bản đồ ở trên là vị trí của từng component với bọn mình lúc này: đang dùng, đang thử,
+để sau, hoặc chưa hợp với phần cứng này, kèm những chỗ bọn mình đã có PR được merge upstream.</p>
+<p>Phần nối thẳng với buổi nói là chọn cụm cho model: Karmada chọn cụm, KAI chia GPU trong cụm, Workload-Map để
+các tầng cùng đọc được một <code>DynamoGraphDeployment</code>. Đó là bước tiếp theo chứ chưa xong. Mình hy vọng sắp tới
+có dịp quay lại một buổi meetup để chia sẻ thêm về DSX OS, khi đã có kết quả đáng để kể.</p>
+<h2 id="mọi-người-hỏi-gì-và-câu-trả-lời-dài-hơn">Mọi người hỏi gì, và câu trả lời dài hơn</h2>
+<p>Trên sân khấu mình chỉ kịp trả lời ngắn từng câu. Phần dưới đây là câu trả lời đầy đủ hơn mà mình viết
+lại sau buổi nói, kèm số liệu và những lưu ý mà lúc đó mình chưa nhớ hết.</p>
+<h3 id="vendor-khác-thì-sao-một-cụm-chạy-llm-d-thay-dynamo-được-không">“Vendor khác thì sao? Một cụm chạy llm-d thay Dynamo được không?”</h3>
+<p>Hai câu này được hỏi riêng, nhưng chung một câu trả lời, và đó cũng chính là lý do phải tách control plane
+với data plane.</p>
+<p>Hub độc lập với thứ chạy bên trong từng cụm. Hợp đồng giữa hai bên không nhắc gì tới phần cứng hay
+serving stack: một bản deployment đi xuống, một revision policy đi xuống, usage và trạng thái đi lên, và
+một endpoint chuẩn OpenAI đứng sau Agent Router.</p>
+<p>Vì vậy mỗi spoke chọn được stack hợp với phần cứng của nó.
+Cụm A chạy GPU NVIDIA thì dùng Dynamo, còn cụm B dùng AI chip của vendor khác thì có thể chạy llm-d, hoặc
+stack mà vendor đó hỗ trợ tốt nhất. Hub chỉ cần một template deployment khác cho cụm B, còn người dùng vẫn
+thấy cùng một API.</p>
+<p>Với llm-d thì chuyện này không xa vời: guide P/D của nó có sẵn cấu hình cho GPU AMD, Intel XPU, Google TPU
+và mấy loại NPU, bên cạnh NVIDIA
+(<a href="https://github.com/llm-d/llm-d/tree/main/guides/pd-disaggregation">guide</a>). Agent Router cũng route được
+tới <code>InferencePool</code>, chính resource mà llm-d dùng, chứ không chỉ tới một service thường như Dynamo frontend
+(<a href="https://aigateway.envoyproxy.io/docs/capabilities/inference/inferencepool-support">docs</a>).</p>
+<p>Trên phần cứng NVIDIA, bọn mình chọn Dynamo vì một frontend lo được KV-aware routing, P/D và autoscale cho
+cả vLLM, SGLang và TensorRT-LLM, mà đổi engine theo benchmark là việc bọn mình làm thật. Đây không phải
+chuyện bên nào hơn: cả hai cùng chuyển KV bằng <a href="https://github.com/ai-dynamo/nixl">NIXL</a> qua RDMA, NVIDIA
+là thành viên sáng lập llm-d, và KV router của Dynamo cũng chạy được như Endpoint Picker của llm-d.</p>
+<p>Điều mình chưa dám nói: hiện mọi spoke của bọn mình đều là NVIDIA và đều chạy Dynamo. Một spoke không phải
+NVIDIA là điều kiến trúc cho phép, chứ bọn mình chưa làm. Việc thật sẽ là build lại engine, dựng mạng mới và
+đo lại từ đầu.</p>
+<h3 id="đo-usage-bất-đồng-bộ-thì-đánh-đổi-những-gì">“Đo usage bất đồng bộ thì đánh đổi những gì?”</h3>
+<p>Usage được ghi ngoài đường đi của request: sau mỗi response, gateway phát một usage event, rồi metering xử
+lý sau, nên response không bao giờ phải chờ nó.</p>
+<p>Được gì: metering có sự cố thì response vẫn trả, đường request không thêm bước nhảy nào, metering scale
+riêng, và hub có trục trặc thì spoke vẫn phục vụ trong giới hạn nó đang giữ.</p>
+<p>Mất gì:</p>
+<ul>
+<li><strong>Bộ đếm cập nhật trễ.</strong> Người gọi có thể vượt hạn mức usage trong khoảng trễ đó. Những kiểm tra bảo vệ
+GPU như số request mỗi giây hay số request đồng thời thì vẫn đồng bộ ngay tại spoke, chỉ phần ghi usage là
+bất đồng bộ.</li>
+<li><strong>Event có thể tới hai lần</strong>, nên phần xử lý phải idempotent: mỗi request chỉ được tính một lần.</li>
+<li><strong>Event có thể mất.</strong> Bất đồng bộ thì phải chứng minh được là không mất gì, tức là cần toàn vẹn từ đầu
+tới cuối, truy vết được và đối soát, và đây là phần tốn thời gian nhất để làm cho đúng.</li>
+<li><strong>Streaming là chỗ nhiều trường hợp biên nhất.</strong> Số token cuối cùng chỉ có ở cuối stream, nên stream bị
+cắt giữa chừng là trường hợp đầu tiên cần test.</li>
+</ul>
+<p>Làm lại thì mình vẫn chọn như vậy, vì gọi đồng bộ về một service trung tâm ở mỗi request là biến bài toán
+đo đếm thành bài toán availability.</p>
+<h2 id="đọc-thêm">Đọc thêm</h2>
+<ul>
+<li><a href="/talks/turning-gpu-hours-into-tokens.pdf">Slide của buổi nói</a></li>
+<li>Bài viết về Dynamo trên <a href="https://viettelcloud.vn/en/tech-blog/4/142">Viettel Cloud Tech Blog</a>, có trong
+<a href="https://docs.nvidia.com/dynamo/external-publications">NVIDIA Dynamo External Publications</a>.</li>
+<li><a href="https://github.com/theagentrouter/agent-router">Agent Router</a>,
+<a href="https://github.com/ai-dynamo/dynamo">NVIDIA Dynamo</a>, <a href="https://github.com/llm-d/llm-d">llm-d</a>.</li>
+</ul>
+<p>Cảm ơn ban tổ chức từ AWS First Cloud AI Journey, OpenInfra User Group Vietnam và Cloud Native Vietnam, và cảm ơn mọi người đã ở lại tới phần hỏi đáp.</p>
+<p>Giữ control plane ngoài đường đi của request thì thêm một cụm, đổi một engine hay nâng một gateway chỉ là
+sửa ở một chỗ, chứ không thành một dự án mới. Nếu bạn cũng serve trên nhiều cụm mà vạch ranh giới ở chỗ khác, mình rất muốn nghe lý
+do :)</p>
+</div><nav class="pager" aria-label="More posts" data-astro-cid-57z6rh23><a href="/articles/contribute-to-cncf-glossary.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>← Older</span>Hướng dẫn đóng góp dịch thuật cho CNCF Glossary</a><a class="next" href="/articles/recap-turning-gpu-hours-into-tokens.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>Newer →</span>Recap VOI &amp; CNVN x AWS FCAJ Meetup: Turning GPU-Hours into Tokens, and Tokens into a Service</a></nav></article><aside class="toc" aria-label="On this page" data-astro-cid-57z6rh23><p class="eyebrow" data-astro-cid-57z6rh23>On this page</p><ol data-astro-cid-57z6rh23><li class="d2" data-astro-cid-57z6rh23><a href="#ai-cũng-bắt-đầu-từ-đây" data-astro-cid-57z6rh23>Ai cũng bắt đầu từ đây</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#tách-control-plane-và-data-plane" data-astro-cid-57z6rh23>Tách control plane và data plane</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#phần-1-mỗi-cụm-một-gateway" data-astro-cid-57z6rh23>Phần 1: mỗi cụm một gateway</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#phần-2-mỗi-gpu-hour-ra-nhiều-token-hơn" data-astro-cid-57z6rh23>Phần 2: mỗi GPU-hour ra nhiều token hơn</a></li><li class="d3" data-astro-cid-57z6rh23><a href="#hai-mạng-dưới-một-request" data-astro-cid-57z6rh23>Hai mạng dưới một request</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#mỗi-tầng-quyết-định-một-việc" data-astro-cid-57z6rh23>Mỗi tầng quyết định một việc</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#tiếp-theo-nvidia-dsx-os" data-astro-cid-57z6rh23>Tiếp theo: NVIDIA DSX OS</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#mọi-người-hỏi-gì-và-câu-trả-lời-dài-hơn" data-astro-cid-57z6rh23>Mọi người hỏi gì, và câu trả lời dài hơn</a></li><li class="d3" data-astro-cid-57z6rh23><a href="#vendor-khác-thì-sao-một-cụm-chạy-llm-d-thay-dynamo-được-không" data-astro-cid-57z6rh23>“Vendor khác thì sao? Một cụm chạy llm-d thay Dynamo được không?”</a></li><li class="d3" data-astro-cid-57z6rh23><a href="#đo-usage-bất-đồng-bộ-thì-đánh-đổi-những-gì" data-astro-cid-57z6rh23>“Đo usage bất đồng bộ thì đánh đổi những gì?”</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#đọc-thêm" data-astro-cid-57z6rh23>Đọc thêm</a></li></ol></aside></div></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 The Anh Nguyen</span><span class="footer-links"><a href="https://github.com/ntheanh201" rel="me noopener" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/ntheanh201/" rel="me noopener" target="_blank">LinkedIn</a><a href="https://x.com/ntheanh201" rel="me noopener" target="_blank">X</a><a href="https://facebook.com/ntheanh201" rel="me noopener" target="_blank">Facebook</a><a href="/rss.xml">RSS</a><a href="/articles/colophon.html">Colophon</a></span></div></footer><script>
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+      });
+    </script></body></html><script>
+  for (const pre of document.querySelectorAll(".prose pre")) {
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    pre.replaceWith(wrap);
+    wrap.append(pre);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = "Copied";
+        btn.dataset.copied = "";
+      } catch {
+        btn.textContent = "Press ⌘C";
+      }
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        delete btn.dataset.copied;
+      }, 1600);
+    });
+    wrap.append(btn);
+  }
+</script>
