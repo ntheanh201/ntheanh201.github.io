@@ -44,8 +44,8 @@ See [all certifications](/certifications.html), including NVIDIA NCP-AII and NCP
 
 ## Talks
 
-- **Turning GPU-Hours into Tokens, and Tokens into a Service: Agent Router and NVIDIA Dynamo**, [VOI & CNVN x AWS FCAJ Meetup: Cloud & AI Infrastructure](https://ocgroups.dev/cncf/group/d2e22fa/event/5z4fnze), Hanoi, 2026
-- **From Project to Production: HAMi and Viettel Cloud**, [KCD & OpenInfra Days Vietnam 2026](https://sessionize.com/view/c0qvrydt/GridSmart)
+- **Turning GPU-Hours into Tokens, and Tokens into a Service: Agent Router and NVIDIA Dynamo**, [VOI & CNVN x AWS FCAJ Meetup: Cloud & AI Infrastructure](https://ocgroups.dev/cncf/group/d2e22fa/event/5z4fnze), Hanoi, 2026 · [Recap](/articles/recap-turning-gpu-hours-into-tokens.html)
+- **From Project to Production: HAMi and Viettel Cloud**, [KCD & OpenInfra Days Vietnam 2026](https://sessionize.com/view/c0qvrydt/GridSmart) · [Recap](/articles/recap-kcd-vietnam-2026-hami.html)
 - **Auditable Autonomy: Engineering With AI Teammates That Leave a Trace**, [The Future of Software Engineering in the Agentic AI era](https://viettelfamily.com/news/vds-quy-tu-chuyen-gia-viettel-ban-ve-tuong-lai-software-engineering-global)
 - **From Vietnam to the World: Contributing to Kubernetes and earning the Linux Foundation Scholarship**, [#cTENcf Birthday Bash Hanoi](https://community.cncf.io/events/details/cncf-cloud-native-hanoi-presents-ctencf-birthday-bash-hanoi/)
 - **AI GÕ CỬA — Doanh nghiệp Việt đã sẵn sàng?**, [VIETTELDX TALKS #8](https://www.youtube.com/watch?v=8pN4ft0OzpY)

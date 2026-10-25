@@ -103,6 +103,14 @@ const certCount = CERTIFICATIONS.reduce((n, g) => n + g.items.length, 0);
               <span class="meta">
                 {t.event}
                 {t.year && `, ${t.year}`}
+                {t.recap && (
+                  <>
+                    {" · "}
+                    <a class="recap" href={t.recap}>
+                      Recap
+                    </a>
+                  </>
+                )}
               </span>
             </li>
           ))
@@ -203,5 +211,11 @@ const certCount = CERTIFICATIONS.reduce((n, g) => n + g.items.length, 0);
 
   .talks a:hover {
     color: var(--accent);
+  }
+
+  .talks .meta .recap {
+    display: inline;
+    color: var(--accent);
+    font-weight: inherit;
   }
 </style>

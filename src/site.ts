@@ -100,17 +100,20 @@ export const TRAINING = [
 
 export const ALL_BADGES: Cert[] = [...COMMUNITY, ...CERTIFICATIONS.flatMap((g) => g.items)].filter((c) => c.img);
 
-export const TALKS: { title: string; event: string; href: string; year?: string }[] = [
+// recap: path of the post written about the talk, shown as a link next to the event.
+export const TALKS: { title: string; event: string; href: string; year?: string; recap?: string }[] = [
   {
     title: "Turning GPU-Hours into Tokens, and Tokens into a Service: Agent Router and NVIDIA Dynamo",
     event: "VOI & CNVN x AWS FCAJ Meetup: Cloud & AI Infrastructure, Hanoi",
     href: "https://ocgroups.dev/cncf/group/d2e22fa/event/5z4fnze",
     year: "2026",
+    recap: "/articles/recap-turning-gpu-hours-into-tokens.html",
   },
   {
     title: "From Project to Production: HAMi and Viettel Cloud",
     event: "KCD & OpenInfra Days Vietnam 2026",
     href: "https://sessionize.com/view/c0qvrydt/GridSmart",
+    recap: "/articles/recap-kcd-vietnam-2026-hami.html",
   },
   {
     title: "Auditable Autonomy: Engineering With AI Teammates That Leave a Trace",
