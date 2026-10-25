@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Recap Cloud Native Hanoi May Meetup: Fractional GPU for AI, giải pháp mã nguồn mở trong Cloud Native · The Anh Nguyen</title><meta name="description" content="Recap bài nói của mình và anh Nho Minh Tú ở Cloud Native Hanoi May Meetup (GPU and eBPF on Kubernetes), 25/5/2025: các cơ chế chia sẻ GPU, GPU sharing của KAI Scheduler, container fractional GPU của ClearML, và HAMi."><link rel="canonical" href="https://ntheanh201.id.vn/articles/recap-fractional-gpu-cloud-native-hanoi-vi.html"><link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2"><link rel="alternate" type="application/rss+xml" title="The Anh Nguyen" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="article"><meta property="og:title" content="Recap Cloud Native Hanoi May Meetup: Fractional GPU for AI, giải pháp mã nguồn mở trong Cloud Native"><meta property="og:description" content="Recap bài nói của mình và anh Nho Minh Tú ở Cloud Native Hanoi May Meetup (GPU and eBPF on Kubernetes), 25/5/2025: các cơ chế chia sẻ GPU, GPU sharing của KAI Scheduler, container fractional GPU của ClearML, và HAMi."><meta property="og:url" content="https://ntheanh201.id.vn/articles/recap-fractional-gpu-cloud-native-hanoi-vi.html"><meta property="og:image" content="https://ntheanh201.id.vn/thumbnail.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@ntheanh201"><meta name="color-scheme" content="light dark"><script>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem("theme"); } catch {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.C9Fi5y78.css"><style>.article[data-astro-cid-57z6rh23]{max-width:var(--measure);margin:0 auto;padding:0 1rem}@media (width>=72rem){.article[data-astro-cid-57z6rh23].has-toc{max-width:calc(var(--measure) + 15rem + 3rem);grid-template-columns:minmax(0, var(--measure)) 15rem;gap:3rem;display:grid}}.article-head[data-astro-cid-57z6rh23]{margin-bottom:2rem;padding-top:3.5rem}.article-head[data-astro-cid-57z6rh23] h1[data-astro-cid-57z6rh23]{letter-spacing:-.02em;margin:0 0 .75rem;font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.2}.article-head[data-astro-cid-57z6rh23] .subtitle[data-astro-cid-57z6rh23]{color:var(--muted);margin:0 0 1rem;font-size:1.15rem;line-height:1.5}.article-head[data-astro-cid-57z6rh23] .meta[data-astro-cid-57z6rh23]{flex-wrap:wrap;align-items:center;gap:.35rem;margin:0;display:flex}.cover[data-astro-cid-57z6rh23]{border:1px solid var(--border);border-radius:8px;width:100%;margin-bottom:2.25rem;display:block}.toc[data-astro-cid-57z6rh23]{display:none}@media (width>=72rem){.toc[data-astro-cid-57z6rh23]{align-self:start;max-height:calc(100vh - 3rem);margin-top:3.75rem;font-size:.85rem;line-height:1.45;display:block;position:sticky;top:1.5rem;overflow-y:auto}.toc[data-astro-cid-57z6rh23] ol[data-astro-cid-57z6rh23]{border-left:1px solid var(--border);margin:0;padding:0 0 0 .75rem;list-style:none}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23]{margin:.45rem 0}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23].d3{padding-left:.85rem}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--muted);text-decoration:none}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--fg)}}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap header-inner"><a href="/" class="brand"><span class="avatar"><img class="ink" src="/images/portrait-head.svg" alt="" width="30" height="30"></span>ntheanh201</a><nav aria-label="Main"><a href="/archives.html">Writing</a><a href="/certifications.html"><span class="nav-long">Certifications</span><span class="nav-short">Certs</span></a><a href="/articles/about.html">About</a><button class="theme-toggle" type="button" aria-label="Toggle dark mode"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></button></nav></div></header><main id="main"><div class="article has-toc" data-astro-cid-57z6rh23><article data-astro-cid-57z6rh23><header class="article-head" data-astro-cid-57z6rh23><h1 data-astro-cid-57z6rh23>Recap Cloud Native Hanoi May Meetup: Fractional GPU for AI, giải pháp mã nguồn mở trong Cloud Native</h1><p class="subtitle" data-astro-cid-57z6rh23>Kubernetes cấp GPU theo nguyên card. Bọn mình so sánh ba cách mã nguồn mở để chia nhỏ GPU, và thấy rằng xếp lịch cho một phần GPU thì dễ, còn ép được giới hạn đó mới là phần khó.</p><p class="meta" data-astro-cid-57z6rh23><time datetime="2025-05-25T00:00:00.000Z" data-astro-cid-57z6rh23>May 25, 2025</time><span aria-hidden="true" data-astro-cid-57z6rh23> · </span>5 min read<span aria-hidden="true" data-astro-cid-57z6rh23> · </span><span class="tags" data-astro-cid-57z6rh23><a class="tag" href="/tag/talk.html" data-astro-cid-57z6rh23>talk</a><a class="tag" href="/tag/hami.html" data-astro-cid-57z6rh23>hami</a><a class="tag" href="/tag/gpu-sharing.html" data-astro-cid-57z6rh23>gpu-sharing</a><a class="tag" href="/tag/kubernetes.html" data-astro-cid-57z6rh23>kubernetes</a><a class="tag" href="/tag/kai-scheduler.html" data-astro-cid-57z6rh23>kai-scheduler</a></span></p></header><div class="prose" data-astro-cid-57z6rh23><p><em><a href="/articles/recap-fractional-gpu-cloud-native-hanoi.html">Read in English</a>.</em></p>
+<p><img src="/img/talks/2025-05-25/slide-1.jpg" alt="Fractional GPU for AI: Open Source Solutions in Cloud Native"></p>
+<p>Kubernetes coi GPU là một thứ không chia được: pod xin <code>nvidia.com/gpu: 1</code> là nhận nguyên card, kể cả khi
+nó chỉ cần một phần mười. Mình và anh Nho Minh Tú, cùng team, đã so sánh các cách mã nguồn mở để vượt qua giới
+hạn đó, rồi chia sẻ lại ở Cloud Native Hanoi May Meetup “GPU and eBPF on Kubernetes” ngày 25/5/2025.</p>
+<p>Nói ngắn gọn thì cho nhiều pod chạy chung một GPU khá dễ, còn bảo đảm mỗi pod chỉ dùng đúng phần nó xin mới
+là phần khó, và các lựa chọn bọn mình thử khác nhau chính ở chỗ đó.</p>
+<p><img src="/img/talks/2025-05-25/photo-whoami.jpg" alt="Mở đầu bài nói ở Cloud Native Hanoi May Meetup, 25/5/2025"></p>
+<h2 id="fractional-gpu-là-gì">Fractional GPU là gì</h2>
+<p><img src="/img/talks/2025-05-25/photo-outline.jpg" alt="Anh Nho Minh Tú giới thiệu outline: fractional GPU, KAI Scheduler kết hợp ClearML, HAMi"></p>
+<p>Fractional GPU là chia tài nguyên của một GPU thành nhiều phần nhỏ để nhiều pod chạy cùng lúc trên một card.
+Bản thân NVIDIA đã có vài cách chia sẻ GPU, mỗi cách nằm ở một tầng khác nhau:</p>
+<p><img src="/img/talks/2025-05-25/slide-7.jpg" alt="Các cơ chế chia sẻ GPU: single process, MPS, time-slicing, MIG, vGPU"></p>
+<ul>
+<li><strong>Single process với CUDA streams</strong>, ngay trong một ứng dụng.</li>
+<li><strong>Multi-Process Service (MPS)</strong>, nhiều process dùng chung một context.</li>
+<li><strong>Time-slicing</strong>, các process lần lượt dùng cả GPU.</li>
+<li><strong>MIG</strong>, chia phân vùng ở phần cứng trên những card hỗ trợ.</li>
+<li><strong>vGPU</strong>, ảo hoá ở tầng dưới hệ điều hành.</li>
+</ul>
+<p>Câu hỏi của cloud native là làm sao xin và xếp lịch các phần đó từ Kubernetes, rồi giám sát và quản lý chúng
+khi đã chạy.</p>
+<p><img src="/img/talks/2025-05-25/photo-on-stage.jpg" alt="Slide bìa trên màn hình ở hội trường buổi meetup"></p>
+<h2 id="cách-1-kai-scheduler-chia-được-nhưng-không-cô-lập">Cách 1: KAI Scheduler chia được nhưng không cô lập</h2>
+<p><a href="https://github.com/NVIDIA/KAI-Scheduler">KAI Scheduler</a> là scheduler GPU native cho Kubernetes, tách ra từ
+nền tảng Run:ai. Nó hỗ trợ GPU sharing theo hai kiểu: pod xin một phần GPU (fraction), hoặc xin một lượng
+GPU memory, rồi nhiều pod được xếp chung lên một thiết bị.</p>
+<p>Có điều nó không ép giới hạn đó. Xin một phần GPU rồi chạy <code>nvidia-smi</code> trong pod thì vẫn thấy nguyên card.
+Hai issue trên repo mô tả đúng chuyện này:
+<a href="https://github.com/NVIDIA/KAI-Scheduler/issues/49">gpu fraction didn’t reflect to nvidia-smi</a> và
+<a href="https://github.com/NVIDIA/KAI-Scheduler/issues/45">how is GPU sharing implemented?</a>. Câu trả lời là
+scheduler chỉ xếp pod theo phần chúng xin, còn việc ở trong phần của mình là trách nhiệm của từng workload.</p>
+<p><img src="/img/talks/2025-05-25/slide-11.jpg" alt="KAI Scheduler không cô lập tài nguyên khi chia sẻ GPU"></p>
+<p>Lúc đó KAI cũng vừa <a href="https://github.com/cncf/sandbox/issues/372">nộp đơn vào CNCF Sandbox</a>, nên bọn mình để
+một slide với dấu hỏi: KAI to CNCF?</p>
+<h2 id="cách-2-mượn-phần-cô-lập-của-clearml">Cách 2: mượn phần cô lập của ClearML</h2>
+<p><a href="https://github.com/clearml/clearml-fractional-gpu">Fractional GPU của ClearML</a> đi theo hướng ngược lại.
+Lựa chọn mã nguồn mở của họ là một bộ container đóng gói sẵn, có giới hạn memory cứng ngay trong image:
+<code>clearml/fractional-gpu:u22-cu12.3-2gb</code>, <code>-4gb</code>, <code>-8gb</code>, v.v. Giới hạn nằm ở image chứ không nằm ở
+scheduler.</p>
+<p>Vì thế bọn mình đề xuất ghép hai thứ lại: KAI quyết định pod chạy ở đâu, còn container ClearML giữ cho pod
+không vượt quá phần memory của nó. Trên một node có một card 8 GB, pod cần 2 GB sẽ xin KAI 2000 MiB memory
+(hoặc fraction 0,25) và chạy image ClearML 2 GB.</p>
+<p><img src="/img/talks/2025-05-25/slide-15.jpg" alt="Đề xuất: KAI Scheduler kết hợp container fractional GPU của ClearML"></p>
+<p>Trên lý thuyết thì cách này lấp được khoảng trống, nhưng thực tế là hai công cụ dán vào nhau, mà giới hạn
+lại phụ thuộc vào image bạn chọn.</p>
+<h2 id="cách-3-hami">Cách 3: HAMi</h2>
+<p><a href="https://github.com/Project-HAMi/HAMi">HAMi</a> (Heterogeneous AI Computing Virtualization Middleware) lúc đó là
+một dự án CNCF Sandbox. Nó quản lý nhiều loại thiết bị AI khác nhau trong cùng một cụm Kubernetes, NVIDIA
+lẫn các hãng khác như Huawei Ascend, và tự lo cả việc chia sẻ lẫn cô lập.</p>
+<p><img src="/img/talks/2025-05-25/slide-19.jpg" alt="Vì sao chọn HAMi: GPU dùng ít mà task mới vẫn không xếp lịch được"></p>
+<p><img src="/img/talks/2025-05-25/photo-audience.jpg" alt="Giải thích vì sao chọn HAMi trước khán giả buổi meetup"></p>
+<p>Bài toán nó giải đúng là bài toán bọn mình gặp: GPU dùng rất ít, nhưng task mới vẫn không xếp lịch được vì
+card nào cũng đang bị giữ nguyên. Danh sách tính năng của HAMi cũng khớp với thứ bọn mình cần: hỗ trợ nhiều
+loại thiết bị AI, chia sẻ thiết bị, cô lập tài nguyên cứng bên trong container, độ ưu tiên task, và chính
+sách xếp lịch binpack hoặc spread.</p>
+<p>Phần cô lập là phần bọn mình cho mọi người xem trực tiếp. Một pod xin một vGPU với 3000 MB memory:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">resources</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  limits</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    nvidia.com/gpu</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span><span style="color:#6A737D;--shiki-dark:#6A737D">        # xin 1 vGPU</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    nvidia.com/gpumem</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">3000</span><span style="color:#6A737D;--shiki-dark:#6A737D">  # mỗi vGPU có 3000 MB device memory</span></span></code></pre>
+<p>Trong pod, <code>nvidia-smi</code> trên card RTX 2080 chỉ hiện 3000 MiB chứ không phải nguyên card. Đó là điểm khác với
+hai cách trước: giới hạn được ép ngay bên trong container, dù bạn chạy image nào.</p>
+<p><img src="/img/talks/2025-05-25/slide-21.jpg" alt="Cô lập tài nguyên: nvidia-smi trong pod chỉ thấy 3000 MiB"></p>
+<p>HAMi còn xuất số liệu phân bổ thiết bị trong cụm và mức sử dụng theo thời gian thực cho Prometheus và
+Grafana, còn HAMi-WebUI cho bạn xem tổng quan node, GPU và task ngay trên trình duyệt.</p>
+<p><img src="/img/talks/2025-05-25/slide-24.jpg" alt="HAMi-WebUI: tổng quan tài nguyên, quản lý node, GPU và task"></p>
+<h2 id="bước-tiếp-theo-bọn-mình-muốn-đi">Bước tiếp theo bọn mình muốn đi</h2>
+<p>Bọn mình kết thúc bằng chỗ muốn dùng đầu tiên: HAMi với Kubeflow, để một GPU phục vụ được nhiều notebook.
+Notebook là ví dụ điển hình của GPU được cấp cả ngày mà chỉ bận một phần nhỏ thời gian.</p>
+<p><img src="/img/talks/2025-05-25/slide-25.jpg" alt="HAMi kết hợp Kubeflow: một GPU cho nhiều notebook"></p>
+<p><img src="/img/talks/2025-05-25/photo-both-speakers.jpg" alt="Anh Nho Minh Tú và mình trong lúc trình bày"></p>
+<p>Và đó chính là thứ bọn mình làm tiếp. Hai tháng sau, ở OpenInfra &amp; Cloud Native Day Vietnam 2025, bài nói
+tiếp theo mở HAMi ra xem bên trong nó hoạt động thế nào và cho thấy nó chạy trong Kubeflow Notebooks:
+<a href="/articles/recap-hami-void-2025-vi.html">recap bài nói về HAMi</a>. Một năm sau nữa, ở KCD &amp; OpenInfra Days
+Vietnam 2026, bọn mình quay lại với số liệu production:
+<a href="/articles/recap-kcd-vietnam-2026-hami-vi.html">recap bài nói ở KCD</a>.</p>
+<p><img src="/img/talks/2025-05-25/photo-speakers-gifts.jpg" alt="Các diễn giả nhận quà từ ban tổ chức trên sân khấu"></p>
+<p>Cảm ơn Cloud Native Hanoi và FPT Smart Cloud đã tổ chức. Nếu bạn đã thử chia GPU theo cách khác trên
+Kubernetes, mình rất muốn nghe cách nào trụ được.</p>
+<p><img src="/img/talks/2025-05-25/cncf-contributor-badge.jpg" alt="Không phải ảnh sự kiện: huy hiệu CNCF Contributor gắn trên chú robot Classicbot ở bàn làm việc, tối hôm đó"></p>
+</div><nav class="pager" aria-label="More posts" data-astro-cid-57z6rh23><a href="/articles/contribute-to-cncf-glossary.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>← Older</span>Hướng dẫn đóng góp dịch thuật cho CNCF Glossary</a><a class="next" href="/articles/recap-hami-void-2025.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>Newer →</span>Recap OpenInfra &amp; Cloud Native Day Vietnam 2025: HAMi, Fractional GPU for Efficient AI in Cloud Native</a></nav></article><aside class="toc" aria-label="On this page" data-astro-cid-57z6rh23><p class="eyebrow" data-astro-cid-57z6rh23>On this page</p><ol data-astro-cid-57z6rh23><li class="d2" data-astro-cid-57z6rh23><a href="#fractional-gpu-là-gì" data-astro-cid-57z6rh23>Fractional GPU là gì</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#cách-1-kai-scheduler-chia-được-nhưng-không-cô-lập" data-astro-cid-57z6rh23>Cách 1: KAI Scheduler chia được nhưng không cô lập</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#cách-2-mượn-phần-cô-lập-của-clearml" data-astro-cid-57z6rh23>Cách 2: mượn phần cô lập của ClearML</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#cách-3-hami" data-astro-cid-57z6rh23>Cách 3: HAMi</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#bước-tiếp-theo-bọn-mình-muốn-đi" data-astro-cid-57z6rh23>Bước tiếp theo bọn mình muốn đi</a></li></ol></aside></div></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 The Anh Nguyen</span><span class="footer-links"><a href="https://github.com/ntheanh201" rel="me noopener" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/ntheanh201/" rel="me noopener" target="_blank">LinkedIn</a><a href="https://x.com/ntheanh201" rel="me noopener" target="_blank">X</a><a href="https://facebook.com/ntheanh201" rel="me noopener" target="_blank">Facebook</a><a href="/rss.xml">RSS</a><a href="/articles/colophon.html">Colophon</a></span></div></footer><script>
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+      });
+    </script></body></html><script>
+  for (const pre of document.querySelectorAll(".prose pre")) {
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    pre.replaceWith(wrap);
+    wrap.append(pre);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = "Copied";
+        btn.dataset.copied = "";
+      } catch {
+        btn.textContent = "Press ⌘C";
+      }
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        delete btn.dataset.copied;
+      }, 1600);
+    });
+    wrap.append(btn);
+  }
+</script>
