@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Recap KCD &amp; OpenInfra Days Vietnam 2026: HAMi, từ project tới production · The Anh Nguyen</title><meta name="description" content="Recap bài nói của mình và Reza Jelveh (Dynamia AI, đội làm ra HAMi) ở KCD &amp; OpenInfra Days Vietnam 2026, Sheraton Hà Nội, 25/7/2026: gấp 3,4 lần việc trên mỗi GPU với HAMi trên nền tảng Kubernetes AI đã được chứng nhận, phải làm gì, và job nào được lợi."><link rel="canonical" href="https://ntheanh201.id.vn/articles/recap-kcd-vietnam-2026-hami-vi.html"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="The Anh Nguyen" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="article"><meta property="og:title" content="Recap KCD &amp; OpenInfra Days Vietnam 2026: HAMi, từ project tới production"><meta property="og:description" content="Recap bài nói của mình và Reza Jelveh (Dynamia AI, đội làm ra HAMi) ở KCD &amp; OpenInfra Days Vietnam 2026, Sheraton Hà Nội, 25/7/2026: gấp 3,4 lần việc trên mỗi GPU với HAMi trên nền tảng Kubernetes AI đã được chứng nhận, phải làm gì, và job nào được lợi."><meta property="og:url" content="https://ntheanh201.id.vn/articles/recap-kcd-vietnam-2026-hami-vi.html"><meta property="og:image" content="https://ntheanh201.id.vn/thumbnail.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@ntheanh201"><meta name="color-scheme" content="light dark"><script>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem("theme"); } catch {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.C9Fi5y78.css"><style>.article[data-astro-cid-57z6rh23]{max-width:var(--measure);margin:0 auto;padding:0 1rem}@media (width>=72rem){.article[data-astro-cid-57z6rh23].has-toc{max-width:calc(var(--measure) + 15rem + 3rem);grid-template-columns:minmax(0, var(--measure)) 15rem;gap:3rem;display:grid}}.article-head[data-astro-cid-57z6rh23]{margin-bottom:2rem;padding-top:3.5rem}.article-head[data-astro-cid-57z6rh23] h1[data-astro-cid-57z6rh23]{letter-spacing:-.02em;margin:0 0 .75rem;font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.2}.article-head[data-astro-cid-57z6rh23] .subtitle[data-astro-cid-57z6rh23]{color:var(--muted);margin:0 0 1rem;font-size:1.15rem;line-height:1.5}.article-head[data-astro-cid-57z6rh23] .meta[data-astro-cid-57z6rh23]{flex-wrap:wrap;align-items:center;gap:.35rem;margin:0;display:flex}.cover[data-astro-cid-57z6rh23]{border:1px solid var(--border);border-radius:8px;width:100%;margin-bottom:2.25rem;display:block}.toc[data-astro-cid-57z6rh23]{display:none}@media (width>=72rem){.toc[data-astro-cid-57z6rh23]{align-self:start;max-height:calc(100vh - 3rem);margin-top:3.75rem;font-size:.85rem;line-height:1.45;display:block;position:sticky;top:1.5rem;overflow-y:auto}.toc[data-astro-cid-57z6rh23] ol[data-astro-cid-57z6rh23]{border-left:1px solid var(--border);margin:0;padding:0 0 0 .75rem;list-style:none}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23]{margin:.45rem 0}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23].d3{padding-left:.85rem}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--muted);text-decoration:none}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--fg)}}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap header-inner"><a href="/" class="brand"><span class="avatar"><img class="ink" src="/images/portrait-head.svg" alt="" width="30" height="30"></span>ntheanh201</a><nav aria-label="Main"><a href="/archives.html">Writing</a><a href="/certifications.html"><span class="nav-long">Certifications</span><span class="nav-short">Certs</span></a><a href="/articles/about.html">About</a><button class="theme-toggle" type="button" aria-label="Toggle dark mode"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></button></nav></div></header><main id="main"><div class="article has-toc" data-astro-cid-57z6rh23><article data-astro-cid-57z6rh23><header class="article-head" data-astro-cid-57z6rh23><h1 data-astro-cid-57z6rh23>Recap KCD &amp; OpenInfra Days Vietnam 2026: HAMi, từ project tới production</h1><p class="subtitle" data-astro-cid-57z6rh23>Gấp 3,4 lần việc trên mỗi GPU từ những card vốn để trống phần lớn, trên một nền tảng Kubernetes AI đã được chứng nhận. Đo được gì, phải làm gì, và chọn job nào để chia card.</p><p class="meta" data-astro-cid-57z6rh23><time datetime="2026-07-25T00:00:00.000Z" data-astro-cid-57z6rh23>Jul 25, 2026</time><span aria-hidden="true" data-astro-cid-57z6rh23> · </span>9 min read<span aria-hidden="true" data-astro-cid-57z6rh23> · </span><span class="tags" data-astro-cid-57z6rh23><a class="tag" href="/tag/talk.html" data-astro-cid-57z6rh23>talk</a><a class="tag" href="/tag/hami.html" data-astro-cid-57z6rh23>hami</a><a class="tag" href="/tag/gpu-sharing.html" data-astro-cid-57z6rh23>gpu-sharing</a><a class="tag" href="/tag/kubernetes.html" data-astro-cid-57z6rh23>kubernetes</a><a class="tag" href="/tag/keda.html" data-astro-cid-57z6rh23>keda</a></span></p></header><div class="prose" data-astro-cid-57z6rh23><p><em><a href="/articles/recap-kcd-vietnam-2026-hami.html">Read in English</a>.</em></p>
+<p><img src="/img/talks/2026-07-25/slide-1.jpg" alt="Slide bìa của bài nói"></p>
+<p>GPU của bọn mình phần lớn để trống, trong khi pod vẫn giữ trọn cả card. Với HAMi, một H200 làm được gấp 3,4
+lần việc ở cùng mức latency. Để tới được đó cần làm vận hành thật sự, và phần lời đến từ việc chọn đúng job
+để dùng chung card. Đó là nửa của mình trong bài nói cùng Reza Jelveh ở KCD &amp; OpenInfra Days Vietnam 2026, ngày 25/7 tại
+Sheraton Hà Nội.</p>
+<p>Điều làm phiên này đáng nghe là sự kết hợp. Reza là Solution Architect ở Dynamia AI, công ty đứng sau
+<a href="https://github.com/Project-HAMi/HAMi">HAMi</a>, nên anh ấy mang góc nhìn upstream: project hoạt động thế nào
+và vì sao. Mình mang góc nhìn downstream từ các cụm GPU của bọn mình: đã đo được gì, hỏng ở đâu, và học
+được gì.</p>
+<p><img src="/img/talks/2026-07-25/photo-on-stage.jpg" alt="Reza và mình trên sân khấu KCD &amp; OpenInfra Days Vietnam 2026"></p>
+<h2 id="phần-của-reza-vì-sao-gpu-cần-được-chia-nhỏ">Phần của Reza: vì sao GPU cần được chia nhỏ</h2>
+<p>Kubernetes cấp GPU theo kiểu nguyên khối: pod xin <code>nvidia.com/gpu: 1</code> là nhận cả card, nên một job chỉ cần
+1 GB vẫn giữ trọn một card 80 GB, và cấp dư thành chuyện mặc định. DRA cho Kubernetes một cách có cấu trúc
+để mô tả và xin thiết bị, nhưng mô tả được một phần GPU không có nghĩa là giới hạn được nó.</p>
+<p>HAMi, project CNCF Incubating, lấp đúng chỗ đó. Nó chặn các lời gọi CUDA ngay trong container (thư viện
+<code>libvgpu</code>, nạp bằng <code>LD_PRELOAD</code>), nên pod nhận được giới hạn bộ nhớ cứng và một phần compute trên GPU vật
+lý. Reza đi qua phần còn lại của bộ công cụ: lập lịch binpack, spread, theo topology, memory
+oversubscription, độ ưu tiên, và hỗ trợ cả accelerator ngoài NVIDIA như Ascend, Cambricon. HAMi cũng có
+DRA driver, và đó là chỗ hai hướng gặp nhau.</p>
+<h2 id="bên-dưới-là-một-nền-tảng-kubernetes-ai-đã-được-chứng-nhận">Bên dưới là một nền tảng Kubernetes AI đã được chứng nhận</h2>
+<p><img src="/img/talks/2026-07-25/slide-22.jpg" alt="Certified Kubernetes AI Platform"></p>
+<p>Trước khi vào số liệu là nền tảng nằm bên dưới. Chương trình Kubernetes AI Conformance của CNCF chứng nhận
+một nền tảng chạy workload AI theo cách chuẩn: hỗ trợ DRA, gang scheduling, metric của accelerator và của
+service AI, truy cập accelerator an toàn, Gateway API cho inference, và autoscaling cả pod lẫn cluster.</p>
+<p>Nền tảng AI của bọn mình được chứng nhận trên Kubernetes v1.35 (<a href="https://github.com/cncf/k8s-ai-conformance/tree/main/v1.35/viettel-ai-platform">hồ sơ conformance</a>). Ở thời điểm buổi nói,
+đó là một trong 31 nền tảng được chứng nhận trên thế giới, cạnh AWS, Google Cloud, Azure, Oracle và Red Hat
+OpenShift, và là nền tảng đầu tiên của Việt Nam.</p>
+<p>Có hai yêu cầu trong số đó chính là chỗ chia sẻ GPU bị thử thách: truy cập accelerator phải an toàn khi
+nhiều pod dùng chung một card, và metric của accelerator phải có theo từng pod chứ không chỉ theo GPU vật lý.</p>
+<p><img src="/img/talks/2026-07-25/photo-booth.jpg" alt="Giới thiệu Viettel AI Platform (Viettel Cloud AI-Native) cho Reza ở gian trưng bày"></p>
+<p><em>Giới thiệu Viettel AI Platform (Viettel Cloud AI-Native) cho Reza ở gian trưng bày.</em></p>
+<h2 id="bọn-mình-chạy-những-gì">Bọn mình chạy những gì</h2>
+<p><img src="/img/talks/2026-07-25/slide-23.jpg" alt="Bọn mình chạy những gì"></p>
+<p>HAMi 2.9 chạy trên cả hai cụm của bọn mình: một pool H200, và một pool GPU hỗn hợp (L40, L40S, A30, A6000).
+Nó nằm cạnh Slinky, các workload inference và KEDA, hai scheduler chạy song song. Giới hạn bộ nhớ là thật:
+trong pod được cấp 2 GB, <code>nvidia-smi</code> hiện 2 GB chứ không phải 141. Người dùng chỉ cần viết như sau:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">resources</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  limits</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    nvidia.com/gpu</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    nvidia.com/gpumem</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">2000</span><span style="color:#6A737D;--shiki-dark:#6A737D">   # MB, giới hạn cứng</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    nvidia.com/gpucores</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">30</span><span style="color:#6A737D;--shiki-dark:#6A737D">   # %, best effort</span></span></code></pre>
+<p>Phần lớn nhà nghiên cứu còn không phải viết đoạn đó, họ chọn cỡ GPU trên giao diện notebook dựng từ
+Kubeflow Notebooks. Bọn mình cũng theo dõi được GPU theo từng pod, điều DCGM một mình không làm được vì nó
+chỉ báo theo GPU vật lý. Phần lớn số liệu dưới đây lấy từ pool H200, một ít từ L40.</p>
+<h2 id="vấn-đề-bằng-số-đo">Vấn đề, bằng số đo</h2>
+<p><img src="/img/talks/2026-07-25/slide-24.jpg" alt="Vấn đề bọn mình đo được"></p>
+<p>Hai job thật, mỗi job giữ trọn một H200 141 GB:</p>
+<ul>
+<li><strong>Dự báo chuỗi thời gian</strong> bằng Chronos, một foundation model khoảng 200 triệu tham số, dự báo tải và
+telemetry của hạ tầng. Nó dùng <strong>1 GB trên 141</strong>, compute 16 đến 18%.</li>
+<li><strong>Một job training</strong> trong notebook: YOLO11 trên khoảng 17 nghìn ảnh độ phân giải cao, phát hiện hư hỏng
+trên tủ điện. Nó dùng <strong>39 GB</strong>.</li>
+</ul>
+<p>Thế nào cũng có người hỏi sao chỉ 39. Batch size được chọn theo độ chính xác chứ không theo bộ nhớ: model
+nhỏ, ảnh độ phân giải cao, batch to hơn thì mAP tệ đi. Model đã bận khoảng 90% thời gian, và đẩy tiếp thì
+data pipeline nghẽn trước khi VRAM kịp đầy. Nên 39 GB là kích thước đúng, và 100 GB còn lại thật sự là thừa.</p>
+<p>Điều hay bị quên: L40, L40S và A6000 không có MIG, nên chia GPU bằng phần cứng không phải là lựa chọn trên
+phần lớn số card đó. Riêng Kubernetes thì chỉ cho một đáp án: cả card hoặc không gì cả.</p>
+<h2 id="gấp-34-lần-việc-trên-mỗi-gpu">Gấp 3,4 lần việc trên mỗi GPU</h2>
+<p><img src="/img/talks/2026-07-25/slide-25.jpg" alt="Kết quả: gấp 3,4 lần việc trên mỗi GPU"></p>
+<p>Cùng GPU, cùng job Chronos, cùng mục tiêu latency:</p>
+<table>
+<thead>
+<tr>
+<th>Cách chạy</th>
+<th>Request/s ở P95 160 ms</th>
+<th>GPU (SM) dùng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Một pod, cả card</td>
+<td>20,7</td>
+<td>18%</td>
+</tr>
+<tr>
+<td>Một pod, lát HAMi</td>
+<td>19,6</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>HAMi + KEDA, scale replica</td>
+<td><strong>71,1</strong></td>
+<td>100% ở 10 replica</td>
+</tr>
+</tbody>
+</table>
+<p>HAMi không làm một pod nhanh hơn, nó lấp phần GPU đang để trống. Muốn phục vụ 71 req/s theo cách thường thì
+cần khoảng 3,4 card, ở đây chỉ cần một, tức bớt khoảng 71% số card, và theo công suất đo được thì tốn khoảng
+một nửa điện.</p>
+<p>Lúc mình đưa kết quả này cho team xem, câu đầu tiên là baseline chưa công bằng. Nên bọn mình quay lại thử ba
+cách. Bỏ hẳn giới hạn latency thì một pod cũng chỉ lên tới 29,6 req/s, P95 từ 57 ms vọt lên 6,2 giây, mà
+GPU vẫn quanh 10%. Tăng batch từ 32 lên 512 thì GPU vẫn 7 đến 10%. TF32, bfloat16 autocast, đổi dtype đều
+không cải thiện gì. Một instance của model này không thể lấp đầy H200, tune kiểu gì cũng vậy.</p>
+<h2 id="giữ-chỗ-thì-tốn-thời-gian-và-đó-là-chủ-ý">Giữ chỗ thì tốn thời gian, và đó là chủ ý</h2>
+<p><img src="/img/talks/2026-07-25/slide-26.jpg" alt="Một card, một ngày"></p>
+<p>Phần trống được dành cho thứ cần nó: LLM nhỏ, agent, job thị giác máy tính và embedding. Để phần trống đó là
+thật, chứ không phải “trống nếu training tình cờ đang rảnh”, bọn mình giới hạn notebook:</p>
+<ul>
+<li><strong>Bộ nhớ có rào.</strong> Notebook chỉ thấy phần của nó, không thể làm OOM các pod bên cạnh.</li>
+<li><strong>Core bị giới hạn</strong> bằng <code>force</code>, ở mức 70%, nên phần còn lại của card được giữ thật.</li>
+<li><strong>Cái giá là khoảng 20 phút.</strong> Một lần training từ 1 tiếng thành 1 tiếng 20. Rẻ với model nhỏ, còn với
+model lớn thì không rẻ chút nào.</li>
+</ul>
+<p><img src="/img/talks/2026-07-25/slide-27.jpg" alt="Phần còn lại đi theo tải"></p>
+<p>Trong một ngày, khối notebook không bao giờ đổi, còn mọi thứ khác đi theo tải. Sáng sớm, dự báo tăng vọt lên
+sáu instance. Giờ hành chính, inference LLM với các model dưới 20B chiếm chỗ. Ban đêm, chạy thêm notebook và
+training thay vì để card nằm không.</p>
+<h2 id="chọn-đúng-job-để-chia-card">Chọn đúng job để chia card</h2>
+<p><img src="/img/talks/2026-07-25/slide-28.jpg" alt="Không phải lúc nào cũng có lợi"></p>
+<p>Nếu chỉ được giữ một slide thì mình giữ slide này. Fractional GPU có lợi khi job nhỏ hoặc chạy theo đợt và
+không tự lấp đầy card được. Nó không có lợi khi job đã dùng kín GPU, và bọn mình đo điều đó hai lần:</p>
+<ul>
+<li><strong>Serve LLM.</strong> SGLang trên một H200: một instance lớn cho 11,6 nghìn token/s, bốn instance nhỏ chỉ được 7,3
+nghìn, vì continuous batching vốn đã giữ GPU bận.</li>
+<li><strong>Training.</strong> Cùng một job LSTM, xếp 1, 2 rồi 4 bản trên một card: tổng lần lượt 2.779, 2.278 rồi 2.148
+sample/s. Ở mức 4 bản, tổng chỉ bằng 0,77 lần một job.</li>
+</ul>
+<p>Khi card đã đầy, xếp chung chỉ mang lại cô lập và chia đều, chứ không thêm throughput.</p>
+<p>Cũng cẩn thận với điều mình hứa với người dùng. <code>gpumem</code> là giới hạn thật. <code>gpucores</code> chỉ là gợi ý: hai pod
+được cấp 10% và 90% của cùng một card, chạy cùng workload, ra cùng tốc độ, khoảng 11 ops/s mỗi pod. Khi
+tranh nhau thì nó thành chia đều. Có <code>force</code> thì giới hạn mới thành thật, với cái giá vừa nói ở trên. Hứa về
+bộ nhớ thì được, đừng hứa về compute.</p>
+<h2 id="thật-sự-phải-làm-những-gì">Thật sự phải làm những gì</h2>
+<p><img src="/img/talks/2026-07-25/slide-29.jpg" alt="Thật sự phải làm những gì"></p>
+<p>Helm chart là phần dễ nhất.</p>
+<ol>
+<li><strong>Kyverno chặn HAMi.</strong> Device plugin của nó cần host path, driver và socket của kubelet, nên phải chạy
+privileged, mà policy của bọn mình chặn đúng kiểu đó. Bọn mình chỉ thêm ngoại lệ cho namespace
+<code>hami-system</code>.</li>
+<li><strong>GPU Operator cũng đăng ký <code>nvidia.com/gpu</code>.</strong> Bọn mình tắt device plugin của operator, và tắt CDI: ở
+chế độ CDI, toolkit tự nối thiết bị theo cách của nó, còn thư viện của HAMi cần đường runtime legacy.</li>
+<li><strong>Pod fractional, pod nguyên GPU và Slinky giành node của nhau.</strong> HAMi được tách pool riêng, scheduler
+riêng và một taint.</li>
+<li><strong>HAMi 2.9 đổi tên toàn bộ metric</strong>, dashboard trống trơn. Bọn mình chuyển sang tên mới và gửi bản sửa
+docs lên upstream (<a href="https://github.com/Project-HAMi/website/pull/498">website#498</a>).</li>
+</ol>
+<p>Nếu chỉ nhớ một điều thì đó là: đây là một dự án vận hành, không phải một lệnh cài.</p>
+<h2 id="chỗ-phép-màu-hết-linh">Chỗ phép màu hết linh</h2>
+<p><img src="/img/talks/2026-07-25/slide-30.jpg" alt="Chỗ phép màu hết linh"></p>
+<p>HAMi đứng trước mọi lời gọi CUDA, nên thứ gì đi vòng qua CUDA thì nó không thấy. Những gì nằm trong CUDA
+thì vẫn ổn, kể cả multi-GPU: peer-to-peer, all-reduce, tensor parallel với CUDA graph đều chạy được trên NCCL
+2.28, và cả NCCL cũ bị ép đi đường legacy cũng vậy.</p>
+<p>Có hai chỗ hỏng thật. Image <strong>musl</strong> (Alpine, busybox) không nạp được <code>libvgpu</code> vì thư viện này cần glibc:
+container chết với <code>libdl.so.2 not found</code> và exit code 127 trước khi code của bạn kịp chạy, cách sửa là dùng
+base image có glibc. Còn <strong>MATLAB</strong> thì treo trước khi kịp gọi tới CUDA, vì HAMi chờ ở tầng CUDA mà MATLAB
+không bao giờ tới đó.</p>
+<h2 id="tiếp-theo">Tiếp theo</h2>
+<p>Thêm pool GPU, thêm nhiều loại workload dùng chung một card, và chuyển sang DRA: vẫn mức cô lập đó, nhưng xin
+GPU theo cách chuẩn của Kubernetes thay vì qua tên resource riêng. Và lý do bọn mình chọn HAMi ngay từ đầu là
+multi-vendor: GPU của bọn mình sẽ không phải lúc nào cũng là NVIDIA, mà HAMi đã hỗ trợ sẵn Ascend, Cambricon
+và nhiều loại khác.</p>
+<h2 id="đọc-thêm">Đọc thêm</h2>
+<ul>
+<li><a href="https://github.com/Project-HAMi/HAMi">HAMi</a> trên GitHub, và <a href="https://project-hami.io">trang của project</a>.</li>
+<li>Vài tuần sau, mình được HAMi ghi nhận đóng góp cho project qua chương trình
+<a href="/notes/2026-09-11-hami-contributor-recognition.html">Contributor Recognition</a>.</li>
+</ul>
+<p><img src="/img/talks/2026-07-25/photo-speakers.jpg" alt="Các diễn giả tại KCD &amp; OpenInfra Days Vietnam 2026"></p>
+<p>Cảm ơn Reza đã cùng đứng chung sân khấu, cảm ơn các maintainer của HAMi, và ban tổ chức KCD &amp; OpenInfra Days
+Vietnam.</p>
+<p>Fractional GPU biến những card vốn để trống phần lớn thành gấp 3,4 lần việc. Cái khó nằm ở chỗ biết job nào
+để trống card, và vận hành nền tảng sao cho chúng dùng chung card một cách an toàn. Nếu bạn đã chạy HAMi hay DRA trên GPU của mình mà
+thấy ranh giới nằm ở chỗ khác, mình rất muốn nghe :)</p>
+</div><nav class="pager" aria-label="More posts" data-astro-cid-57z6rh23><a href="/articles/contribute-to-cncf-glossary.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>← Older</span>Hướng dẫn đóng góp dịch thuật cho CNCF Glossary</a><a class="next" href="/articles/recap-turning-gpu-hours-into-tokens.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>Newer →</span>Recap VOI &amp; CNVN x AWS FCAJ Meetup: Turning GPU-Hours into Tokens, and Tokens into a Service</a></nav></article><aside class="toc" aria-label="On this page" data-astro-cid-57z6rh23><p class="eyebrow" data-astro-cid-57z6rh23>On this page</p><ol data-astro-cid-57z6rh23><li class="d2" data-astro-cid-57z6rh23><a href="#phần-của-reza-vì-sao-gpu-cần-được-chia-nhỏ" data-astro-cid-57z6rh23>Phần của Reza: vì sao GPU cần được chia nhỏ</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#bên-dưới-là-một-nền-tảng-kubernetes-ai-đã-được-chứng-nhận" data-astro-cid-57z6rh23>Bên dưới là một nền tảng Kubernetes AI đã được chứng nhận</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#bọn-mình-chạy-những-gì" data-astro-cid-57z6rh23>Bọn mình chạy những gì</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#vấn-đề-bằng-số-đo" data-astro-cid-57z6rh23>Vấn đề, bằng số đo</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#gấp-34-lần-việc-trên-mỗi-gpu" data-astro-cid-57z6rh23>Gấp 3,4 lần việc trên mỗi GPU</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#giữ-chỗ-thì-tốn-thời-gian-và-đó-là-chủ-ý" data-astro-cid-57z6rh23>Giữ chỗ thì tốn thời gian, và đó là chủ ý</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#chọn-đúng-job-để-chia-card" data-astro-cid-57z6rh23>Chọn đúng job để chia card</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#thật-sự-phải-làm-những-gì" data-astro-cid-57z6rh23>Thật sự phải làm những gì</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#chỗ-phép-màu-hết-linh" data-astro-cid-57z6rh23>Chỗ phép màu hết linh</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#tiếp-theo" data-astro-cid-57z6rh23>Tiếp theo</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#đọc-thêm" data-astro-cid-57z6rh23>Đọc thêm</a></li></ol></aside></div></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 The Anh Nguyen</span><span class="footer-links"><a href="https://github.com/ntheanh201" rel="me noopener" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/ntheanh201/" rel="me noopener" target="_blank">LinkedIn</a><a href="https://x.com/ntheanh201" rel="me noopener" target="_blank">X</a><a href="https://facebook.com/ntheanh201" rel="me noopener" target="_blank">Facebook</a><a href="/rss.xml">RSS</a><a href="/articles/colophon.html">Colophon</a></span></div></footer><script>
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+      });
+    </script></body></html><script>
+  for (const pre of document.querySelectorAll(".prose pre")) {
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    pre.replaceWith(wrap);
+    wrap.append(pre);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = "Copied";
+        btn.dataset.copied = "";
+      } catch {
+        btn.textContent = "Press ⌘C";
+      }
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        delete btn.dataset.copied;
+      }, 1600);
+    });
+    wrap.append(btn);
+  }
+</script>
