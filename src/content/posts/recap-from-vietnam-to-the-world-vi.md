@@ -15,6 +15,8 @@ translationOf: recap-from-vietnam-to-the-world
 đều đặn. Đó là ý chính trong bài nói của mình ở #cTENcf Birthday Bash Hanoi ngày 21/9/2025, buổi meetup
 của Cloud Native Hanoi và VietOpenInfra mừng CNCF tròn 10 năm.
 
+![Mình chia sẻ ở #cTENcf Birthday Bash Hanoi, 21/9/2025](/img/talks/2025-09-21/photo-backdrop.jpg)
+
 Talk có ba phần: mình đến với open source như thế nào, đi từ user lên reviewer Kubernetes ra sao, và
 chính hồ sơ đóng góp đó đã giúp mình giành học bổng Linux Foundation Training (LiFT) 2025 như thế nào.
 
@@ -119,12 +121,18 @@ góp nhỏ từ Việt Nam vẫn được nhìn thấy từ phía bên kia.
 
 ![From Vietnam to the World: lời kêu gọi](/img/talks/2025-09-21/slide-26.jpg)
 
+![Kêu gọi mọi người bắt đầu từ việc nhỏ](/img/talks/2025-09-21/photo-speaking.jpg)
+
 Điều mình nhờ cả phòng hôm đó cũng là điều mình muốn nhờ bạn đọc:
 
 - **Tham gia cộng đồng:** Cloud Native Hanoi và VietOpenInfra.
 - **Bắt đầu nhỏ:** sửa một typo, dịch một thuật ngữ, mở PR đầu tiên.
 - **Dùng công cụ:** [clotributor.dev](https://clotributor.dev) để tìm good first issue.
 - **Đều đặn:** mỗi tuần một PR, mỗi tháng một review, rồi sẽ cộng dồn lại.
+
+![Bánh sinh nhật: 10 năm, 230 dự án, hơn 275.000 contributor](/img/talks/2025-09-21/photo-cake.jpg)
+
+![Mọi người ở #cTENcf Birthday Bash Hanoi](/img/talks/2025-09-21/photo-group.jpg)
 
 Chúc mừng sinh nhật 10 năm, CNCF. Nếu bạn mở PR docs Kubernetes tiếng Việt đầu tiên thì cứ tag mình nhé,
 giờ mình là một trong các reviewer rồi :)

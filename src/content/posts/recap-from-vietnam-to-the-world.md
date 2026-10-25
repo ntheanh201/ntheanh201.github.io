@@ -14,6 +14,8 @@ Contributions from Vietnam get noticed. Not because they're big, but because the
 keep coming. That was the point of my talk at #cTENcf Birthday Bash Hanoi on 21 September 2025, the
 Cloud Native Hanoi and VietOpenInfra meetup for CNCF's tenth birthday.
 
+![Speaking at #cTENcf Birthday Bash Hanoi, 21 September 2025](/img/talks/2025-09-21/photo-backdrop.jpg)
+
 The talk had three parts: how I got into open source at all, how I went from Kubernetes user to
 reviewer, and how that record turned into a 2025 Linux Foundation Training (LiFT) scholarship.
 
@@ -119,12 +121,18 @@ record of small contributions from Vietnam is visible from the other side.
 
 ![From Vietnam to the World: call to action](/img/talks/2025-09-21/slide-26.jpg)
 
+![Asking the room to start small](/img/talks/2025-09-21/photo-speaking.jpg)
+
 What I asked the room to do is what I'd ask anyone reading this:
 
 - **Join the community.** Cloud Native Hanoi and VietOpenInfra.
 - **Start small.** Fix a typo, translate one term, open your first PR.
 - **Use the tools.** [clotributor.dev](https://clotributor.dev) finds good first issues.
 - **Be consistent.** One PR a week, one review a month. It adds up.
+
+![The birthday cake: 10 years, 230 projects, 275,000+ contributors](/img/talks/2025-09-21/photo-cake.jpg)
+
+![Everyone at #cTENcf Birthday Bash Hanoi](/img/talks/2025-09-21/photo-group.jpg)
 
 Happy tenth birthday, CNCF. If you open your first Kubernetes docs PR in Vietnamese, tag me. I'm one of
 the reviewers now.
