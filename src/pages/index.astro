@@ -81,9 +81,11 @@ const certCount = CERTIFICATIONS.reduce((n, g) => n + g.items.length, 0);
                 <a class="title" href={noteURL(n.id)}>
                   {n.data.title}
                 </a>
-                <div class="sub">
-                  <span>{n.data.source}</span>
-                </div>
+                {n.data.source && (
+                  <div class="sub">
+                    <span>{n.data.source}</span>
+                  </div>
+                )}
               </div>
             </li>
           ))

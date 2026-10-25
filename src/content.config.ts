@@ -35,15 +35,16 @@ const pages = defineCollection({
   }),
 });
 
-// Short posts carried over from LinkedIn and Facebook, kept here so they
+// Short posts, mostly carried over from LinkedIn and Facebook, kept here so they
 // stay findable after the feeds bury them.
 const notes = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/notes", generateId }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
-    source: z.enum(["LinkedIn", "Facebook"]),
-    sourceUrl: z.string().url(),
+    // Left out for a note written here first rather than carried over.
+    source: z.enum(["LinkedIn", "Facebook"]).optional(),
+    sourceUrl: z.string().url().optional(),
     lang: z.string().default("en"),
   }),
 });
