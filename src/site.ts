@@ -136,11 +136,13 @@ export const TALKS: { title: string; event: string; href: string; year?: string;
     title: "HAMi: Fractional GPU for Efficient AI in Cloud Native",
     event: "OpenInfra & Cloud Native Day Vietnam 2025",
     href: "https://www.vietopeninfra.org/void2025",
+    recap: "/articles/recap-hami-void-2025.html",
   },
   {
     title: "Fractional GPU for AI: Open Source Solutions in Cloud Native",
     event: "Cloud Native Hanoi May Meetup: GPU and eBPF on Kubernetes",
     href: "https://community.cncf.io/events/details/cncf-cloud-native-hanoi-presents-may-meetup-gpu-and-ebpf-on-kubernetes/",
+    recap: "/articles/recap-fractional-gpu-cloud-native-hanoi.html",
   },
 ];
 

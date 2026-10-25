@@ -49,8 +49,8 @@ See [all certifications](/certifications.html), including NVIDIA NCP-AII and NCP
 - **Auditable Autonomy: Engineering With AI Teammates That Leave a Trace**, [The Future of Software Engineering in the Agentic AI era](https://viettelfamily.com/news/vds-quy-tu-chuyen-gia-viettel-ban-ve-tuong-lai-software-engineering-global) · [Recap](/articles/recap-auditable-autonomy.html)
 - **From Vietnam to the World: Contributing to Kubernetes and earning the Linux Foundation Scholarship**, [#cTENcf Birthday Bash Hanoi](https://community.cncf.io/events/details/cncf-cloud-native-hanoi-presents-ctencf-birthday-bash-hanoi/) · [Recap](/articles/recap-from-vietnam-to-the-world.html)
 - **AI GÕ CỬA — Doanh nghiệp Việt đã sẵn sàng?**, [VIETTELDX TALKS #8](https://www.youtube.com/watch?v=8pN4ft0OzpY)
-- **HAMi: Fractional GPU for Efficient AI in Cloud Native**, [OpenInfra & Cloud Native Day Vietnam 2025](https://www.vietopeninfra.org/void2025)
-- **Fractional GPU for AI: Open Source Solutions in Cloud Native**, [Cloud Native Hanoi May Meetup](https://community.cncf.io/events/details/cncf-cloud-native-hanoi-presents-may-meetup-gpu-and-ebpf-on-kubernetes/)
+- **HAMi: Fractional GPU for Efficient AI in Cloud Native**, [OpenInfra & Cloud Native Day Vietnam 2025](https://www.vietopeninfra.org/void2025) · [Recap](/articles/recap-hami-void-2025.html)
+- **Fractional GPU for AI: Open Source Solutions in Cloud Native**, [Cloud Native Hanoi May Meetup](https://community.cncf.io/events/details/cncf-cloud-native-hanoi-presents-may-meetup-gpu-and-ebpf-on-kubernetes/) · [Recap](/articles/recap-fractional-gpu-cloud-native-hanoi.html)
 
 ## Projects
 
