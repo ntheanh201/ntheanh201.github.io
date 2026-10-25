@@ -1,6 +1,6 @@
 ---
 title: "About"
-description: "The Anh Nguyen — Solutions Architect for the Viettel AI Platform, CNCF Ambassador, Kubestronaut and NVIDIA-Certified Professional, based in Hanoi."
+description: "The Anh Nguyen, tech lead and solutions architect for the Viettel AI Platform, CNCF Ambassador and Kubestronaut, based in Hanoi."
 ---
 
 ![The Anh Nguyen](/images/the-anh-nguyen.jpg)
@@ -10,7 +10,7 @@ and LLM serving on Kubernetes, and I speak at community events about what we lea
 
 ## Now
 
-I'm the **Solutions Architect for the Viettel AI Platform** at **Viettel Networks**, a multi-tenant GPU supercomputing platform, and I lead the **Token Factory** project.
+I'm tech lead and solutions architect for the **Viettel AI Platform** at **Viettel Networks**, a multi-tenant GPU platform. That includes **Token Factory**, which serves LLMs at scale.
 
 - **Token Factory:** LLM inference at scale with NVIDIA Dynamo, serving multiple LLM families
 - **GPU fleet:** NVIDIA H200 clusters on NVIDIA AI Enterprise and Base Command Manager (BCM)
@@ -24,6 +24,8 @@ I'm the **Solutions Architect for the Viettel AI Platform** at **Viettel Network
 - **NVIDIA-Certified Professional**: [AI Operations (NCP-AIO)](https://www.credly.com/badges/9237fdde-0176-416a-95e0-5c2568599ae4), [AI Infrastructure (NCP-AII)](https://credential.nvidia.com/3a8e0b7b-32b6-47bd-a127-49cc8ebc77f5), [AI Networking (NCP-AIN)](https://credential.nvidia.com/9beb4b0a-85a7-474f-b915-e64161966efa)
 - [**Claude Certified Architect – Foundations**](https://www.credly.com/badges/323137e3-08d9-475d-b03e-3dd8f0f3740a), Anthropic
 - **The Shubhra Kar Linux Foundation Training (LiFT) Scholarship**, 2025 recipient
+- [**Outstanding Individual, Viettel's global IT line, 2025**](/notes/2026-06-30-viettel-it-outstanding-individual-2025.html), Viettel Group
+- [**Two Second Prizes, VTNet 2025 Innovation Journey**](/notes/2025-10-06-vtnet-innovation-prizes.html), with my team, Viettel Networks
 - [**Turning GPU-hours into tokens**](https://viettelcloud.vn/en/tech-blog/4/142), my case study on serving multiple LLM families with NVIDIA Dynamo, is listed in [NVIDIA Dynamo External Publications](https://docs.nvidia.com/dynamo/external-publications)
 
 See [all certifications](/certifications.html), including NVIDIA NCP-AII and NCP-AIN, LFCS and the Nebius AI certifications.

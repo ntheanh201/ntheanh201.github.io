@@ -5,7 +5,7 @@ export const SITE = {
   title: "The Anh Nguyen",
   handle: "ntheanh201",
   description:
-    "Notes on Kubernetes, GPU platforms and open source by The Anh Nguyen — Solutions Architect for the Viettel AI Platform, CNCF Ambassador and Kubestronaut.",
+    "Notes on Kubernetes, GPU platforms and open source by The Anh Nguyen, tech lead for the Viettel AI Platform, CNCF Ambassador and Kubestronaut.",
   url: "https://ntheanh201.id.vn",
 };
 
