@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Recap The Future of Software Engineering: Auditable Autonomy, làm việc cùng AI teammate để lại dấu vết · The Anh Nguyen</title><meta name="description" content="Recap bài nói của mình ở The Future of Software Engineering in the Agentic AI era, buổi chia sẻ nội bộ tại Viettel Digital: từ pipeline agent cá nhân đến một hướng thiết kế cho AI ở quy mô team, có shared state, gate do người duyệt và trace."><link rel="canonical" href="https://ntheanh201.id.vn/articles/recap-auditable-autonomy-vi.html"><link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2"><link rel="alternate" type="application/rss+xml" title="The Anh Nguyen" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="article"><meta property="og:title" content="Recap The Future of Software Engineering: Auditable Autonomy, làm việc cùng AI teammate để lại dấu vết"><meta property="og:description" content="Recap bài nói của mình ở The Future of Software Engineering in the Agentic AI era, buổi chia sẻ nội bộ tại Viettel Digital: từ pipeline agent cá nhân đến một hướng thiết kế cho AI ở quy mô team, có shared state, gate do người duyệt và trace."><meta property="og:url" content="https://ntheanh201.id.vn/articles/recap-auditable-autonomy-vi.html"><meta property="og:image" content="https://ntheanh201.id.vn/thumbnail.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@ntheanh201"><meta name="color-scheme" content="light dark"><script>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem("theme"); } catch {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.C9Fi5y78.css"><style>.article[data-astro-cid-57z6rh23]{max-width:var(--measure);margin:0 auto;padding:0 1rem}@media (width>=72rem){.article[data-astro-cid-57z6rh23].has-toc{max-width:calc(var(--measure) + 15rem + 3rem);grid-template-columns:minmax(0, var(--measure)) 15rem;gap:3rem;display:grid}}.article-head[data-astro-cid-57z6rh23]{margin-bottom:2rem;padding-top:3.5rem}.article-head[data-astro-cid-57z6rh23] h1[data-astro-cid-57z6rh23]{letter-spacing:-.02em;margin:0 0 .75rem;font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.2}.article-head[data-astro-cid-57z6rh23] .subtitle[data-astro-cid-57z6rh23]{color:var(--muted);margin:0 0 1rem;font-size:1.15rem;line-height:1.5}.article-head[data-astro-cid-57z6rh23] .meta[data-astro-cid-57z6rh23]{flex-wrap:wrap;align-items:center;gap:.35rem;margin:0;display:flex}.cover[data-astro-cid-57z6rh23]{border:1px solid var(--border);border-radius:8px;width:100%;margin-bottom:2.25rem;display:block}.toc[data-astro-cid-57z6rh23]{display:none}@media (width>=72rem){.toc[data-astro-cid-57z6rh23]{align-self:start;max-height:calc(100vh - 3rem);margin-top:3.75rem;font-size:.85rem;line-height:1.45;display:block;position:sticky;top:1.5rem;overflow-y:auto}.toc[data-astro-cid-57z6rh23] ol[data-astro-cid-57z6rh23]{border-left:1px solid var(--border);margin:0;padding:0 0 0 .75rem;list-style:none}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23]{margin:.45rem 0}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23].d3{padding-left:.85rem}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--muted);text-decoration:none}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--fg)}}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap header-inner"><a href="/" class="brand"><span class="avatar"><img class="ink" src="/images/portrait-head.svg" alt="" width="30" height="30"></span>ntheanh201</a><nav aria-label="Main"><a href="/archives.html">Writing</a><a href="/certifications.html"><span class="nav-long">Certifications</span><span class="nav-short">Certs</span></a><a href="/articles/about.html">About</a><button class="theme-toggle" type="button" aria-label="Toggle dark mode"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></button></nav></div></header><main id="main"><div class="article has-toc" data-astro-cid-57z6rh23><article data-astro-cid-57z6rh23><header class="article-head" data-astro-cid-57z6rh23><h1 data-astro-cid-57z6rh23>Recap The Future of Software Engineering: Auditable Autonomy, làm việc cùng AI teammate để lại dấu vết</h1><p class="subtitle" data-astro-cid-57z6rh23>Coding agent đã làm tốt cho một người trong một terminal. Lên quy mô team thì cần thêm: ai chịu trách nhiệm request, output nằm ở đâu, gate nào có người duyệt, và trace đủ để ba tháng sau vẫn đọc lại được.</p><p class="meta" data-astro-cid-57z6rh23><time datetime="2026-05-28T00:00:00.000Z" data-astro-cid-57z6rh23>May 28, 2026</time><span aria-hidden="true" data-astro-cid-57z6rh23> · </span>7 min read<span aria-hidden="true" data-astro-cid-57z6rh23> · </span><span class="tags" data-astro-cid-57z6rh23><a class="tag" href="/tag/talk.html" data-astro-cid-57z6rh23>talk</a><a class="tag" href="/tag/ai-agents.html" data-astro-cid-57z6rh23>ai-agents</a><a class="tag" href="/tag/agentic-workflows.html" data-astro-cid-57z6rh23>agentic-workflows</a><a class="tag" href="/tag/observability.html" data-astro-cid-57z6rh23>observability</a><a class="tag" href="/tag/developer-tools.html" data-astro-cid-57z6rh23>developer-tools</a></span></p></header><div class="prose" data-astro-cid-57z6rh23><p><em><a href="/articles/recap-auditable-autonomy.html">Read in English</a>.</em></p>
+<p>Coding agent bây giờ đã làm khá tốt khi phục vụ một người trong một terminal. Câu hỏi khó hơn là một
+team cần gì trước khi giao việc thật cho agent. Đó là nội dung bài nói của mình ở The Future of Software
+Engineering in the Agentic AI era, một buổi chia sẻ nội bộ tại Viettel Digital. Bộ slide đầy đủ là tài liệu
+nội bộ nên bài recap này kể lại các ý chính kèm vài slide minh hoạ: workflow AI cá nhân dừng ở đâu, và một hướng thiết kế cho bước
+tiếp theo.</p>
+<p><img src="/img/talks/2026-05-28/photo-speaking.jpg" alt="Mình đang chia sẻ ở The Future of Software Engineering, 28/5/2026"></p>
+<h2 id="bốn-nấc-từ-prompting-đến-một-team-agent">Bốn nấc từ prompting đến một team agent</h2>
+<p>Mình mở đầu bằng bốn nấc mà chắc nhiều kỹ sư đã đi qua:</p>
+<ol>
+<li><strong>Prompting.</strong> Hỏi, copy, paste. Người vẫn cầm lái 100%.</li>
+<li><strong>Coding agent.</strong> Claude Code, Codex, Cursor. Agent tự đọc repo, sửa file, chạy test.</li>
+<li><strong>Agent tự chạy cho từng người.</strong> Mỗi người giao task, agent tự plan, implement và commit.</li>
+<li><strong>Agent tự chạy ở quy mô team.</strong> Nhiều agent và nhiều người cùng làm trên task chung, và mỗi bước
+đều để lại trace cho người khác audit được.</li>
+</ol>
+<p><img src="/img/talks/2026-05-28/slide-5.jpg" alt="Bốn nấc từ prompting đến AI tự chạy ở quy mô team"></p>
+<p>AI giờ không chỉ giúp viết code nữa mà đang định hình lại cả vòng đời phát triển phần mềm. Còn bước nhảy
+từ nấc 3 lên nấc 4 thì nằm ở những thứ bao quanh model nhiều hơn là ở bản thân model.</p>
+<h2 id="một-request-không-phải-một-câu-prompt">Một request không phải một câu prompt</h2>
+<p>Team mình làm <a href="https://github.com/brainbrewlabs/brainbrew-devkit">BrainBrew DevKit</a> cho nấc 3. Nó nối
+các agent thành chain trong Claude Code, Codex hoặc opencode: một agent lập kế hoạch, một agent review
+kế hoạch, một agent implement, một nhóm review song song, một agent test, một agent commit. Chain là một
+file YAML nằm ngay trong repo:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">flow</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  researcher</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    routes</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      writer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"Research done"</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  writer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    routes</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      editor</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"Draft done"</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  editor</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    routes</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      END</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"Approved"</span></span></code></pre>
+<p>Agent và skill đều là file markdown nên được version control như mọi thứ khác. Hooks chạy lúc agent bắt
+đầu và kết thúc, output của agent trước được đưa vào agent sau, còn một model nhỏ đọc output đó để chọn
+bước tiếp theo.</p>
+<p><img src="/img/talks/2026-05-28/slide-7.jpg" alt="Cách một chain chạy: hook bao quanh mỗi lượt agent, một model chọn route tiếp theo, output trước được đưa vào agent sau"></p>
+<p>Phần mình thích nhất là cách nó xử lý lỗi. Trong chain, lỗi chỉ là một route nữa. Tester fail thì chuyển
+sang debugger, debugger tìm root cause, implementer sửa, rồi review và test chạy lại. “AI fail” không còn
+là điểm dừng mà chỉ là một vòng của vòng lặp.</p>
+<p><img src="/img/talks/2026-05-28/slide-10.jpg" alt="Chain develop: planner, plan-reviewer, implementer, nhóm review song song, tester và git-manager, có vòng quay lại khi cần sửa plan, khi review thấy lỗi và khi test fail"></p>
+<p>Chain cũng không cần viết tay. Bạn chỉ cần mô tả (“I need: design review → implement → security scan →
+deploy”), agent chain-builder sẽ đọc codebase rồi viết chain cho phù hợp.</p>
+<h2 id="những-câu-một-terminal-không-trả-lời-được">Những câu một terminal không trả lời được</h2>
+<p>Dùng hằng ngày thì mình nhận ra một điều: request không chỉ cần được trả lời, mà phải đi đến resolution.
+Plan, implement, review, test, debug, xong. Đó là tư duy pipeline.</p>
+<p>Nhưng đặt những gì pipeline cho bạn trên một laptop cạnh những câu team sẽ hỏi thì thấy ngay khoảng trống:</p>
+<p><img src="/img/talks/2026-05-28/slide-12.jpg" alt="Pipeline cá nhân và những câu team sẽ hỏi"></p>
+<p>Mọi câu ở cột bên phải đều là câu hỏi về shared state. Agent có giỏi đến đâu thì scrollback của một người
+cũng không trả lời được.</p>
+<h2 id="nâng-pipeline-từ-một-terminal-lên-cả-team">Nâng pipeline từ một terminal lên cả team</h2>
+<p>Lên quy mô team thì tư duy pipeline vẫn giữ nguyên: request vào, resolution ra, có vòng lặp khi gặp lỗi.
+Cái thay đổi là chỗ mà từng phần của nó nằm. Trên một laptop, chain nằm trong repo của mình, state nằm
+trong đầu mình, còn bản ghi thì nằm trong scrollback. Với cả team, cả ba thứ đó phải chuyển ra chỗ dùng
+chung:</p>
+<ul>
+<li><strong>Chain ra khỏi terminal và lên board.</strong> Agent trở thành đồng đội mà ai cũng assign được, còn request
+trở thành một issue mà cả team đều thấy.</li>
+<li><strong>Chain trở thành state machine gắn với từng issue.</strong> Phase, vòng lặp và gate có người duyệt là một
+phần của pipeline, chứ không còn là thứ một người phải tự nhớ.</li>
+<li><strong>Scrollback trở thành trace.</strong> Mọi pipeline run, lượt agent và tool call đều được ghi lại ở chỗ người
+khác mở ra xem được về sau.</li>
+</ul>
+<p>Nửa sau của talk là một hướng thiết kế cho đúng ba bước chuyển đó, dùng ba công cụ mở, mỗi công cụ lo một
+bước. Đặt cạnh năm câu hỏi của team ở trên thì sẽ thấy rõ:</p>
+<table>
+<thead>
+<tr>
+<th>Team hỏi</th>
+<th>Mảnh trả lời</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ai đang chịu trách nhiệm request này?</td>
+<td>Multica: issue có assignee, là người hay agent đều được</td>
+</tr>
+<tr>
+<td>Phase nào đang chạy, ở runtime nào?</td>
+<td>LangGraph giữ phase, daemon của Multica chạy nó trên một runtime xác định</td>
+</tr>
+<tr>
+<td>Output nằm ở branch nào, PR nào?</td>
+<td>Multica: agent báo PR ngay trên issue</td>
+</tr>
+<tr>
+<td>Gate nào cần người duyệt?</td>
+<td>LangGraph: pipeline dừng lại khi xong một sub-issue</td>
+</tr>
+<tr>
+<td>Ba tháng sau có trace lại được không?</td>
+<td>Langfuse: pipeline run, agent turn và tool call</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a href="https://github.com/multica-ai/multica">Multica</a> là nơi chứa công việc.</strong> Đây là workspace
+source-available, tự host được, dành cho một team gồm cả người và AI agent, và chạy được với các agent
+CLI mà mọi người đang dùng sẵn.</p>
+<p><img src="/img/talks/2026-05-28/slide-14.jpg" alt="Multica: workspace nơi người và AI agent làm việc như một team, kèm kiến trúc"></p>
+<p>Agent xuất hiện trên board như một đồng đội: có profile, instructions, runtime và skills, được assign
+issue, comment trong lúc làm và tự cập nhật status. Người và agent dùng chung board, inbox và timeline,
+nên “ai làm gì, lúc nào” chỉ nằm trên một luồng.</p>
+<p><img src="/img/talks/2026-05-28/slide-16.jpg" alt="Agents as teammates: agent nằm chung board với người, mỗi issue có một luồng hoạt động"></p>
+<p>Điều mình thấy hay nhất là cách nó nói chuyện với agent. Mỗi agent CLI có định dạng input, output và tool
+call riêng. Multica chạy một daemon trên máy bạn kiểm soát. Daemon nhận task ở dạng chuẩn hoá từ server,
+dịch sang lệnh đúng cho Claude Code, Codex, OpenCode hay CLI nào mà agent đó dùng, rồi gửi kết quả về.
+Nhờ vậy không bị khoá vào agent của một vendor.</p>
+<p><img src="/img/talks/2026-05-28/slide-15.jpg" alt="Multi-runtime daemon: mỗi máy một daemon, dịch task sang lệnh của từng agent CLI"></p>
+<p><strong><a href="https://github.com/langchain-ai/langgraph">LangGraph</a> là bộ não của pipeline.</strong> Ticket trên board thì
+nằm im. Trong thiết kế này, mỗi task được gắn với một pipeline, tức là một state machine có feedback loop:
+node test phát hiện lỗi thì đẩy code ngược về dev agent kèm log lỗi. Vẫn là vòng lặp của chain cá nhân,
+chỉ khác là giờ nó thuộc về issue chứ không thuộc về người đã chạy nó.</p>
+<p>Và nó dừng có chủ đích. Pipeline tự chạy đến khi xong một sub-issue thì chờ người duyệt rồi mới sang phase
+tiếp. Không ai phải ngồi canh cả ngày, mà cũng không có gì vượt gate khi chưa có người gật đầu.</p>
+<p><img src="/img/talks/2026-05-28/slide-17.jpg" alt="LangGraph làm engine điều phối: mỗi task gắn với một pipeline có feedback loop và gate do người duyệt ở từng phase"></p>
+<p><strong><a href="https://github.com/langfuse/langfuse">Langfuse</a> là trace.</strong> Nó ghi lại ba tầng:</p>
+<ul>
+<li><strong>Pipeline run:</strong> việc đang nằm ở agent nào, mỗi phase mất bao lâu.</li>
+<li><strong>Agent turn:</strong> cuộc trao đổi qua lại giữa các agent, kể cả chỗ agent này phản biện agent kia.</li>
+<li><strong>Tool call:</strong> từng lệnh bash, từng file được đọc hay ghi, từng dòng code bị sửa.</li>
+</ul>
+<p><img src="/img/talks/2026-05-28/slide-18.jpg" alt="Langfuse trace pipeline run, từng lượt agent và từng tool call"></p>
+<p>Tóm lại: Multica là bề mặt công việc, LangGraph là state machine, Langfuse là audit trail. Tính tự chủ và
+khả năng audit phải đi cùng nhau.</p>
+<p><img src="/img/talks/2026-05-28/slide-19.jpg" alt="Multica, LangGraph và Langfuse ghép lại: pipeline khai báo theo phase, mỗi phase có role, agent và vòng lặp riêng"></p>
+<h2 id="đặt-agent-ở-chỗ-có-context">Đặt agent ở chỗ có context</h2>
+<p>Slide thiết kế cuối nói về chuyện agent chạy ở đâu. Bạn mô tả intent bằng ngôn ngữ tự nhiên, kiểu “ship
+feature X to staging”, rồi platform chuyển nó thành pipeline có phase, gate và check rõ ràng. Sau đó từng
+phase được đưa về runtime hợp với context của nó:</p>
+<p><img src="/img/talks/2026-05-28/slide-21.jpg" alt="Intent đi vào orchestrator, được chia thành phase và gate, dispatch xuống runtime dev, staging, secure, và giữ audit trail"></p>
+<ul>
+<li><strong>Dev runtime</strong> cho feature branch, unit test, linter, và chỉ giữ dev secret.</li>
+<li><strong>Staging runtime</strong> cho staging branch và database, integration test và e2e test, giữ staging secret.</li>
+<li><strong>Secure/internal runtime</strong> cho dữ liệu prod chỉ đọc, hạ tầng và observability, secret lấy từ vault.</li>
+</ul>
+<p>Orchestrator lo việc plan, dispatch, giữ audit trail và các lần duyệt. Runtime nào cũng chạy cùng các agent
+CLI, nhưng mỗi nơi chỉ thấy đúng thứ phase đó cần. Cũng là ý least privilege mà mình vẫn áp cho CI runner,
+giờ áp cho agent.</p>
+<p><img src="/img/talks/2026-05-28/photo-on-stage.jpg" alt="Trên sân khấu sau phần chia sẻ ở The Future of Software Engineering, Viettel Digital, 28/5/2026"></p>
+<h2 id="agent-để-lại-dấu-vết">Agent để lại dấu vết</h2>
+<p>Dù sao thì agent cũng sẽ làm ngày càng nhiều việc hơn. Thứ quyết định team có tin được chúng hay không là
+mỗi request có đi đến resolution có người chịu trách nhiệm hay không, có qua gate do người duyệt hay không,
+và có để lại trace mà ai cũng đọc lại được hay không. Nếu bạn đã đưa agent vào workflow của team và đặt gate
+ở chỗ khác, mình rất muốn nghe bạn đặt ở đâu.</p>
+</div><nav class="pager" aria-label="More posts" data-astro-cid-57z6rh23><a href="/articles/contribute-to-cncf-glossary.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>← Older</span>Hướng dẫn đóng góp dịch thuật cho CNCF Glossary</a><a class="next" href="/articles/recap-kcd-vietnam-2026-hami.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>Newer →</span>Recap KCD &amp; OpenInfra Days Vietnam 2026: From Project to Production, HAMi and Viettel Cloud</a></nav></article><aside class="toc" aria-label="On this page" data-astro-cid-57z6rh23><p class="eyebrow" data-astro-cid-57z6rh23>On this page</p><ol data-astro-cid-57z6rh23><li class="d2" data-astro-cid-57z6rh23><a href="#bốn-nấc-từ-prompting-đến-một-team-agent" data-astro-cid-57z6rh23>Bốn nấc từ prompting đến một team agent</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#một-request-không-phải-một-câu-prompt" data-astro-cid-57z6rh23>Một request không phải một câu prompt</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#những-câu-một-terminal-không-trả-lời-được" data-astro-cid-57z6rh23>Những câu một terminal không trả lời được</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#nâng-pipeline-từ-một-terminal-lên-cả-team" data-astro-cid-57z6rh23>Nâng pipeline từ một terminal lên cả team</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#đặt-agent-ở-chỗ-có-context" data-astro-cid-57z6rh23>Đặt agent ở chỗ có context</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#agent-để-lại-dấu-vết" data-astro-cid-57z6rh23>Agent để lại dấu vết</a></li></ol></aside></div></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 The Anh Nguyen</span><span class="footer-links"><a href="https://github.com/ntheanh201" rel="me noopener" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/ntheanh201/" rel="me noopener" target="_blank">LinkedIn</a><a href="https://x.com/ntheanh201" rel="me noopener" target="_blank">X</a><a href="https://facebook.com/ntheanh201" rel="me noopener" target="_blank">Facebook</a><a href="/rss.xml">RSS</a><a href="/articles/colophon.html">Colophon</a></span></div></footer><script>
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+      });
+    </script></body></html><script>
+  for (const pre of document.querySelectorAll(".prose pre")) {
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    pre.replaceWith(wrap);
+    wrap.append(pre);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = "Copied";
+        btn.dataset.copied = "";
+      } catch {
+        btn.textContent = "Press ⌘C";
+      }
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        delete btn.dataset.copied;
+      }, 1600);
+    });
+    wrap.append(btn);
+  }
+</script>

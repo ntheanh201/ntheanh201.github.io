@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Recap The Future of Software Engineering: Auditable Autonomy, Engineering With AI Teammates That Leave a Trace · The Anh Nguyen</title><meta name="description" content="Recap of my talk at The Future of Software Engineering in the Agentic AI era, an internal event at Viettel Digital: from personal agent pipelines to a design for team-level AI work with shared state, human gates and traces."><link rel="canonical" href="https://ntheanh201.id.vn/articles/recap-auditable-autonomy.html"><link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2"><link rel="alternate" type="application/rss+xml" title="The Anh Nguyen" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="article"><meta property="og:title" content="Recap The Future of Software Engineering: Auditable Autonomy, Engineering With AI Teammates That Leave a Trace"><meta property="og:description" content="Recap of my talk at The Future of Software Engineering in the Agentic AI era, an internal event at Viettel Digital: from personal agent pipelines to a design for team-level AI work with shared state, human gates and traces."><meta property="og:url" content="https://ntheanh201.id.vn/articles/recap-auditable-autonomy.html"><meta property="og:image" content="https://ntheanh201.id.vn/thumbnail.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@ntheanh201"><meta name="color-scheme" content="light dark"><script>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem("theme"); } catch {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.C9Fi5y78.css"><style>.article[data-astro-cid-57z6rh23]{max-width:var(--measure);margin:0 auto;padding:0 1rem}@media (width>=72rem){.article[data-astro-cid-57z6rh23].has-toc{max-width:calc(var(--measure) + 15rem + 3rem);grid-template-columns:minmax(0, var(--measure)) 15rem;gap:3rem;display:grid}}.article-head[data-astro-cid-57z6rh23]{margin-bottom:2rem;padding-top:3.5rem}.article-head[data-astro-cid-57z6rh23] h1[data-astro-cid-57z6rh23]{letter-spacing:-.02em;margin:0 0 .75rem;font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.2}.article-head[data-astro-cid-57z6rh23] .subtitle[data-astro-cid-57z6rh23]{color:var(--muted);margin:0 0 1rem;font-size:1.15rem;line-height:1.5}.article-head[data-astro-cid-57z6rh23] .meta[data-astro-cid-57z6rh23]{flex-wrap:wrap;align-items:center;gap:.35rem;margin:0;display:flex}.cover[data-astro-cid-57z6rh23]{border:1px solid var(--border);border-radius:8px;width:100%;margin-bottom:2.25rem;display:block}.toc[data-astro-cid-57z6rh23]{display:none}@media (width>=72rem){.toc[data-astro-cid-57z6rh23]{align-self:start;max-height:calc(100vh - 3rem);margin-top:3.75rem;font-size:.85rem;line-height:1.45;display:block;position:sticky;top:1.5rem;overflow-y:auto}.toc[data-astro-cid-57z6rh23] ol[data-astro-cid-57z6rh23]{border-left:1px solid var(--border);margin:0;padding:0 0 0 .75rem;list-style:none}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23]{margin:.45rem 0}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23].d3{padding-left:.85rem}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--muted);text-decoration:none}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--fg)}}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap header-inner"><a href="/" class="brand"><span class="avatar"><img class="ink" src="/images/portrait-head.svg" alt="" width="30" height="30"></span>ntheanh201</a><nav aria-label="Main"><a href="/archives.html">Writing</a><a href="/certifications.html"><span class="nav-long">Certifications</span><span class="nav-short">Certs</span></a><a href="/articles/about.html">About</a><button class="theme-toggle" type="button" aria-label="Toggle dark mode"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></button></nav></div></header><main id="main"><div class="article has-toc" data-astro-cid-57z6rh23><article data-astro-cid-57z6rh23><header class="article-head" data-astro-cid-57z6rh23><h1 data-astro-cid-57z6rh23>Recap The Future of Software Engineering: Auditable Autonomy, Engineering With AI Teammates That Leave a Trace</h1><p class="subtitle" data-astro-cid-57z6rh23>Coding agents already work for one person in one terminal. A team needs more: who owns the request, where the output landed, which gate a human signed, and a trace you can still read three months later.</p><p class="meta" data-astro-cid-57z6rh23><time datetime="2026-05-28T00:00:00.000Z" data-astro-cid-57z6rh23>May 28, 2026</time><span aria-hidden="true" data-astro-cid-57z6rh23> · </span>7 min read<span aria-hidden="true" data-astro-cid-57z6rh23> · </span><span class="tags" data-astro-cid-57z6rh23><a class="tag" href="/tag/talk.html" data-astro-cid-57z6rh23>talk</a><a class="tag" href="/tag/ai-agents.html" data-astro-cid-57z6rh23>ai-agents</a><a class="tag" href="/tag/agentic-workflows.html" data-astro-cid-57z6rh23>agentic-workflows</a><a class="tag" href="/tag/observability.html" data-astro-cid-57z6rh23>observability</a><a class="tag" href="/tag/developer-tools.html" data-astro-cid-57z6rh23>developer-tools</a></span></p></header><div class="prose" data-astro-cid-57z6rh23><p><em><a href="/articles/recap-auditable-autonomy-vi.html">Đọc bản tiếng Việt</a>.</em></p>
+<p>Coding agents already work well for one person in one terminal. The harder question is what a team
+needs before it hands them real work. That was my talk at The Future of Software Engineering in the
+Agentic AI era, an internal event at Viettel Digital. The full deck stays internal, so this recap walks through the argument with
+a few of the slides (the talk was in Vietnamese, and so is some of their text): where personal AI workflows stop, and a design for what comes after.</p>
+<p><img src="/img/talks/2026-05-28/photo-speaking.jpg" alt="Speaking at The Future of Software Engineering, 28 May 2026"></p>
+<h2 id="four-steps-from-prompting-to-a-team-of-agents">Four steps from prompting to a team of agents</h2>
+<p>I opened with a ladder most engineers will recognise:</p>
+<ol>
+<li><strong>Prompting.</strong> Ask, copy, paste. The human drives 100% of the time.</li>
+<li><strong>A coding agent.</strong> Claude Code, Codex, Cursor. The agent reads the repo, edits files, runs tests.</li>
+<li><strong>Autonomous, per person.</strong> You hand an agent a task; it plans, implements and commits.</li>
+<li><strong>Autonomous, as a team.</strong> Many agents and many people work on shared tasks, and every step leaves
+a trace someone else can audit.</li>
+</ol>
+<p><img src="/img/talks/2026-05-28/slide-5.jpg" alt="Four steps from prompting to team AI autonomy"></p>
+<p>AI is no longer only helping us write code. It’s reshaping the whole development lifecycle, and the
+jump from step 3 to step 4 is less about better models than about what sits around them.</p>
+<h2 id="a-request-is-not-a-prompt">A request is not a prompt</h2>
+<p>My team built <a href="https://github.com/brainbrewlabs/brainbrew-devkit">BrainBrew DevKit</a> for step 3. It
+chains agents inside Claude Code, Codex or opencode: one plans, one reviews the plan, one implements,
+a team reviews in parallel, one tests, one commits. The chain is a YAML file in the repo:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">flow</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  researcher</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    routes</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      writer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"Research done"</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  writer</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    routes</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      editor</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"Draft done"</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  editor</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    routes</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      END</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"Approved"</span></span></code></pre>
+<p>Agents and skills are markdown files, so they live in version control like everything else. Hooks fire
+when an agent starts and stops, the previous agent’s output is injected into the next one, and a small
+model reads each output and picks the next route.</p>
+<p><img src="/img/talks/2026-05-28/slide-7.jpg" alt="How a chain moves: hooks around each agent run, a model picks the next route, the previous output goes into the next agent"></p>
+<p>The part I care about most is what happens on failure. In a chain, failure is just another route. The
+tester fails, so the chain goes to a debugger. The debugger finds the root cause, the implementer fixes
+it, and review and test run again. “The AI failed” stops being the end of the story and becomes one lap
+of a loop.</p>
+<p><img src="/img/talks/2026-05-28/slide-10.jpg" alt="The develop chain: planner, plan-reviewer, implementer, a parallel review team, tester and git-manager, with loops back for revision, review issues and test failures"></p>
+<p>You don’t have to write the chain by hand either. You describe it (“I need: design review → implement →
+security scan → deploy”) and a chain-builder agent reads the codebase and writes one.</p>
+<h2 id="what-one-terminal-cant-answer">What one terminal can’t answer</h2>
+<p>Using this every day changed how I think about AI work. A request doesn’t just need an answer. It needs
+to reach a resolution: plan, implement, review, test, debug, done. That’s a pipeline mindset.</p>
+<p>But look at what the pipeline gives you on one laptop, next to what a team asks:</p>
+<table>
+<thead>
+<tr>
+<th>One developer, one terminal</th>
+<th>A team</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I run the chain, I know which phase is running</td>
+<td>Who owns this request?</td>
+</tr>
+<tr>
+<td>I can see every phase in my terminal</td>
+<td>Which phase is running, on which runtime?</td>
+</tr>
+<tr>
+<td>The output sits in my working directory</td>
+<td>Which branch, which PR holds the output?</td>
+</tr>
+<tr>
+<td>I verify the output myself</td>
+<td>Which gate needs a human to approve?</td>
+</tr>
+<tr>
+<td>The audit trail is my scrollback</td>
+<td>Can we trace this three months from now?</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/img/talks/2026-05-28/slide-12.jpg" alt="Personal pipeline versus team: the questions a team asks"></p>
+<p>Every question on the right is a question about shared state. None of them can be answered from one
+person’s scrollback, however good the agents are.</p>
+<h2 id="lifting-the-pipeline-from-one-terminal-to-a-team">Lifting the pipeline from one terminal to a team</h2>
+<p>The pipeline idea doesn’t change at team scale. Request in, resolution out, with a loop for when
+things fail. What changes is where each part of it lives. On one laptop, the chain sits in my repo,
+the state sits in my head, and the record sits in my scrollback. For a team, each of those has to move
+somewhere shared:</p>
+<ul>
+<li><strong>The chain leaves the terminal and lands on a board.</strong> Agents become teammates you can assign, and
+the request becomes an issue everyone can see.</li>
+<li><strong>The chain becomes a state machine attached to each issue.</strong> Phases, loops and human gates are part
+of the pipeline, not something one person keeps track of.</li>
+<li><strong>Scrollback becomes a trace.</strong> Every run, turn and tool call is recorded where someone else can
+open it later.</li>
+</ul>
+<p>The second half of the talk was a design direction for exactly that, using three open tools, one per
+move. Put against the questions from the table above:</p>
+<table>
+<thead>
+<tr>
+<th>The team asks</th>
+<th>Answered by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who owns this request?</td>
+<td>Multica: the issue has an assignee, human or agent</td>
+</tr>
+<tr>
+<td>Which phase is running, on which runtime?</td>
+<td>LangGraph holds the phase; the Multica daemon runs it on a known runtime</td>
+</tr>
+<tr>
+<td>Which branch, which PR holds the output?</td>
+<td>Multica: the agent reports the PR back on the issue</td>
+</tr>
+<tr>
+<td>Which gate needs a human to approve?</td>
+<td>LangGraph: the pipeline pauses when a sub-issue is done</td>
+</tr>
+<tr>
+<td>Can we trace this three months from now?</td>
+<td>Langfuse: pipeline run, agent turn and tool call</td>
+</tr>
+</tbody>
+</table>
+<p><strong><a href="https://github.com/multica-ai/multica">Multica</a> is where the work lives.</strong> It’s a self-hostable,
+source-available workspace for a mixed team of people and AI agents, and it works with the agent CLIs
+people already use.</p>
+<p><img src="/img/talks/2026-05-28/slide-14.jpg" alt="Multica: a workspace where people and AI agents work as one team, and its architecture"></p>
+<p>Agents show up on the board like teammates: each has a profile, instructions, a runtime and skills; it
+gets assigned an issue, comments as it goes, and moves the status. People and agents share one board,
+one inbox and one timeline, so “who did what, when” is a single feed.</p>
+<p><img src="/img/talks/2026-05-28/slide-16.jpg" alt="Agents as teammates: agents on the same board as people, and one activity feed per issue"></p>
+<p>What I find most useful is how it reaches the agents. Every agent CLI has its own input, output and
+tool-call format. Multica runs a daemon on a machine you control. The daemon takes a normalised
+task from the server, turns it into the right call for Claude Code, Codex, OpenCode or whichever CLI
+that agent uses, and sends the result back. You’re not locked into one vendor’s agent.</p>
+<p><img src="/img/talks/2026-05-28/slide-15.jpg" alt="Multi-runtime daemons: one daemon per machine translates tasks for each agent CLI"></p>
+<p><strong><a href="https://github.com/langchain-ai/langgraph">LangGraph</a> is the pipeline brain.</strong> A ticket on a board is
+static. In this design, each task gets a pipeline, which is a state machine with feedback loops: the test
+node finds a bug and sends the code back to the dev agent with the failing log attached. It’s the same
+loop as the personal chain, now owned by the issue instead of by whoever started it.</p>
+<p>And it stops on purpose. The pipeline runs on its own until a sub-issue is done, then waits for a human before the next
+phase. Nobody has to watch it all day, and nothing moves past a gate without a person.</p>
+<p><img src="/img/talks/2026-05-28/slide-17.jpg" alt="LangGraph as the pipeline engine: each task gets a pipeline with feedback loops and a human gate per phase"></p>
+<p><strong><a href="https://github.com/langfuse/langfuse">Langfuse</a> is the trace.</strong> It records three levels:</p>
+<ul>
+<li><strong>The pipeline run:</strong> which agent holds the work now, and how long each phase took.</li>
+<li><strong>The agent turn:</strong> the back and forth between agents, including where one pushed back on another.</li>
+<li><strong>The tool call:</strong> every bash command, every file read or written, every line changed.</li>
+</ul>
+<p><img src="/img/talks/2026-05-28/slide-18.jpg" alt="Langfuse traces a pipeline run, each agent turn and each tool call"></p>
+<p>Put shortly: Multica is the work surface, LangGraph is the state machine, Langfuse is the audit trail.
+Autonomy and auditability come as a pair, or not at all.</p>
+<p><img src="/img/talks/2026-05-28/slide-19.jpg" alt="Multica, LangGraph and Langfuse together: a pipeline defined as phases, each with its role, agent and loop-back"></p>
+<h2 id="put-the-agent-where-the-context-is">Put the agent where the context is</h2>
+<p>The last design slide was about where agents run. You describe the intent in plain language, “ship
+feature X to staging”, and the platform turns it into a pipeline with phases, gates and checks. Then
+each phase goes to a runtime that matches its context:</p>
+<p><img src="/img/talks/2026-05-28/slide-21.jpg" alt="Intent goes to an orchestrator that plans phases and gates, dispatches to dev, staging and secure runtimes, and keeps the audit trail"></p>
+<ul>
+<li><strong>A dev runtime</strong> for feature branches, unit tests and linters, holding dev secrets only.</li>
+<li><strong>A staging runtime</strong> for the staging branch and database, integration and end-to-end tests, holding
+staging secrets.</li>
+<li><strong>A secure, internal runtime</strong> for read-only production data, infrastructure and observability, with
+secrets from a vault.</li>
+</ul>
+<p>The orchestrator plans, dispatches, and keeps the audit trail and the approvals. Every runtime runs the
+same agent CLIs, but each sees only what its phase needs. It’s the same least-privilege idea we already
+apply to CI runners, applied to agents.</p>
+<p><img src="/img/talks/2026-05-28/photo-on-stage.jpg" alt="On stage after the talk at The Future of Software Engineering, Viettel Digital, 28 May 2026"></p>
+<h2 id="agents-that-leave-a-trace">Agents that leave a trace</h2>
+<p>Agents are going to do more of the work either way. What decides whether a team can trust them is
+whether every request ends in a resolution someone owns, behind gates a person signed, with a trace
+anyone can read later. If you’ve put agents into a team’s workflow and drawn the gates somewhere else,
+I’d like to hear where.</p>
+</div><nav class="pager" aria-label="More posts" data-astro-cid-57z6rh23><a href="/articles/contribute-to-cncf-glossary.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>← Older</span>Hướng dẫn đóng góp dịch thuật cho CNCF Glossary</a><a class="next" href="/articles/recap-kcd-vietnam-2026-hami.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>Newer →</span>Recap KCD &amp; OpenInfra Days Vietnam 2026: From Project to Production, HAMi and Viettel Cloud</a></nav></article><aside class="toc" aria-label="On this page" data-astro-cid-57z6rh23><p class="eyebrow" data-astro-cid-57z6rh23>On this page</p><ol data-astro-cid-57z6rh23><li class="d2" data-astro-cid-57z6rh23><a href="#four-steps-from-prompting-to-a-team-of-agents" data-astro-cid-57z6rh23>Four steps from prompting to a team of agents</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#a-request-is-not-a-prompt" data-astro-cid-57z6rh23>A request is not a prompt</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#what-one-terminal-cant-answer" data-astro-cid-57z6rh23>What one terminal can’t answer</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#lifting-the-pipeline-from-one-terminal-to-a-team" data-astro-cid-57z6rh23>Lifting the pipeline from one terminal to a team</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#put-the-agent-where-the-context-is" data-astro-cid-57z6rh23>Put the agent where the context is</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#agents-that-leave-a-trace" data-astro-cid-57z6rh23>Agents that leave a trace</a></li></ol></aside></div></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 The Anh Nguyen</span><span class="footer-links"><a href="https://github.com/ntheanh201" rel="me noopener" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/ntheanh201/" rel="me noopener" target="_blank">LinkedIn</a><a href="https://x.com/ntheanh201" rel="me noopener" target="_blank">X</a><a href="https://facebook.com/ntheanh201" rel="me noopener" target="_blank">Facebook</a><a href="/rss.xml">RSS</a><a href="/articles/colophon.html">Colophon</a></span></div></footer><script>
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+      });
+    </script></body></html><script>
+  for (const pre of document.querySelectorAll(".prose pre")) {
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    pre.replaceWith(wrap);
+    wrap.append(pre);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = "Copied";
+        btn.dataset.copied = "";
+      } catch {
+        btn.textContent = "Press ⌘C";
+      }
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        delete btn.dataset.copied;
+      }, 1600);
+    });
+    wrap.append(btn);
+  }
+</script>
