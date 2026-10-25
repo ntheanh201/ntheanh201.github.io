@@ -16,6 +16,8 @@ lần việc ở cùng mức latency. Để tới được đó cần làm vận
 để dùng chung card. Đó là nửa của mình trong bài nói cùng Reza Jelveh ở KCD & OpenInfra Days Vietnam 2026, ngày 25/7 tại
 Sheraton Hà Nội.
 
+![Speaker card của bài nói ở KCD & OpenInfra Days Vietnam 2026](/img/talks/2026-07-25/speaker-card.jpg)
+
 Điều làm phiên này đáng nghe là sự kết hợp. Reza là Solution Architect ở Dynamia AI, công ty đứng sau
 [HAMi](https://github.com/Project-HAMi/HAMi), nên anh ấy mang góc nhìn upstream: project hoạt động thế nào
 và vì sao. Mình mang góc nhìn downstream từ các cụm GPU của bọn mình: đã đo được gì, hỏng ở đâu, và học

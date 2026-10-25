@@ -15,6 +15,8 @@ at the same latency. Getting there took real operations work, and the gain comes
 jobs to share a card. That was my half of the talk Reza Jelveh and I gave at KCD & OpenInfra Days Vietnam
 2026, on 25 July at the Sheraton Hanoi.
 
+![Speaker card for the talk at KCD & OpenInfra Days Vietnam 2026](/img/talks/2026-07-25/speaker-card.jpg)
+
 The pairing is what made the session work. Reza is a Solution Architect at Dynamia AI, the company
 behind [HAMi](https://github.com/Project-HAMi/HAMi), so he brought the upstream view: how the project
 works and why. I brought the downstream view from our GPU clusters: what we measured, what broke, and
