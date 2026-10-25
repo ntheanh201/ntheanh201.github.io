@@ -125,6 +125,7 @@ export const TALKS: { title: string; event: string; href: string; year?: string;
     title: "From Vietnam to the World: Contributing to Kubernetes and earning the Linux Foundation Scholarship",
     event: "#cTENcf Birthday Bash Hanoi",
     href: "https://community.cncf.io/events/details/cncf-cloud-native-hanoi-presents-ctencf-birthday-bash-hanoi/",
+    recap: "/articles/recap-from-vietnam-to-the-world.html",
   },
   {
     title: "AI GÕ CỬA — Doanh nghiệp Việt đã sẵn sàng?",
