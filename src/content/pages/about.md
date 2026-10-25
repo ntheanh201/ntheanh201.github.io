@@ -5,7 +5,8 @@ description: "The Anh Nguyen — Solutions Architect for the Viettel AI Platform
 
 ![The Anh Nguyen](/images/the-anh-nguyen.jpg)
 
-Hi, I'm The Anh Nguyen (**@ntheanh201**), a software engineer based in Hanoi, Vietnam.
+Hi, I'm The Anh Nguyen (**@ntheanh201**), based in Hanoi, Vietnam. I lead a team building GPU infrastructure
+and LLM serving on Kubernetes, and I speak at community events about what we learn along the way.
 
 ## Now
 
@@ -43,6 +44,9 @@ See [all certifications](/certifications.html), including NVIDIA NCP-AII and NCP
 | [apache/trafficcontrol](https://github.com/apache/trafficcontrol/pulls?q=is%3Apr+author%3Antheanh201+) | CDN; upstreamed the [Grafana Scenes dashboards](https://github.com/apache/trafficcontrol/pull/7927) |
 
 ## Talks
+
+I speak at community events in Vietnam, from Cloud Native Hanoi meetups to KCD & OpenInfra Days. Each talk
+below links to a recap on this site.
 
 - **Turning GPU-Hours into Tokens, and Tokens into a Service: Agent Router and NVIDIA Dynamo**, [VOI & CNVN x AWS FCAJ Meetup: Cloud & AI Infrastructure](https://ocgroups.dev/cncf/group/d2e22fa/event/5z4fnze), Hanoi, 2026 · [Recap](/articles/recap-turning-gpu-hours-into-tokens.html)
 - **From Project to Production: HAMi and Viettel Cloud**, [KCD & OpenInfra Days Vietnam 2026](https://sessionize.com/view/c0qvrydt/GridSmart) · [Recap](/articles/recap-kcd-vietnam-2026-hami.html)

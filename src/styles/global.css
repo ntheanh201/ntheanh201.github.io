@@ -249,6 +249,11 @@ img {
   color: var(--fg);
 }
 
+.footer-note {
+  flex-basis: 100%;
+  margin: 0;
+}
+
 /* Shared bits */
 
 .eyebrow {
