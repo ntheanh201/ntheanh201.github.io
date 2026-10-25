@@ -18,4 +18,6 @@ Nhưng tham vọng không dừng ở chỗ dùng được. Mình muốn team mì
 
 Ai để ý [GitHub](https://github.com/ntheanh201) của mình thì sẽ thấy đã có những PR được merge ở KAI Scheduler, Workload-Map, Cluster Readiness Engine hay AICR.
 
+![Các PR đã merge ở KAI Scheduler, Workload-Map, Cluster Readiness Engine và AICR](/notes/upstream-prs-kai-workloadmap-cre-aicr.jpg)
+
 Khi chính NVIDIA đã mở như vậy thì bên cạnh việc sở hữu nhiều GPU, ai hiểu và làm chủ phần mềm chạy trên đó nhanh hơn cũng sẽ có lợi thế rất lớn.
