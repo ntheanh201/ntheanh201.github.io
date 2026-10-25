@@ -131,11 +131,12 @@ export const TALKS: { title: string; event: string; href: string; year?: string;
     title: "AI GÕ CỬA — Doanh nghiệp Việt đã sẵn sàng?",
     event: "VIETTELDX TALKS #8",
     href: "https://www.youtube.com/watch?v=8pN4ft0OzpY",
+    recap: "/articles/recap-vietteldx-talks-8.html",
   },
   {
     title: "HAMi: Fractional GPU for Efficient AI in Cloud Native",
     event: "OpenInfra & Cloud Native Day Vietnam 2025",
-    href: "https://www.vietopeninfra.org/void2025",
+    href: "https://community.cncf.io/events/details/cncf-cloud-native-hanoi-presents-openinfra-amp-cloud-native-day-vietnam-2025/",
     recap: "/articles/recap-hami-void-2025.html",
   },
   {
