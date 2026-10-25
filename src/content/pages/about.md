@@ -56,6 +56,13 @@ below links to a recap on this site.
 - **HAMi: Fractional GPU for Efficient AI in Cloud Native**, [OpenInfra & Cloud Native Day Vietnam 2025](https://community.cncf.io/events/details/cncf-cloud-native-hanoi-presents-openinfra-amp-cloud-native-day-vietnam-2025/) · [Recap](/articles/recap-hami-void-2025.html)
 - **Fractional GPU for AI: Open Source Solutions in Cloud Native**, [Cloud Native Hanoi May Meetup](https://community.cncf.io/events/details/cncf-cloud-native-hanoi-presents-may-meetup-gpu-and-ebpf-on-kubernetes/) · [Recap](/articles/recap-fractional-gpu-cloud-native-hanoi.html)
 
+## Competitions
+
+As tech lead of the AI Platform, I'm responsible for the GPU platform these competitions run on:
+
+- **Viettel AI Race 2025 and 2026**: the environments every team trains and submits on ([Hackathon Day 2025](/notes/2025-12-02-viettel-ai-race-2025.html))
+- **Vietnam AI Open Hackathon 2026**, with NVIDIA: on the technical support team; the cluster passed all 14 checks in NVIDIA's Cluster Readiness Checklist ([post](https://vn.linkedin.com/posts/ntheanh201_vietnamaiopenhackathon2026-viettel-nvidia-activity-7471947616910495744--35R))
+
 ## Projects
 
 - [trafficcontrol-grafana-scenes](https://github.com/ntheanh201/trafficcontrol-grafana-scenes): dynamic Grafana dashboards for Apache Traffic Control built on Scenes, upstreamed in [trafficcontrol#7927](https://github.com/apache/trafficcontrol/pull/7927)
