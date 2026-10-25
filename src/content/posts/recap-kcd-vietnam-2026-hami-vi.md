@@ -46,7 +46,7 @@ một nền tảng chạy workload AI theo cách chuẩn: hỗ trợ DRA, gang s
 service AI, truy cập accelerator an toàn, Gateway API cho inference, và autoscaling cả pod lẫn cluster.
 
 Nền tảng AI của bọn mình được chứng nhận trên Kubernetes v1.35 ([hồ sơ conformance](https://github.com/cncf/k8s-ai-conformance/tree/main/v1.35/viettel-ai-platform)). Ở thời điểm buổi nói,
-đó là một trong 31 nền tảng được chứng nhận trên thế giới, cạnh AWS, Google Cloud, Azure, Oracle và Red Hat
+đó là một trong các nền tảng được chứng nhận cùng với AWS, Google Cloud, Azure, Oracle và Red Hat
 OpenShift, và là nền tảng đầu tiên của Việt Nam.
 
 Có hai yêu cầu trong số đó chính là chỗ chia sẻ GPU bị thử thách: truy cập accelerator phải an toàn khi

@@ -10,7 +10,7 @@ and LLM serving on Kubernetes, and I speak at community events about what we lea
 
 ## Now
 
-I'm tech lead and solutions architect for the **Viettel AI Platform** at **Viettel Networks**, a multi-tenant GPU platform. That includes **Token Factory**, which serves LLMs at scale.
+I'm tech lead and solutions architect for the **Viettel AI Platform** at **Viettel Networks**, a multi-tenant GPU platform and a [Certified Kubernetes AI Platform](/articles/kubernetes-ai-conformance-viettel-ai-platform.html) under CNCF's AI Conformance program. That includes **Token Factory**, which serves LLMs at scale.
 
 - **Token Factory:** LLM inference at scale with NVIDIA Dynamo, serving multiple LLM families
 - **GPU fleet:** NVIDIA H200 clusters on NVIDIA AI Enterprise and Base Command Manager (BCM)
@@ -26,6 +26,8 @@ I'm tech lead and solutions architect for the **Viettel AI Platform** at **Viett
 - **The Shubhra Kar Linux Foundation Training (LiFT) Scholarship**, 2025 recipient
 - [**Outstanding Individual, Viettel's global IT line, 2025**](/notes/2026-06-30-viettel-it-outstanding-individual-2025.html), Viettel Group
 - [**Two Second Prizes, VTNet 2025 Innovation Journey**](/notes/2025-10-06-vtnet-innovation-prizes.html), with my team, Viettel Networks
+- [**Certified Kubernetes AI Platform**](/articles/kubernetes-ai-conformance-viettel-ai-platform.html), CNCF Kubernetes AI Conformance (v1.35), for the Viettel AI Platform (team)
+- [**Silver, 2026 Globee Awards for Artificial Intelligence**](/notes/2026-05-05-globee-ai-platform-silver.html), GPU-as-a-Service (GPUaaS) & Compute Orchestration, for the Viettel AI Platform (team award)
 - [**Turning GPU-hours into tokens**](https://viettelcloud.vn/en/tech-blog/4/142), my case study on serving multiple LLM families with NVIDIA Dynamo, is listed in [NVIDIA Dynamo External Publications](https://docs.nvidia.com/dynamo/external-publications)
 
 See [all certifications](/certifications.html), including NVIDIA NCP-AII and NCP-AIN, LFCS and the Nebius AI certifications.

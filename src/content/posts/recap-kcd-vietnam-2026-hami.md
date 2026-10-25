@@ -45,7 +45,7 @@ Before the numbers, the platform under them. CNCF's Kubernetes AI Conformance pr
 platform runs AI workloads the standard way: DRA support, gang scheduling, accelerator and AI-service
 metrics, secure accelerator access, Gateway API for inference, and pod and cluster autoscaling. Our AI
 platform is certified on Kubernetes v1.35 ([conformance submission](https://github.com/cncf/k8s-ai-conformance/tree/main/v1.35/viettel-ai-platform)). At the time of the talk it was
-one of 31 certified platforms worldwide, next to AWS, Google Cloud, Azure, Oracle and Red Hat OpenShift,
+certified next to platforms from AWS, Google Cloud, Azure, Oracle and Red Hat OpenShift,
 and the first from Vietnam.
 
 Two of those requirements are exactly where GPU sharing gets tested. Accelerator access has to stay secure
