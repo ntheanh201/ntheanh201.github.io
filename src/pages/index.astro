@@ -99,7 +99,7 @@ const certCount = CERTIFICATIONS.reduce((n, g) => n + g.items.length, 0);
         {
           TALKS.map((t) => (
             <li>
-              <a href={t.href}>{t.title}</a>
+              <a href={t.href}>{t.title} ↗</a>
               <span class="meta">
                 {t.event}
                 {t.year && `, ${t.year}`}
