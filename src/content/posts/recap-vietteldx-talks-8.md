@@ -8,7 +8,7 @@ tags: ["talk", "ai", "enterprise", "cloud"]
 
 *The full recap is in Vietnamese: [đọc bản tiếng Việt](/articles/recap-vietteldx-talks-8-vi.html).*
 
-![Nguyễn Thế Anh, Cloud Platform Expert, Viettel Cloud, on VIETTELDX TALKS #8](/img/talks/2025-08-14/frame-lower-third.jpg)
+![VIETTELDX TALKS #8 poster: AI is knocking, are Vietnamese businesses ready?](/img/talks/2025-08-14/poster.jpg)
 
 This one was a talk show, not a talk: no slides, three guests, in Vietnamese. VIETTELDX TALKS is a series
 by Viettel Solutions, and episode #8, "AI gõ cửa: Doanh nghiệp Việt đã sẵn sàng?" ("AI is knocking: are
@@ -21,6 +21,8 @@ step. I was one of three guests, alongside Nguyễn Quang Tuấn (AI and Data An
 Solutions) and Đặng Văn Đức (Business Development Director, Intel); I joined as Cloud Platform Expert,
 Viettel Cloud. Below are the
 points the show put on screen for my part.
+
+![Nguyễn Thế Anh, Cloud Platform Expert, Viettel Cloud, on VIETTELDX TALKS #8](/img/talks/2025-08-14/frame-lower-third.jpg)
 
 **Start early.** AI is no longer a question of "whether", but of "deploying as early as possible".
 

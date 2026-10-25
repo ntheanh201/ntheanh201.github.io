@@ -9,7 +9,7 @@ translationOf: recap-vietteldx-talks-8
 
 *[Read in English](/articles/recap-vietteldx-talks-8.html).*
 
-![Nguyễn Thế Anh, Chuyên gia Nền tảng Cloud, Viettel Cloud, trong VIETTELDX TALKS #8](/img/talks/2025-08-14/frame-lower-third.jpg)
+![Poster VIETTELDX TALKS #8: AI gõ cửa, doanh nghiệp Việt đã sẵn sàng?](/img/talks/2025-08-14/poster.jpg)
 
 Khác với các bài nói kỹ thuật trước, lần này là một talkshow, không có slide. VIETTELDX TALKS là chuỗi
 chương trình của Viettel Solutions, và tập #8 "AI gõ cửa: Doanh nghiệp Việt đã sẵn sàng?" phát hành ngày
@@ -26,6 +26,8 @@ lõi để triển khai AI hiệu quả và bền vững:
 
 Bài này chỉ ghi lại phần của mình, theo những câu được chương trình trích lên màn hình. Phần chia sẻ của
 hai đồng khách mời, anh Tuấn và anh Đức, thì mời bạn xem trong video.
+
+![Nguyễn Thế Anh, Chuyên gia Nền tảng Cloud, Viettel Cloud, trong VIETTELDX TALKS #8](/img/talks/2025-08-14/frame-lower-third.jpg)
 
 ## Không còn là "nên hay không"
 
