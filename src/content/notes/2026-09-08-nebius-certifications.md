@@ -17,6 +17,6 @@ The questions are not memory tests. Almost none of them ask for a definition. Th
 
 Thanks, Nebius Academy. LLM and inference scaling is the next gap for me, so I have my eye on the AI Performance Engineering program, though for now it only runs in London and Tel Aviv.
 
-![Nebius AI Leader, AI CloudOps Engineer and Agentic AI Builder badges](/notes/2026-09-08-nebius-badges.png)
+![Nebius AI Leader, Agentic AI Builder and AI CloudOps Engineer certifications](/notes/2026-09-08-nebius-certifications.jpg)
 
 The badges and their Credly links are on the [certifications page](/certifications.html).

@@ -10,7 +10,7 @@ Our team received two Second Prizes for Outstanding Innovation at the VTNet 2025
 - **An AI Platform on Cloud Native**: researching and building an AI platform on cloud native infrastructure.
 - **GPU fraction on Cloud Native**: splitting GPUs so they can be virtualized and allocated dynamically, letting many workloads share one GPU.
 
-Both ideas were co-authored with my teammate Minh Tú. Thanks to everyone on the team who turned them into running systems.
+Both ideas were co-authored with my teammate Nho Minh Tú. Thanks to everyone on the team who turned them into running systems.
 
 ![The two Second Prize certificates from the VTNet 2025 Innovation Journey](/notes/2025-10-06-vtnet-innovation-prizes.jpg)
 
