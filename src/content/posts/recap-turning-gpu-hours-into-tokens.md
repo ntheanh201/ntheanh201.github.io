@@ -18,7 +18,9 @@ spine of the talk my teammate Minh and I gave today at Cloud & AI
 Infrastructure, a community meetup at the AWS office in Hanoi. It was also where most of the questions
 went afterwards.
 
-![The speakers: Minh and me](/img/talks/2026-10-24/slide-2.jpg)
+![Cloud & AI Infrastructure, 24 Oct 2026 at the AWS Hanoi office: the four speakers](/img/talks/2026-10-24/event-poster.jpg)
+
+![Minh and me opening the talk, with the speakers slide on screen](/img/talks/2026-10-24/photo-speakers.jpg)
 
 The NVIDIA Dynamo part of our work already has a [full write-up](https://viettelcloud.vn/en/tech-blog/4/142), which NVIDIA lists
 as a case study in the Dynamo docs. The write-up is about getting more tokens out of each GPU. It
@@ -34,6 +36,8 @@ and models keep being added.
 
 I've rarely seen anyone share that end-to-end picture. That's the part the talk added, and it's where
 this recap goes deeper.
+
+![The room at the AWS Hanoi office, on the gigawatts slide](/img/talks/2026-10-24/photo-room.jpg)
 
 ## Capacity in gigawatts, output in tokens
 
@@ -106,6 +110,8 @@ Minh took this half. Each cluster gets its own gateway,
 Agentic AI Foundation project since September. It understands LLM requests: it reads the `model` field
 in the body to route. Two Envoy filters do most of the work. `ext_authz` calls an auth service before
 the request goes anywhere. `ext_proc` emits a usage event after the response.
+
+![Minh on Part 1, with the usage path on screen](/img/talks/2026-10-24/photo-part-1.jpg)
 
 **Identity and admission.** The client sends an API key and a model name. The auth service checks the
 key and whether it may use that model, then builds a trusted context with who is calling, written into
@@ -274,6 +280,8 @@ measurement problem into an availability problem.
   listed in [NVIDIA Dynamo External Publications](https://docs.nvidia.com/dynamo/external-publications).
 - [Agent Router](https://github.com/theagentrouter/agent-router),
   [NVIDIA Dynamo](https://github.com/ai-dynamo/dynamo), [llm-d](https://github.com/llm-d/llm-d).
+
+![Group photo at the end of the meetup](/img/talks/2026-10-24/photo-group.jpg)
 
 Thanks to the organizers from AWS First Cloud AI Journey, OpenInfra User Group Vietnam and Cloud Native
 Vietnam, and to everyone who stayed for the questions.

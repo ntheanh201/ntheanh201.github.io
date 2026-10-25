@@ -18,7 +18,9 @@ engine, nâng gateway, mỗi thứ thay hay nâng cấp riêng mà không đụn
 hôm nay ở Cloud & AI Infrastructure, buổi meetup cộng đồng tại văn phòng AWS ở Hà Nội. Phần lớn câu hỏi
 sau buổi nói cũng đổ vào đúng chỗ này.
 
-![Hai diễn giả: Minh và mình](/img/talks/2026-10-24/slide-2.jpg)
+![Cloud & AI Infrastructure, 24/10/2026 tại văn phòng AWS Hà Nội: bốn diễn giả](/img/talks/2026-10-24/event-poster.jpg)
+
+![Minh và mình mở đầu bài nói, trên màn hình là slide giới thiệu diễn giả](/img/talks/2026-10-24/photo-speakers.jpg)
 
 Phần NVIDIA Dynamo bọn mình đã có [bài viết đầy đủ](https://viettelcloud.vn/en/tech-blog/4/142), và NVIDIA đã đưa bài đó vào mục case
 study trong docs của Dynamo. Bài đó nói về việc vắt thêm token từ mỗi GPU, nhưng chưa kể tầng bao quanh nó.
@@ -32,6 +34,8 @@ lại usage của từng request. Và tất cả phải scale được, bảo tr
 
 Bức tranh trọn vẹn đó thì mình ít thấy ai chia sẻ, nên đó là phần buổi nói kể thêm, và bài recap này cũng
 đi sâu vào đó.
+
+![Khán phòng ở văn phòng AWS Hà Nội, lúc đang ở slide gigawatt](/img/talks/2026-10-24/photo-room.jpg)
 
 ## Năng lực tính bằng gigawatt, đầu ra là token
 
@@ -103,6 +107,8 @@ Phần này Minh nói. Mỗi cụm có một gateway riêng là
 project của Agentic AI Foundation. Nó hiểu request LLM, đọc trường `model` trong body để route. Phần lớn
 việc nằm ở hai filter của Envoy: `ext_authz` gọi auth service trước khi request đi tiếp, còn `ext_proc`
 phát usage event sau khi có response.
+
+![Minh trình bày Phần 1, trên màn hình là luồng usage](/img/talks/2026-10-24/photo-part-1.jpg)
 
 **Danh tính và quyền vào.** Client gửi API key và tên model, auth service kiểm key có hợp lệ không và có
 được dùng model đó không. Nếu hợp lệ, nó dựng một trusted context chứa danh tính người gọi,
@@ -272,6 +278,8 @@ Làm lại thì mình vẫn chọn như vậy, vì gọi đồng bộ về một
   [NVIDIA Dynamo External Publications](https://docs.nvidia.com/dynamo/external-publications).
 - [Agent Router](https://github.com/theagentrouter/agent-router),
   [NVIDIA Dynamo](https://github.com/ai-dynamo/dynamo), [llm-d](https://github.com/llm-d/llm-d).
+
+![Chụp ảnh chung cuối buổi meetup](/img/talks/2026-10-24/photo-group.jpg)
 
 Cảm ơn ban tổ chức từ AWS First Cloud AI Journey, OpenInfra User Group Vietnam và Cloud Native Vietnam, và cảm ơn mọi người đã ở lại tới phần hỏi đáp.
 
