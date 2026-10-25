@@ -119,6 +119,7 @@ export const TALKS: { title: string; event: string; href: string; year?: string;
     title: "Auditable Autonomy: Engineering With AI Teammates That Leave a Trace",
     event: "The Future of Software Engineering in the Agentic AI era",
     href: "https://viettelfamily.com/news/vds-quy-tu-chuyen-gia-viettel-ban-ve-tuong-lai-software-engineering-global",
+    recap: "/articles/recap-auditable-autonomy.html",
   },
   {
     title: "From Vietnam to the World: Contributing to Kubernetes and earning the Linux Foundation Scholarship",
