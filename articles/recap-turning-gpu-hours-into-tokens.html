@@ -14,7 +14,8 @@ cluster, a new engine, a newer gateway, each swapped or upgraded without touchin
 spine of the talk my teammate Minh and I gave today at Cloud &amp; AI
 Infrastructure, a community meetup at the AWS office in Hanoi. It was also where most of the questions
 went afterwards.</p>
-<p><img src="/img/talks/2026-10-24/slide-2.jpg" alt="The speakers: Minh and me"></p>
+<p><img src="/img/talks/2026-10-24/event-poster.jpg" alt="Cloud &amp; AI Infrastructure, 24 Oct 2026 at the AWS Hanoi office: the four speakers"></p>
+<p><img src="/img/talks/2026-10-24/photo-speakers.jpg" alt="Minh and me opening the talk, with the speakers slide on screen"></p>
 <p>The NVIDIA Dynamo part of our work already has a <a href="https://viettelcloud.vn/en/tech-blog/4/142">full write-up</a>, which NVIDIA lists
 as a case study in the Dynamo docs. The write-up is about getting more tokens out of each GPU. It
 doesn’t cover the layer around it.</p>
@@ -26,6 +27,7 @@ how much, usage recorded per request. And all of it has to stay scalable and mai
 and models keep being added.</p>
 <p>I’ve rarely seen anyone share that end-to-end picture. That’s the part the talk added, and it’s where
 this recap goes deeper.</p>
+<p><img src="/img/talks/2026-10-24/photo-room.jpg" alt="The room at the AWS Hanoi office, on the gigawatts slide"></p>
 <h2 id="capacity-in-gigawatts-output-in-tokens">Capacity in gigawatts, output in tokens</h2>
 <p><img src="/img/talks/2026-10-24/slide-4.jpg" alt="Capacity is now counted in gigawatts"></p>
 <p>In the industrial age, you sized a factory by its workers, its raw materials and the goods it shipped.
@@ -81,6 +83,7 @@ failover between clusters. The rest of the talk zoomed into one spoke.</p>
 Agentic AI Foundation project since September. It understands LLM requests: it reads the <code>model</code> field
 in the body to route. Two Envoy filters do most of the work. <code>ext_authz</code> calls an auth service before
 the request goes anywhere. <code>ext_proc</code> emits a usage event after the response.</p>
+<p><img src="/img/talks/2026-10-24/photo-part-1.jpg" alt="Minh on Part 1, with the usage path on screen"></p>
 <p><strong>Identity and admission.</strong> The client sends an API key and a model name. The auth service checks the
 key and whether it may use that model, then builds a trusted context with who is calling, written into
 internal headers.</p>
@@ -211,6 +214,7 @@ listed in <a href="https://docs.nvidia.com/dynamo/external-publications">NVIDIA 
 <li><a href="https://github.com/theagentrouter/agent-router">Agent Router</a>,
 <a href="https://github.com/ai-dynamo/dynamo">NVIDIA Dynamo</a>, <a href="https://github.com/llm-d/llm-d">llm-d</a>.</li>
 </ul>
+<p><img src="/img/talks/2026-10-24/photo-group.jpg" alt="Group photo at the end of the meetup"></p>
 <p>Thanks to the organizers from AWS First Cloud AI Journey, OpenInfra User Group Vietnam and Cloud Native
 Vietnam, and to everyone who stayed for the questions.</p>
 <p>Keep the control plane out of the request path, and a new cluster, a new engine or a newer gateway is a

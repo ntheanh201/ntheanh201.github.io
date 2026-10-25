@@ -13,7 +13,8 @@
 engine, nâng gateway, mỗi thứ thay hay nâng cấp riêng mà không đụng phần còn lại. Đó là sợi chỉ xuyên suốt bài nói của mình và Minh, thành viên trong team,
 hôm nay ở Cloud &amp; AI Infrastructure, buổi meetup cộng đồng tại văn phòng AWS ở Hà Nội. Phần lớn câu hỏi
 sau buổi nói cũng đổ vào đúng chỗ này.</p>
-<p><img src="/img/talks/2026-10-24/slide-2.jpg" alt="Hai diễn giả: Minh và mình"></p>
+<p><img src="/img/talks/2026-10-24/event-poster.jpg" alt="Cloud &amp; AI Infrastructure, 24/10/2026 tại văn phòng AWS Hà Nội: bốn diễn giả"></p>
+<p><img src="/img/talks/2026-10-24/photo-speakers.jpg" alt="Minh và mình mở đầu bài nói, trên màn hình là slide giới thiệu diễn giả"></p>
 <p>Phần NVIDIA Dynamo bọn mình đã có <a href="https://viettelcloud.vn/en/tech-blog/4/142">bài viết đầy đủ</a>, và NVIDIA đã đưa bài đó vào mục case
 study trong docs của Dynamo. Bài đó nói về việc vắt thêm token từ mỗi GPU, nhưng chưa kể tầng bao quanh nó.</p>
 <p><img src="/img/talks/2026-10-24/slide-3.jpg" alt="Bài viết về Dynamo trong mục case study ở docs NVIDIA Dynamo"></p>
@@ -23,6 +24,7 @@ endpoint trên nhiều cụm, xác thực từng request, giới hạn ai đư�
 lại usage của từng request. Và tất cả phải scale được, bảo trì được khi số cụm và số model cứ tăng lên.</p>
 <p>Bức tranh trọn vẹn đó thì mình ít thấy ai chia sẻ, nên đó là phần buổi nói kể thêm, và bài recap này cũng
 đi sâu vào đó.</p>
+<p><img src="/img/talks/2026-10-24/photo-room.jpg" alt="Khán phòng ở văn phòng AWS Hà Nội, lúc đang ở slide gigawatt"></p>
 <h2 id="năng-lực-tính-bằng-gigawatt-đầu-ra-là-token">Năng lực tính bằng gigawatt, đầu ra là token</h2>
 <p><img src="/img/talks/2026-10-24/slide-4.jpg" alt="Năng lực giờ tính bằng gigawatt"></p>
 <p>Thời công nghiệp, muốn biết một nhà máy lớn cỡ nào thì người ta hỏi có bao nhiêu công nhân, bao nhiêu
@@ -76,6 +78,7 @@ Phần còn lại của buổi nói là nhìn vào bên trong một spoke.</p>
 project của Agentic AI Foundation. Nó hiểu request LLM, đọc trường <code>model</code> trong body để route. Phần lớn
 việc nằm ở hai filter của Envoy: <code>ext_authz</code> gọi auth service trước khi request đi tiếp, còn <code>ext_proc</code>
 phát usage event sau khi có response.</p>
+<p><img src="/img/talks/2026-10-24/photo-part-1.jpg" alt="Minh trình bày Phần 1, trên màn hình là luồng usage"></p>
 <p><strong>Danh tính và quyền vào.</strong> Client gửi API key và tên model, auth service kiểm key có hợp lệ không và có
 được dùng model đó không. Nếu hợp lệ, nó dựng một trusted context chứa danh tính người gọi,
 ghi vào header nội bộ.</p>
@@ -206,6 +209,7 @@ cắt giữa chừng là trường hợp đầu tiên cần test.</li>
 <li><a href="https://github.com/theagentrouter/agent-router">Agent Router</a>,
 <a href="https://github.com/ai-dynamo/dynamo">NVIDIA Dynamo</a>, <a href="https://github.com/llm-d/llm-d">llm-d</a>.</li>
 </ul>
+<p><img src="/img/talks/2026-10-24/photo-group.jpg" alt="Chụp ảnh chung cuối buổi meetup"></p>
 <p>Cảm ơn ban tổ chức từ AWS First Cloud AI Journey, OpenInfra User Group Vietnam và Cloud Native Vietnam, và cảm ơn mọi người đã ở lại tới phần hỏi đáp.</p>
 <p>Giữ control plane ngoài đường đi của request thì thêm một cụm, đổi một engine hay nâng một gateway chỉ là
 sửa ở một chỗ, chứ không thành một dự án mới. Nếu bạn cũng serve trên nhiều cụm mà vạch ranh giới ở chỗ khác, mình rất muốn nghe lý
