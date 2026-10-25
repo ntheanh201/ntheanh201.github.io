@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Becoming a Certified Kubernetes AI Platform: notes from our v1.35 submission · The Anh Nguyen</title><meta name="description" content="Field notes from taking Viettel AI Platform through CNCF's Kubernetes AI Conformance program on Kubernetes v1.35: DRA, Gateway API, Kueue gang scheduling, a GPU-metric HPA built on DCGM and Prometheus Adapter, accelerator metrics, secure accelerator access and KServe."><link rel="canonical" href="https://ntheanh201.id.vn/articles/kubernetes-ai-conformance-viettel-ai-platform.html"><link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico?v=2"><link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2"><link rel="alternate" type="application/rss+xml" title="The Anh Nguyen" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:type" content="article"><meta property="og:title" content="Becoming a Certified Kubernetes AI Platform: notes from our v1.35 submission"><meta property="og:description" content="Field notes from taking Viettel AI Platform through CNCF's Kubernetes AI Conformance program on Kubernetes v1.35: DRA, Gateway API, Kueue gang scheduling, a GPU-metric HPA built on DCGM and Prometheus Adapter, accelerator metrics, secure accelerator access and KServe."><meta property="og:url" content="https://ntheanh201.id.vn/articles/kubernetes-ai-conformance-viettel-ai-platform.html"><meta property="og:image" content="https://ntheanh201.id.vn/thumbnail.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@ntheanh201"><meta name="color-scheme" content="light dark"><script>
+      (() => {
+        let t = null;
+        try { t = localStorage.getItem("theme"); } catch {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.CDwbHzLr.css"><style>.article[data-astro-cid-57z6rh23]{max-width:var(--measure);margin:0 auto;padding:0 1rem}@media (width>=72rem){.article[data-astro-cid-57z6rh23].has-toc{max-width:calc(var(--measure) + 15rem + 3rem);grid-template-columns:minmax(0, var(--measure)) 15rem;gap:3rem;display:grid}}.article-head[data-astro-cid-57z6rh23]{margin-bottom:2rem;padding-top:3.5rem}.article-head[data-astro-cid-57z6rh23] h1[data-astro-cid-57z6rh23]{letter-spacing:-.02em;margin:0 0 .75rem;font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.2}.article-head[data-astro-cid-57z6rh23] .subtitle[data-astro-cid-57z6rh23]{color:var(--muted);margin:0 0 1rem;font-size:1.15rem;line-height:1.5}.article-head[data-astro-cid-57z6rh23] .meta[data-astro-cid-57z6rh23]{flex-wrap:wrap;align-items:center;gap:.35rem;margin:0;display:flex}.cover[data-astro-cid-57z6rh23]{border:1px solid var(--border);border-radius:8px;width:100%;margin-bottom:2.25rem;display:block}.toc[data-astro-cid-57z6rh23]{display:none}@media (width>=72rem){.toc[data-astro-cid-57z6rh23]{align-self:start;max-height:calc(100vh - 3rem);margin-top:3.75rem;font-size:.85rem;line-height:1.45;display:block;position:sticky;top:1.5rem;overflow-y:auto}.toc[data-astro-cid-57z6rh23] ol[data-astro-cid-57z6rh23]{border-left:1px solid var(--border);margin:0;padding:0 0 0 .75rem;list-style:none}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23]{margin:.45rem 0}.toc[data-astro-cid-57z6rh23] li[data-astro-cid-57z6rh23].d3{padding-left:.85rem}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]{color:var(--muted);text-decoration:none}.toc[data-astro-cid-57z6rh23] a[data-astro-cid-57z6rh23]:hover{color:var(--fg)}}
+</style></head><body><a class="skip" href="#main">Skip to content</a><header class="site-header"><div class="wrap header-inner"><a href="/" class="brand"><span class="avatar"><img class="ink" src="/images/portrait-head.svg" alt="" width="30" height="30"></span>ntheanh201</a><nav aria-label="Main"><a href="/archives.html">Writing</a><a href="/certifications.html"><span class="nav-long">Certifications</span><span class="nav-short">Certs</span></a><a href="/articles/about.html">About</a><button class="theme-toggle" type="button" aria-label="Toggle dark mode"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg></button></nav></div></header><main id="main"><div class="article has-toc" data-astro-cid-57z6rh23><article data-astro-cid-57z6rh23><header class="article-head" data-astro-cid-57z6rh23><h1 data-astro-cid-57z6rh23>Becoming a Certified Kubernetes AI Platform: notes from our v1.35 submission</h1><p class="subtitle" data-astro-cid-57z6rh23>Walking the v1.35 requirements one by one: what the standard asks, and what we showed for Viettel AI Platform.</p><p class="meta" data-astro-cid-57z6rh23><time datetime="2026-10-25T00:00:00.000Z" data-astro-cid-57z6rh23>Oct 25, 2026</time><span aria-hidden="true" data-astro-cid-57z6rh23> · </span>7 min read<span aria-hidden="true" data-astro-cid-57z6rh23> · </span><span class="tags" data-astro-cid-57z6rh23><a class="tag" href="/tag/kubernetes.html" data-astro-cid-57z6rh23>kubernetes</a><a class="tag" href="/tag/cncf.html" data-astro-cid-57z6rh23>cncf</a><a class="tag" href="/tag/ai-conformance.html" data-astro-cid-57z6rh23>ai-conformance</a><a class="tag" href="/tag/gpu.html" data-astro-cid-57z6rh23>gpu</a><a class="tag" href="/tag/dra.html" data-astro-cid-57z6rh23>dra</a></span></p></header><div class="prose" data-astro-cid-57z6rh23><p><em><a href="/articles/kubernetes-ai-conformance-viettel-ai-platform-vi.html">Đọc bản tiếng Việt</a>.</em></p>
+<p>Kubernetes AI Conformance is not a test suite you pass. For v1.35 it’s a YAML checklist plus Markdown
+evidence you write yourself, reviewed by CNCF and published on GitHub where anyone can read it. So the
+evidence matters more than the badge.</p>
+<p>In April 2026 my team took Viettel AI Platform through the program on Kubernetes v1.35. I mentioned the
+result in my <a href="/articles/recap-kcd-vietnam-2026-hami.html">KCD Vietnam recap</a>. This is the long version:
+each requirement, what the standard asks, what we showed, and the parts that took some plumbing.</p>
+<p><em>Kubernetes v1.35.3, containerd 2.2.2 and 1.7.28, NVIDIA GPU Operator with driver 580.126.09, Kueue
+v0.10.2. Repo state checked on 25 October 2026.</em></p>
+<p><img src="/img/ai-conformance/certified-ai-platform-logo.png" alt="The Certified Kubernetes AI Platform logo, from CNCF’s artwork repository"></p>
+<h2 id="the-badge-sits-on-top-of-plain-conformance">The badge sits on top of plain conformance</h2>
+<p>You can’t start here. A platform has to be <a href="https://github.com/cncf/k8s-conformance">Kubernetes Conformant</a>
+first, and the AI checklist asks for that link in its metadata.</p>
+<p>Our base conformance results landed in <code>cncf/k8s-conformance</code> on 8 April, a week after the AI pull
+request opened. The Ginkgo run took about two hours:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SUCCESS! -- 441 Passed | 0 Failed | 0 Pending | 6914 Skipped</span></span>
+<span class="line"><span>PASS</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Ginkgo ran 1 suite in 2h1m0.033057564s</span></span></code></pre>
+<p>The AI pull request (<a href="https://github.com/cncf/k8s-ai-conformance/pull/85">#85</a>) opened on 1 April and
+merged on 22 April, Hanoi time. Certification is valid for one year.</p>
+<p><img src="/img/ai-conformance/pr-85-merged.jpg" alt="cncf/k8s-ai-conformance#85: Viettel AI Platform: AI Conformance for v1.35, merged"></p>
+<p>The v1.35 checklist has twelve items: nine MUST, three SHOULD. Each item takes a <code>status</code>, a list of
+evidence files and a free-text note. Our evidence is nine Markdown files of <code>kubectl</code> commands and their
+output.</p>
+<p>The evidence comes from two bare-metal Ubuntu 22.04 nodes with NVIDIA L40S and L40 GPUs. Certification
+is per product and per configuration, so that’s the configuration being described.</p>
+<p>On 25 October 2026 the <code>v1.35/</code> folder lists 23 platforms, and the repo lists 40 distinct platforms
+across v1.33 to v1.37. Viettel is the only vendor from Vietnam in it.</p>
+<p><img src="/img/ai-conformance/landscape-ai-platform-2026-10-25.jpg" alt="The Certified Kubernetes - AI Platform category on the CNCF Landscape, 25 October 2026"></p>
+<h2 id="dra-the-v1-api-is-served-out-of-the-box">DRA: the v1 API is served out of the box</h2>
+<p>The requirement: <em>“Support Dynamic Resource Allocation (DRA) APIs to enable more flexible and
+fine-grained resource requests beyond simple counts.”</em></p>
+<p>On v1.35 <code>resource.k8s.io/v1</code> is GA and on by default, so a kubeadm cluster serves it without any flag:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>$ kubectl api-resources --api-group=resource.k8s.io</span></span>
+<span class="line"><span>NAME                     SHORTNAMES   APIVERSION           NAMESPACED   KIND</span></span>
+<span class="line"><span>deviceclasses                         resource.k8s.io/v1   false        DeviceClass</span></span>
+<span class="line"><span>resourceclaims                        resource.k8s.io/v1   true         ResourceClaim</span></span>
+<span class="line"><span>resourceclaimtemplates                resource.k8s.io/v1   true         ResourceClaimTemplate</span></span>
+<span class="line"><span>resourceslices                        resource.k8s.io/v1   false        ResourceSlice</span></span></code></pre>
+<p>We created a <code>ResourceClaimTemplate</code> asking for one device of class <code>gpu.nvidia.com</code>, and a pod that
+references it through <code>spec.resourceClaims</code>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">apiVersion</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">resource.k8s.io/v1</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">kind</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">ResourceClaimTemplate</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">metadata</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">single-gpu</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  namespace</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">dra-test</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">spec</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  spec</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    devices</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      requests</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">      - </span><span style="color:#22863A;--shiki-dark:#85E89D">name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">req-0</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">        exactly</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">          deviceClassName</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">gpu.nvidia.com</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">          allocationMode</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">ExactCount</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">          count</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span></span></code></pre>
+<p>The API server accepted both. Note the <code>exactly</code> block. In <code>v1</code> a device request is either <code>exactly</code>,
+one selection, or <code>firstAvailable</code>, an ordered list of alternatives.</p>
+<p>One detail for anyone reading ahead: the v1.36 and v1.37 checklists no longer list <code>dra_support</code> as a
+separate item.</p>
+<h2 id="driver-and-runtime-the-gpu-operator-does-the-boring-part">Driver and runtime: the GPU Operator does the boring part</h2>
+<p>This one is a SHOULD. The platform needs <em>“a verifiable mechanism”</em> that the right driver and container
+runtime config sit on every accelerator node.</p>
+<p>The GPU Operator installs the driver, a toolkit DaemonSet writes the containerd config, and a CUDA
+validator pod runs to completion on each node:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>nvidia-container-toolkit-daemonset-q7jhl   1/1   Running     0   5h8m</span></span>
+<span class="line"><span>nvidia-container-toolkit-daemonset-rgqwj   1/1   Running     0   28h</span></span>
+<span class="line"><span>nvidia-cuda-validator-7hghr                0/1   Completed   0   27h</span></span>
+<span class="line"><span>nvidia-cuda-validator-x72v5                0/1   Completed   0   5h7m</span></span></code></pre>
+<p>The two nodes run different containerd majors (2.2.2 and 1.7.28). The validator completed on both.</p>
+<p>GPU sharing is a separate topic. I covered it, with HAMi and the numbers, in the
+<a href="/articles/recap-kcd-vietnam-2026-hami.html">KCD recap</a>.</p>
+<h2 id="gateway-api-envoy-gateway-carries-the-routes">Gateway API: Envoy Gateway carries the routes</h2>
+<p>The requirement: a Gateway API implementation for inference traffic, <em>“which enables capabilities like
+weighted traffic splitting, header-based routing (for OpenAI protocol headers), and optional integration
+with service meshes.”</em></p>
+<p>We use Envoy Gateway as the implementation, with Envoy AI Gateway (now Agent Router) on top for LLM
+routing, model-backend selection and token-based rate limiting. The API group is fully served, including
+<code>ListenerSet</code> and <code>TLSRoute</code> at <code>v1</code>.</p>
+<p>The test creates a <code>GatewayClass</code>, a <code>Gateway</code>, an <code>HTTPRoute</code> matching on a host name, and a small
+Python backend. Once the Gateway reports <code>PROGRAMMED: True</code>, one request goes through it:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>$ curl -v -H 'Host: test.example.local' http://&lt;gateway-ip&gt;:80/</span></span>
+<span class="line"><span>&gt; GET / HTTP/1.1</span></span>
+<span class="line"><span>&gt; Host: test.example.local</span></span>
+<span class="line"><span>...</span></span>
+<span class="line"><span>&lt; HTTP/1.1 200 OK</span></span>
+<span class="line"><span>&lt; server: BaseHTTP/0.6 Python/3.11.15</span></span>
+<span class="line"><span>...</span></span>
+<span class="line"><span>Hello from Viettel AI Platform</span></span></code></pre>
+<p>The request enters Envoy, matches the <code>HTTPRoute</code> on the <code>Host</code> header, and reaches the backend Service.</p>
+<h2 id="gang-scheduling-kueue-admits-the-whole-job-at-once">Gang scheduling: Kueue admits the whole Job at once</h2>
+<p>The requirement: install and run <em>“at least one gang scheduling solution that ensures all-or-nothing
+scheduling for distributed AI workloads (e.g. Kueue, Volcano, etc.)”</em></p>
+<p>We installed Kueue v0.10.2 from the release manifest, created a <code>ResourceFlavor</code>, a <code>ClusterQueue</code> with
+10 CPU and 10Gi of quota, and a <code>LocalQueue</code>. Then a <code>Job</code> with <code>parallelism: 3</code>, labelled with the
+queue name.</p>
+<p>The mechanism is worth one paragraph. Kueue suspends the Job on creation, creates one <code>Workload</code> for
+the whole pod set, and unsuspends the Job only when the whole set fits in quota. All-or-nothing happens
+at admission, before the scheduler sees a single pod.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>$ kubectl get workloads -n gang-scheduling-test</span></span>
+<span class="line"><span>NAME                      QUEUE          RESERVED IN    ADMITTED   FINISHED   AGE</span></span>
+<span class="line"><span>job-gang-test-job-b942a   gang-test-lq   gang-test-cq   True       True       83s</span></span></code></pre>
+<p>The three pods logged start times of 09:29:23, 09:29:24 and 09:29:25, and all three completed.</p>
+<p>A tip if you build on this: Kueue admits against quota, not against free nodes. If your pods must
+actually start together, look at <code>waitForPodsReady</code>.</p>
+<h2 id="cluster-autoscaling-the-if-matters-on-bare-metal">Cluster autoscaling: the “if” matters on bare metal</h2>
+<p>The requirement opens with a condition: <em>“If the platform provides a cluster autoscaler or an equivalent
+mechanism, it must be able to scale up/down node groups containing specific accelerator types based on
+pending pods.”</em></p>
+<p>On bare metal there are no node groups to scale. A new GPU server joins with <code>kubeadm join</code>, then the
+GPU Operator installs the driver, configures the runtime and advertises the GPUs:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>NODE         GPU   CPU</span></span>
+<span class="line"><span>gpu-node-1   2     96</span></span>
+<span class="line"><span>gpu-node-2   2     96</span></span></code></pre>
+<p>Pod-level scaling is where autoscaling happens on this setup, which is the next requirement.</p>
+<h2 id="pod-autoscaling-from-dcgm-to-the-hpa">Pod autoscaling: from DCGM to the HPA</h2>
+<p>The requirement: HPA must work for pods that use accelerators, <em>“including the ability to scale these
+Pods based on custom metrics relevant to AI/ML workloads.”</em></p>
+<p>CPU first. Install metrics-server, add <code>--kubelet-insecure-tls</code> because the kubelets on these bare-metal
+nodes serve certificates metrics-server won’t verify, then load a small web server. The HPA went from 1
+to 10 replicas at <code>cpu: 436%/20%</code>, and back to 1 after the load was gone.</p>
+<p>Then the GPU metric. A <a href="https://github.com/cncf/k8s-ai-conformance/commit/a8593f0">commit on 17 April</a>
+extended this part to show scale-out under real GPU load: a PyTorch loop multiplying two 8192×8192
+matrices.</p>
+<p>The pipeline has four pieces. DCGM exporter labels each GPU series with the <code>namespace</code>, <code>pod</code> and
+<code>container</code> that holds the device. Prometheus scrapes the exporter pods. Prometheus Adapter turns the
+series into a custom metric:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">rules</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  custom</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    - </span><span style="color:#22863A;--shiki-dark:#85E89D">seriesQuery</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">'DCGM_FI_DEV_GPU_UTIL{namespace!="",pod!=""}'</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      resources</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">        overrides</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">          namespace</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span><span style="color:#22863A;--shiki-dark:#85E89D">resource</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"namespace"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">          pod</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span><span style="color:#22863A;--shiki-dark:#85E89D">resource</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"pod"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">        matches</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"DCGM_FI_DEV_GPU_UTIL"</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">        as</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"dcgm_fi_dev_gpu_util"</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      metricsQuery</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">'avg_over_time(DCGM_FI_DEV_GPU_UTIL{&lt;&lt;.LabelMatchers&gt;&gt;}[2m])'</span></span></code></pre>
+<p>And the HPA targets it as a <code>Pods</code> metric with <code>averageValue: "50"</code>. The pod sat at 100, so:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Events:</span></span>
+<span class="line"><span>  Normal  SuccessfulRescale  38s   horizontal-pod-autoscaler  New size: 2; reason: pods metric dcgm_fi_dev_gpu_util above target</span></span>
+<span class="line"><span>  Normal  SuccessfulRescale  8s    horizontal-pod-autoscaler  New size: 4; reason: pods metric dcgm_fi_dev_gpu_util above target</span></span></code></pre>
+<p>Two details in that rule do the real work. <code>namespace!="",pod!=""</code> drops GPUs that no pod holds, so idle
+cards never pull the average down. And <code>DCGM_FI_DEV_GPU_UTIL</code> is a device-level number. It maps cleanly
+to a pod here because each pod owns a whole GPU.</p>
+<h2 id="accelerator-metrics-read-the-raw-endpoint">Accelerator metrics: read the raw endpoint</h2>
+<p>The requirement: at least one metrics solution with per-accelerator utilization and memory, plus
+temperature, power and interconnect bandwidth where the hardware exposes them, in a standard,
+machine-readable format.</p>
+<p>DCGM exporter ships with the GPU Operator and listens on port 9400. We curled it from inside the cluster
+and published the raw lines, trimmed here:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>DCGM_FI_DEV_SM_CLOCK{gpu="0",...,modelName="NVIDIA L40S",Hostname="gpu-node-1",DCGM_FI_DRIVER_VERSION="580.126.09"} 210</span></span>
+<span class="line"><span>DCGM_FI_DEV_GPU_TEMP{gpu="0",...,modelName="NVIDIA L40S",...} 32</span></span>
+<span class="line"><span>DCGM_FI_DEV_POWER_USAGE{gpu="0",...,modelName="NVIDIA L40S",...} 34.156000</span></span>
+<span class="line"><span>DCGM_FI_DEV_GPU_UTIL{gpu="0",...,modelName="NVIDIA L40S",...} 0</span></span>
+<span class="line"><span>DCGM_FI_DEV_FB_FREE{gpu="0",...,modelName="NVIDIA L40S",...} 45457</span></span>
+<span class="line"><span>DCGM_FI_PROF_PIPE_TENSOR_ACTIVE{gpu="0",...,modelName="NVIDIA L40S",...} 0.000000</span></span></code></pre>
+<p>Every series carries <code>DCGM_FI_DRIVER_VERSION</code> as a label. That’s a free cross-check for the driver item
+above.</p>
+<h2 id="ai-service-metrics-alloy-collects-prometheus-feeds-the-hpa">AI service metrics: Alloy collects, Prometheus feeds the HPA</h2>
+<p>The requirement: a monitoring system that can discover and collect metrics from workloads that expose
+them in a standard format such as Prometheus exposition.</p>
+<p>Grafana Alloy does the general collection: the KServe controller’s <code>/metrics</code> on port 8080, Envoy’s
+<code>/stats/prometheus</code> for the AI gateway, and the DCGM exporter. A Prometheus server scrapes the DCGM
+exporter for Prometheus Adapter, which serves <code>custom.metrics.k8s.io</code> to the HPA above.</p>
+<h2 id="secure-accelerator-access-a-pod-without-a-request-sees-nothing">Secure accelerator access: a pod without a request sees nothing</h2>
+<p>The requirement: access to accelerators from containers must be <em>“properly isolated and mediated by the
+Kubernetes resource management framework (device plugin or DRA) and container runtime.”</em></p>
+<p>The test is two pods. The first asks for no GPU:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>=== Test: Pod WITHOUT GPU request ===</span></span>
+<span class="line"><span>PASS: No GPU devices visible (expected)</span></span>
+<span class="line"><span>nvidia-smi check:</span></span>
+<span class="line"><span>sh: 8: nvidia-smi: not found</span></span>
+<span class="line"><span>PASS: nvidia-smi not available (expected)</span></span></code></pre>
+<p>Not even the <code>nvidia-smi</code> binary exists in that container. The container toolkit injects device nodes
+and driver files only for devices the device plugin allocated. No request, no injection.</p>
+<p>The second asks for <code>nvidia.com/gpu: 1</code>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>=== Test: Pod WITH GPU request ===</span></span>
+<span class="line"><span>GPU 0: NVIDIA L40 (UUID: GPU-c3c7096e-db9d-322f-efd9-510971f3d33c)</span></span>
+<span class="line"><span>---</span></span>
+<span class="line"><span>/dev/nvidia-modeset</span></span>
+<span class="line"><span>/dev/nvidia-uvm</span></span>
+<span class="line"><span>/dev/nvidia-uvm-tools</span></span>
+<span class="line"><span>/dev/nvidia1</span></span>
+<span class="line"><span>/dev/nvidiactl</span></span></code></pre>
+<p>One GPU device node, <code>nvidia1</code>, plus the control devices. The node has <code>nvidia0</code> too, and the pod
+doesn’t see it.</p>
+<h2 id="robust-controller-kserve-webhooks-included">Robust controller: KServe, webhooks included</h2>
+<p>The requirement: at least one complex AI operator with a CRD installs and works reliably. Pods run,
+webhooks answer, custom resources reconcile.</p>
+<p>We used KServe. Seven CRDs, including <code>LLMInferenceService</code> with its own <code>llmisvc-controller-manager</code>.
+One mutating and seven validating webhook configurations. Nine <code>ClusterServingRuntimes</code> reconciled, from
+HuggingFace to TensorFlow Serving. Then an <code>InferenceService</code>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">apiVersion</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">serving.kserve.io/v1beta1</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">kind</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">InferenceService</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">metadata</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  name</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">sklearn-iris</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  namespace</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">kserve-test</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">spec</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">  predictor</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">    sklearn</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#22863A;--shiki-dark:#85E89D">      storageUri</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"gs://kfserving-examples/models/sklearn/1.0/model"</span></span></code></pre>
+<p>The validating webhook accepted it and the controller picked it up for reconciliation. That covers all
+three things the requirement names: controller pods, webhooks and a reconciled custom resource.</p>
+<h2 id="the-next-round-looks-different">The next round looks different</h2>
+<p>From v1.37 the program recommends running the upstream <a href="https://github.com/kubernetes-sigs/ai-conformance/tree/main/test">AI Conformance test
+suite</a> and attaching its <code>junit.xml</code>
+or <code>e2e.log</code> for the items it covers. The suite already has tests for gang scheduling, cluster
+autoscaling, driver and runtime management and AI service metrics. A test runner checks the same thing
+the same way for every platform.</p>
+<p>The badge is a logo on a landscape page. The evidence is ten files on GitHub, and anyone can read them.
+<a href="https://github.com/cncf/k8s-ai-conformance/tree/main/v1.35/viettel-ai-platform">Ours are here</a>. If
+you’re preparing a submission and stuck on one of these items, read them and email me.</p>
+</div><nav class="pager" aria-label="More posts" data-astro-cid-57z6rh23><a href="/articles/recap-turning-gpu-hours-into-tokens.html" data-astro-cid-57z6rh23><span class="meta" data-astro-cid-57z6rh23>← Older</span>Recap VOI &amp; CNVN x AWS FCAJ Meetup: Turning GPU-Hours into Tokens, and Tokens into a Service</a></nav></article><aside class="toc" aria-label="On this page" data-astro-cid-57z6rh23><p class="eyebrow" data-astro-cid-57z6rh23>On this page</p><ol data-astro-cid-57z6rh23><li class="d2" data-astro-cid-57z6rh23><a href="#the-badge-sits-on-top-of-plain-conformance" data-astro-cid-57z6rh23>The badge sits on top of plain conformance</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#dra-the-v1-api-is-served-out-of-the-box" data-astro-cid-57z6rh23>DRA: the v1 API is served out of the box</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#driver-and-runtime-the-gpu-operator-does-the-boring-part" data-astro-cid-57z6rh23>Driver and runtime: the GPU Operator does the boring part</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#gateway-api-envoy-gateway-carries-the-routes" data-astro-cid-57z6rh23>Gateway API: Envoy Gateway carries the routes</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#gang-scheduling-kueue-admits-the-whole-job-at-once" data-astro-cid-57z6rh23>Gang scheduling: Kueue admits the whole Job at once</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#cluster-autoscaling-the-if-matters-on-bare-metal" data-astro-cid-57z6rh23>Cluster autoscaling: the “if” matters on bare metal</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#pod-autoscaling-from-dcgm-to-the-hpa" data-astro-cid-57z6rh23>Pod autoscaling: from DCGM to the HPA</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#accelerator-metrics-read-the-raw-endpoint" data-astro-cid-57z6rh23>Accelerator metrics: read the raw endpoint</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#ai-service-metrics-alloy-collects-prometheus-feeds-the-hpa" data-astro-cid-57z6rh23>AI service metrics: Alloy collects, Prometheus feeds the HPA</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#secure-accelerator-access-a-pod-without-a-request-sees-nothing" data-astro-cid-57z6rh23>Secure accelerator access: a pod without a request sees nothing</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#robust-controller-kserve-webhooks-included" data-astro-cid-57z6rh23>Robust controller: KServe, webhooks included</a></li><li class="d2" data-astro-cid-57z6rh23><a href="#the-next-round-looks-different" data-astro-cid-57z6rh23>The next round looks different</a></li></ol></aside></div></main><footer class="site-footer"><div class="wrap footer-inner"><span>© 2026 The Anh Nguyen</span><span class="footer-links"><a href="https://github.com/ntheanh201" rel="me noopener" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/ntheanh201/" rel="me noopener" target="_blank">LinkedIn</a><a href="https://x.com/ntheanh201" rel="me noopener" target="_blank">X</a><a href="https://facebook.com/ntheanh201" rel="me noopener" target="_blank">Facebook</a><a href="/rss.xml">RSS</a><a href="/articles/colophon.html">Colophon</a></span><p class="footer-note">Views on this site are my own and do not represent my employer.</p></div></footer><script>
+      document.querySelector(".theme-toggle").addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch {}
+      });
+    </script></body></html><script>
+  for (const pre of document.querySelectorAll(".prose pre")) {
+    const wrap = document.createElement("div");
+    wrap.className = "code-block";
+    pre.replaceWith(wrap);
+    wrap.append(pre);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = "Copied";
+        btn.dataset.copied = "";
+      } catch {
+        btn.textContent = "Press ⌘C";
+      }
+      setTimeout(() => {
+        btn.textContent = "Copy";
+        delete btn.dataset.copied;
+      }, 1600);
+    });
+    wrap.append(btn);
+  }
+</script>
