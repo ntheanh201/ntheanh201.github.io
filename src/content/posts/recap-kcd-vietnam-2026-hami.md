@@ -197,6 +197,8 @@ Cambricon and others.
 ## Further reading
 
 - [HAMi](https://github.com/Project-HAMi/HAMi) on GitHub, and the [project site](https://project-hami.io).
+- The OpenInfra Foundation's own [recap of the event](https://openinfra.org/blog/openinfra-day-kcd-vietnam-2026-recap), by Jimmy McArthur: sovereign AI as the theme
+  of the day, Jonathan Bryce's keynote, and the foundations' visit to Viettel Networks.
 - A few weeks later, HAMi recognized my contributions to the project with a
   [Contributor Recognition](/notes/2026-09-11-hami-contributor-recognition.html).
 

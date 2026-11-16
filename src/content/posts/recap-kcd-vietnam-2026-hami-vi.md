@@ -193,6 +193,8 @@ và nhiều loại khác.
 ## Đọc thêm
 
 - [HAMi](https://github.com/Project-HAMi/HAMi) trên GitHub, và [trang của project](https://project-hami.io).
+- [Recap sự kiện của OpenInfra Foundation](https://openinfra.org/blog/openinfra-day-kcd-vietnam-2026-recap), do Jimmy McArthur viết: sovereign AI là chủ đề xuyên suốt,
+  keynote của Jonathan Bryce, và buổi các foundation ghé Viettel Networks.
 - Vài tuần sau, mình được HAMi ghi nhận đóng góp cho project qua chương trình
   [Contributor Recognition](/notes/2026-09-11-hami-contributor-recognition.html).
 
