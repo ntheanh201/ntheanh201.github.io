@@ -13,6 +13,6 @@ The OpenInfra Foundation [shared the visit on LinkedIn](https://www.linkedin.com
 
 ![The OpenInfra Foundation, CNCF and Linux Foundation visit at Viettel Networks, Hanoi, 23 July 2026](/notes/2026-07-23-meeting-cncf-openinfra-lf.jpg)
 
-Two days later, on 25 July, they spoke at KCD & OpenInfra Days Vietnam 2026, the same event where I gave the HAMi talk with Reza Jelveh: [the recap](/articles/recap-kcd-vietnam-2026-hami.html).
+Two days later, on 25 July, they spoke at KCD & OpenInfra Days Vietnam 2026, the same event where I gave the HAMi talk with Reza Jelveh ([my recap](/articles/recap-kcd-vietnam-2026-hami.html)). The OpenInfra Foundation's own [recap of the event](https://openinfra.org/blog/openinfra-day-kcd-vietnam-2026-recap), by Jimmy McArthur, covers the visit to Viettel Networks too, along with Jonathan's keynote on open source and sovereign AI.
 
 A few weeks after that, the certificate in my [HAMi Contributor Recognition](/notes/2026-09-11-hami-contributor-recognition.html) box carried Jonathan Bryce's signature, which meant a little more after having met him.
